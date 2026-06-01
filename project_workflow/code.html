@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Construction Workflow | BHUMI ENTERPRISES</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#bcc7de",
+                        "on-primary-container": "#8590a6",
+                        "primary-fixed": "#d8e3fb",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#111c2d",
+                        "on-background": "#191c1e",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "primary-container": "#1e293b",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#8191a9",
+                        "tertiary": "#041528",
+                        "on-secondary-fixed": "#2a1700",
+                        "surface-container-highest": "#e0e3e5",
+                        "outline": "#75777d",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#fea619",
+                        "outline-variant": "#c5c6cd",
+                        "on-secondary-container": "#684000",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "background": "#f7f9fb",
+                        "surface-container": "#eceef0",
+                        "surface": "#f7f9fb",
+                        "surface-bright": "#f7f9fb",
+                        "secondary": "#855300",
+                        "tertiary-fixed": "#d3e4fe",
+                        "surface-dim": "#d8dadc",
+                        "primary-fixed-dim": "#bcc7de",
+                        "on-surface-variant": "#45474c",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "primary": "#091426",
+                        "tertiary-container": "#1a2a3e",
+                        "surface-tint": "#545f73",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-fixed": "#ffddb8",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Montserrat"],
+                        "headline-xl": ["Montserrat"],
+                        "label-sm": ["Geist"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Geist"],
+                        "headline-lg-mobile": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .blueprint-pattern {
+            background-color: #f7f9fb;
+            background-image: radial-gradient(#d1d5db 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container/30">
+<!-- TopAppBar Component -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary p-2 hover:bg-surface-container-low transition-colors rounded-full" onclick="toggleDrawer()">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">BHUMI ENTERPRISES</h1>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Home</a>
+<a class="font-label-md text-label-md text-secondary font-bold border-b-2 border-secondary py-1" href="#">Workflow</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Maps</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">3D Vision</a>
+</div>
+<span class="material-symbols-outlined text-primary text-2xl">account_circle</span>
+</header>
+<!-- Navigation Drawer Overlay -->
+<div class="fixed inset-0 bg-primary/40 z-[55] hidden opacity-0 transition-opacity duration-300" id="drawer-overlay" onclick="toggleDrawer()"></div>
+<!-- Navigation Drawer -->
+<nav class="h-full w-80 fixed left-0 top-0 z-[60] bg-surface border-r border-outline-variant shadow-xl -translate-x-full transition-transform duration-300 ease-in-out flex flex-col py-8" id="nav-drawer">
+<div class="px-6 mb-10">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">BHUMI ENTERPRISES</h2>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-4 text-on-surface-variant py-3 px-6 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex items-center gap-4 bg-secondary-container text-on-secondary-container font-bold rounded-r-full py-3 px-6" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="font-label-md text-label-md">Construction Workflow</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant py-3 px-6 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-md text-label-md">House Mapping</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant py-3 px-6 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">view_in_ar</span>
+<span class="font-label-md text-label-md">3D Animation</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant py-3 px-6 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label-md text-label-md">Contact Us</span>
+</a>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-24 pb-20 md:pb-12 min-h-screen blueprint-pattern">
+<!-- Hero Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-16">
+<div class="relative rounded-xl overflow-hidden h-[300px] md:h-[450px] shadow-lg group">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="A professional, high-angle wide shot of an active, organized construction site with workers in safety gear and heavy machinery. The atmosphere is industrial yet clean, using a light-mode aesthetic with bright natural daylight. The structural integrity is emphasized through crisp lines and deep slate blue and gold accents in the environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzjf-lLg6w_zc4_HnEO0AzWLpByZP_QtSgVuKKhNGzhHyE9XmZ6TtX3x7rICmoMVZzgcHwkJvImW0HPFkLp87DzMKyACDMgkFwqTakAX6O74HznLxsc9XIKLHc7kt41AqpRTo5gNqLdZk1F-tzmwSGzCq-ZHRLs-MilN3OPV2qui_wvoggh8OZ3shUeD4olXGHLtIxXsxuJkouv8pYQ7W-u_skFOrjBLwxx0-5fM9Un_GnyOHiW9oTXOi2AyLXb6l8Xj-otDpx8mY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent flex flex-col justify-end p-8 md:p-12">
+<span class="text-secondary font-label-md text-label-md uppercase tracking-widest mb-2">Our Process</span>
+<h2 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-surface mb-4 leading-tight">Structural Integrity Through Precision Workflow.</h2>
+<p class="text-surface-variant max-w-2xl font-body-lg text-body-md md:text-body-lg">We bridge the gap between architectural vision and physical reality through a meticulously phased construction methodology.</p>
+</div>
+</div>
+</section>
+<!-- Workflow Timeline -->
+<section class="max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop relative">
+<!-- Vertical Line -->
+<div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-outline-variant -translate-x-1/2 hidden md:block"></div>
+<!-- Step 1 -->
+<div class="relative mb-12 md:mb-24 flex flex-col md:flex-row items-center justify-between group">
+<div class="w-full md:w-[42%] mb-6 md:mb-0 order-2 md:order-1 text-right">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<span class="font-label-sm text-label-sm text-secondary uppercase block mb-2">Phase 01</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Consultation &amp; Design</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Defining the architectural DNA. We translate your lifestyle or commercial requirements into structural blueprints with precision 3D modeling and conceptual clarity.</p>
+</div>
+</div>
+<!-- Node -->
+<div class="absolute left-4 md:left-1/2 -translate-x-1/2 z-10 w-8 h-8 rounded-full bg-secondary flex items-center justify-center border-4 border-background order-1 md:order-2">
+<span class="material-symbols-outlined text-surface text-sm">architecture</span>
+</div>
+<div class="hidden md:block w-[42%] order-3"></div>
+</div>
+<!-- Step 2 -->
+<div class="relative mb-12 md:mb-24 flex flex-col md:flex-row items-center justify-between group">
+<div class="hidden md:block w-[42%] order-1"></div>
+<!-- Node -->
+<div class="absolute left-4 md:left-1/2 -translate-x-1/2 z-10 w-8 h-8 rounded-full bg-primary flex items-center justify-center border-4 border-background order-1 md:order-2">
+<span class="material-symbols-outlined text-surface text-sm">payments</span>
+</div>
+<div class="w-full md:w-[42%] mb-6 md:mb-0 order-2 md:order-3">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<span class="font-label-sm text-label-sm text-secondary uppercase block mb-2">Phase 02</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Budgeting &amp; Planning</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Financial transparency meets logistical rigor. We finalize materials, procurement timelines, and permit approvals to ensure a seamless project takeoff.</p>
+</div>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative mb-12 md:mb-24 flex flex-col md:flex-row items-center justify-between group">
+<div class="w-full md:w-[42%] mb-6 md:mb-0 order-2 md:order-1 text-right">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<span class="font-label-sm text-label-sm text-secondary uppercase block mb-2">Phase 03</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Foundation &amp; Excavation</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">The bedrock of integrity. Heavy excavation and reinforced concrete footing establish the permanent structural stability of the edifice.</p>
+</div>
+</div>
+<!-- Node -->
+<div class="absolute left-4 md:left-1/2 -translate-x-1/2 z-10 w-8 h-8 rounded-full bg-primary flex items-center justify-center border-4 border-background order-1 md:order-2">
+<span class="material-symbols-outlined text-surface text-sm">foundation</span>
+</div>
+<div class="hidden md:block w-[42%] order-3"></div>
+</div>
+<!-- Step 4 -->
+<div class="relative mb-12 md:mb-24 flex flex-col md:flex-row items-center justify-between group">
+<div class="hidden md:block w-[42%] order-1"></div>
+<!-- Node -->
+<div class="absolute left-4 md:left-1/2 -translate-x-1/2 z-10 w-8 h-8 rounded-full bg-primary flex items-center justify-center border-4 border-background order-1 md:order-2">
+<span class="material-symbols-outlined text-surface text-sm">home_work</span>
+</div>
+<div class="w-full md:w-[42%] mb-6 md:mb-0 order-2 md:order-3">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<span class="font-label-sm text-label-sm text-secondary uppercase block mb-2">Phase 04</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Structural Construction</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Watch the vision rise. Framing, masonry, and the installation of core utility skeletons define the building's final form and functional capacity.</p>
+</div>
+</div>
+</div>
+<!-- Step 5 -->
+<div class="relative mb-8 flex flex-col md:flex-row items-center justify-between group">
+<div class="w-full md:w-[42%] mb-6 md:mb-0 order-2 md:order-1 text-right">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<span class="font-label-sm text-label-sm text-secondary uppercase block mb-2">Phase 05</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Interior &amp; Exterior Finishing</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Refinement and mastery. Premium surfaces, aesthetic fixtures, and landscaping provide the final polish that turns a structure into a masterpiece.</p>
+</div>
+</div>
+<!-- Node -->
+<div class="absolute left-4 md:left-1/2 -translate-x-1/2 z-10 w-8 h-8 rounded-full bg-secondary flex items-center justify-center border-4 border-background order-1 md:order-2">
+<span class="material-symbols-outlined text-surface text-sm">auto_awesome</span>
+</div>
+<div class="hidden md:block w-[42%] order-3"></div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-20 mb-12">
+<div class="bg-primary text-surface p-8 md:p-16 rounded-xl flex flex-col items-center text-center gap-6">
+<h2 class="font-headline-lg text-headline-lg md:text-headline-xl">Ready to Start Your Construction Journey?</h2>
+<p class="max-w-xl text-surface-variant font-body-lg text-body-md md:text-body-lg">Partner with Bhumi Enterprises for a process defined by clarity, technical excellence, and visionary execution.</p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="bg-secondary-container text-on-secondary-container font-headline-md text-headline-md px-10 py-4 rounded-lg hover:scale-105 active:scale-95 transition-all">Request Proposal</button>
+<button class="border border-secondary text-secondary font-headline-md text-headline-md px-10 py-4 rounded-lg hover:bg-secondary/10 transition-colors">Download Brochure</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl shadow-lg bg-surface-container flex justify-around items-center w-full h-16 px-4 pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-all">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary font-bold bg-secondary-container/10 rounded-full px-3 py-1">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-sm text-label-sm">Workflow</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-all">
+<span class="material-symbols-outlined">architecture</span>
+<span class="font-label-sm text-label-sm">Maps</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-all">
+<span class="material-symbols-outlined">videocam</span>
+<span class="font-label-sm text-label-sm">3D Vision</span>
+</div>
+</nav>
+<!-- Footer Component -->
+<footer class="bg-primary text-on-primary w-full mt-auto flex flex-col items-center justify-center py-10 px-margin-mobile gap-4 border-t border-primary-fixed-dim/20">
+<h4 class="font-headline-md text-headline-md text-on-primary font-bold">BHUMI ENTERPRISES</h4>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-on-primary-container hover:text-secondary-fixed transition-colors" href="#">Facebook</a>
+<a class="font-label-sm text-label-sm text-on-primary-container hover:text-secondary-fixed transition-colors" href="#">Instagram</a>
+<a class="font-label-sm text-label-sm text-on-primary-container hover:text-secondary-fixed transition-colors" href="#">LinkedIn</a>
+<a class="font-label-sm text-label-sm text-on-primary-container hover:text-secondary-fixed transition-colors" href="#">Contact</a>
+</div>
+<p class="font-label-sm text-label-sm opacity-60">© 2024 Bhumi Enterprises. Architectural Excellence.</p>
+</footer>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('nav-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            const isOpen = drawer.style.transform === 'translateX(0%)';
+            
+            if (isOpen) {
+                drawer.style.transform = 'translateX(-100%)';
+                overlay.classList.add('hidden');
+                overlay.classList.remove('opacity-100');
+            } else {
+                drawer.style.transform = 'translateX(0%)';
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+            }
+        }
+
+        // Add scroll animation for timeline items
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.group > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'ease-out', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

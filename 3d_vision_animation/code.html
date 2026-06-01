@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>3D Animation Showcase | BHUMI ENTERPRISES</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#bcc7de",
+                    "on-primary-container": "#8590a6",
+                    "primary-fixed": "#d8e3fb",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#111c2d",
+                    "on-background": "#191c1e",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3c475a",
+                    "surface-container-high": "#e6e8ea",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "primary-container": "#1e293b",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#8191a9",
+                    "tertiary": "#041528",
+                    "on-secondary-fixed": "#2a1700",
+                    "surface-container-highest": "#e0e3e5",
+                    "outline": "#75777d",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#fea619",
+                    "outline-variant": "#c5c6cd",
+                    "on-secondary-container": "#684000",
+                    "surface-variant": "#e0e3e5",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "background": "#f7f9fb",
+                    "surface-container": "#eceef0",
+                    "surface": "#f7f9fb",
+                    "surface-bright": "#f7f9fb",
+                    "secondary": "#855300",
+                    "tertiary-fixed": "#d3e4fe",
+                    "surface-dim": "#d8dadc",
+                    "primary-fixed-dim": "#bcc7de",
+                    "on-surface-variant": "#45474c",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "primary": "#091426",
+                    "tertiary-container": "#1a2a3e",
+                    "surface-tint": "#545f73",
+                    "inverse-on-surface": "#eff1f3",
+                    "secondary-fixed": "#ffddb8",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Montserrat"],
+                    "headline-xl": ["Montserrat"],
+                    "label-sm": ["Geist"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Montserrat"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Geist"],
+                    "headline-lg-mobile": ["Montserrat"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .blueprint-grid {
+            background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #091426 0%, #1a2a3e 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">BHUMI ENTERPRISES</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors px-2 py-1" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors px-2 py-1" href="#">Workflow</a>
+<a class="font-label-md text-label-md text-secondary font-bold px-2 py-1" href="#">3D Vision</a>
+</nav>
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="account_circle">account_circle</span>
+</div>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<main class="pt-16 pb-24 blueprint-grid min-h-screen">
+<!-- Hero Section -->
+<section class="relative h-[530px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-90" data-alt="A cinematic, hyper-realistic architectural 3D visualization of a modern glass-walled luxury villa at dusk. The warm golden interior lighting contrasts beautifully with the deep slate blue twilight sky. The camera angle is low and dramatic, highlighting the sleek structural lines and meticulous drafting-table precision of the design. The overall mood is visionary, prestigious, and serene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_cpaccy2j3r79HcCxXN_llkvBFqhyVJZtE9Bo8G0aK9P9Zj58PJkEfjc5AE0yqYIejwkT__gbgXWqZml2eX2StcEHaPsM47si5ZJ3g83VELWQ_bmj_RRlEZjal8JFeTrlduovqdjoXk7mUgOTeVuC3wEcRRTTJP5pBbyNJVzyvdPTlCPhCy_5w8qMT9Yz8IRooExtvJtW3il9H9jBj0cWCZXlnDl9y9_uZMhsyF3OF4lGT0S3_Q4pCDbDiXCfUEQS7aTEFYCGCjM"/>
+<div class="absolute inset-0 bg-gradient-to-r from-primary/90 to-transparent"></div>
+</div>
+<div class="container mx-auto px-margin-mobile md:px-margin-desktop relative z-10 max-w-container-max">
+<div class="max-w-2xl text-on-primary">
+<span class="inline-block px-3 py-1 bg-secondary text-on-secondary font-label-sm text-label-sm rounded-full mb-6 uppercase tracking-widest">Visionary Showcase</span>
+<h2 class="font-headline-xl text-headline-xl md:text-[56px] leading-tight mb-6">3D ARCHITECTURAL<br/>EVOLUTION</h2>
+<p class="font-body-lg text-body-lg text-primary-fixed max-w-lg mb-8">Bridging the gap between a technical blueprint and your dream reality with ultra-realistic animations.</p>
+<div class="flex gap-4">
+<button class="px-8 py-4 bg-secondary text-on-secondary font-headline-md text-headline-md rounded hover:bg-on-secondary-container transition-all active:scale-95">Explore Portfolio</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Gallery Section -->
+<section class="py-20 container mx-auto px-margin-mobile md:px-margin-desktop max-w-container-max">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div class="max-w-xl">
+<h3 class="font-headline-lg text-headline-lg text-primary mb-4">Precision Renderings</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Our animations utilize high-fidelity light simulation and material physics to provide an exact representation of structural finishes and spatial dynamics.</p>
+</div>
+<div class="flex gap-2 border-b border-outline-variant pb-2">
+<button class="text-secondary font-bold font-label-md text-label-md px-4 border-b-2 border-secondary pb-2">Residential</button>
+<button class="text-on-surface-variant font-label-md text-label-md px-4 pb-2 hover:text-primary transition-colors">Commercial</button>
+<button class="text-on-surface-variant font-label-md text-label-md px-4 pb-2 hover:text-primary transition-colors">Urban</button>
+</div>
+</div>
+<!-- Bento-Style Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Main Feature Card -->
+<div class="md:col-span-8 group cursor-pointer relative overflow-hidden bg-surface-container-high rounded-xl border border-outline-variant h-[500px]">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A large, immersive 3D architectural rendering of a minimalist concrete and timber residence. The building features massive floor-to-ceiling windows and an infinity pool reflecting the golden hour sunlight. The environment is lush with precisely modeled vegetation, emphasizing the structural integrity and visionary design. The lighting is crisp and the atmosphere is high-end modern corporate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9p-HJiY8Lg0U82jDLQMKKAA-ddJzlWdiWIurf3O7iVOWxtYeqcg_S5K5jMANAKeAkWcNHYLJYpwkjPIhSdM9CEGtNlSN06jTKM83Zh2WxKWge0HHcLAawyU6pab_QIICAJytYksge1fE6xspmO-PFJSLuLoqZx1pkCrcw7aPapmCps3jYzs_YicCTOSm6jMHOrxDkdlCt31_oOMs9K_A8oFOpNH_Rc1HcT_1267HkotyT6p85v_Ttjubw6BakqbnCAsBpBp_f6yw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full flex justify-between items-end">
+<div>
+<h4 class="font-headline-md text-headline-md text-white mb-2 uppercase tracking-tight">The Azure Residence</h4>
+<p class="font-body-md text-body-md text-primary-fixed-dim">3D Fly-through &amp; Interior Animation</p>
+</div>
+<div class="bg-surface-container-lowest/20 backdrop-blur-md px-4 py-2 border border-white/30 rounded">
+<span class="font-label-sm text-label-sm text-white uppercase">12,500 SQ. FT.</span>
+</div>
+</div>
+</div>
+<!-- Secondary Card 1 -->
+<div class="md:col-span-4 group cursor-pointer relative overflow-hidden bg-surface-container-high rounded-xl border border-outline-variant h-[500px]">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sophisticated 3D animation frame showing a luxury penthouse interior with polished marble floors and bespoke gold-accented lighting fixtures. The camera focus is on the intricate detail of the materials, showcasing structural durability and aesthetic precision. The color palette features deep slate blue and construction gold accents under soft ambient studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAGMHgaE-NrEr2ZGX0Z6wVNQibSpWxop7_LZEdndN_hu0SziQbGkDotTQY_HkHAJ4lnUKRFyaetPXFUdkV3Pmf19wlCY3kYM7yqYpXzdzHIhl0MBT7nDH9_sjGXxI9Au1UDlWEJmrepe54nNYeVjZALAtWDSI8hZkFx0H65f421wH0ExakLR4BaOkk8q5jZQJNJ39sx-maEoE-W-MAqlG8BynKpczN8wdqGBOpVO7EUaohBKjogWGo6kOar5FFL9C1tkfFfISxnaI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<h4 class="font-headline-md text-headline-md text-white mb-1 uppercase tracking-tight">Skyloft V-01</h4>
+<span class="font-label-sm text-label-sm text-secondary-fixed-dim">INTERIOR PRE-VISUALIZATION</span>
+</div>
+</div>
+<!-- Secondary Card 2 -->
+<div class="md:col-span-4 group cursor-pointer relative overflow-hidden bg-surface-container-high rounded-xl border border-outline-variant h-[400px]">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A technical 3D wireframe and architectural rendering mashup of a commercial skyscraper in a dense urban planning scenario. One half of the building shows the digital blueprint structure in Construction Gold lines, while the other half is a hyper-realistic glass and steel facade. The lighting is a bright, clear morning light-mode aesthetic, emphasizing precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKp3-KU7GkRiIPpj1hq1o_Jn42XFBk5PKt7VRean6Rzr6tonPyGtVHiFeFAGfy4yvdls6U3Kt2UosQICcHRYYAMeVqiMN3Es6iKBCGPlVPio5P_W9xOPZXaN91iSGfW2WqES6AaGQkSimRFiD6yp2yUpa8_tVOK8r0e6ZJEJ97iagg_bXkbaAs0XeeuinQsKbviWKoh2tTbEPQHi64M_T0jMco_ZJtCEal2p-NKNQNtCTB4LrIDQqmrInufHn_eu1j3oP5DIPR0dA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<h4 class="font-headline-md text-headline-md text-white mb-1 uppercase tracking-tight">Corporate Plaza</h4>
+<span class="font-label-sm text-label-sm text-secondary-fixed-dim">URBAN SITE ANIMATION</span>
+</div>
+</div>
+<!-- Long Horizontal Card -->
+<div class="md:col-span-8 group cursor-pointer relative overflow-hidden bg-surface-container-high rounded-xl border border-outline-variant h-[400px]">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A wide-angle 3D panoramic visualization of a coastal modern estate during the 'blue hour'. The architectural design focuses on cantilevered roofs and open-plan living areas that integrate seamlessly with the natural landscape. The lighting is ethereal and soft, highlighting the meticulous drafting and rhythmic geometry of the structures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_ZbKEPjM0HFv6tCmB5o-CwxolDv3ZPmzsct8ImRJHoxVPzjxkVuQWGMr6v3MJ1ihT0IhWQcaPwlW0RGf0zIO4FwldNaHROHku89va_I_BmbgVTOlhZC5bprjKdp0wFEtY54yxNTdFl5Jn6pOtVn08zBBZtZvnL8azPAl1HujaPImN0iGhh-X9m-GTbmt04N6U-8iICJifRKe0qGIgaiLn4AIBjkjmwR18o5ofZz8qYfO3vRoYs4XM28zefey9Yf3Un8gcUTjjdes"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full flex justify-between items-end">
+<div>
+<h4 class="font-headline-md text-headline-md text-white mb-1 uppercase tracking-tight">Cove Ridge Estate</h4>
+<p class="font-body-md text-body-md text-primary-fixed-dim">Full Exterior Cinematic Sequence</p>
+</div>
+<button class="bg-secondary text-on-secondary px-4 py-2 rounded-full flex items-center gap-2 font-label-md">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                            Watch Animation
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Features/Specs Section -->
+<section class="bg-primary py-24 text-on-primary">
+<div class="container mx-auto px-margin-mobile md:px-margin-desktop max-w-container-max grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="space-y-4">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="videocam">videocam</span>
+<h5 class="font-headline-md text-headline-md">4K Photorealism</h5>
+<p class="font-body-md text-body-md text-on-primary-container">Every texture is mapped from physical samples to ensure real-world accuracy in light reflection and material durability.</p>
+</div>
+<div class="space-y-4">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="architecture">architecture</span>
+<h5 class="font-headline-md text-headline-md">Blueprint Precision</h5>
+<p class="font-body-md text-body-md text-on-primary-container">Our 3D models are built directly from architectural CAD files, maintaining 100% integrity of your site measurements.</p>
+</div>
+<div class="space-y-4">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="view_in_ar">view_in_ar</span>
+<h5 class="font-headline-md text-headline-md">Virtual Walkthrough</h5>
+<p class="font-body-md text-body-md text-on-primary-container">Experience spatial flow before construction begins with our immersive 360-degree animation packages.</p>
+</div>
+</div>
+</section>
+<!-- Call to Action Section -->
+<section class="py-24 container mx-auto px-margin-mobile md:px-margin-desktop max-w-container-max text-center">
+<div class="relative bg-surface-container-low border border-outline-variant p-12 md:p-24 rounded-2xl overflow-hidden">
+<!-- Abstract Pattern Background -->
+<div class="absolute inset-0 opacity-5 pointer-events-none blueprint-grid"></div>
+<div class="relative z-10 max-w-3xl mx-auto">
+<h2 class="font-headline-xl text-headline-xl text-primary mb-6">READY TO SEE YOUR VISION IN 3D?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10">Our design team is ready to transform your 2D plans into a cinematic experience that facilitates decision-making and investor confidence.</p>
+<div class="flex flex-col md:flex-row justify-center items-center gap-6">
+<a class="px-10 py-5 bg-primary text-on-primary font-headline-md text-headline-md rounded-lg hover:shadow-xl transition-all active:scale-95 flex items-center gap-3" href="#">
+                            Request a Custom 3D Design
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+<a class="px-10 py-5 border-2 border-secondary text-secondary font-headline-md text-headline-md rounded-lg hover:bg-secondary/5 transition-all" href="#">
+                            View Pricing Models
+                        </a>
+</div>
+<div class="mt-12 pt-12 border-t border-outline-variant flex flex-wrap justify-center gap-8 opacity-60 grayscale">
+<div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">verified</span> <span class="font-label-md uppercase">Architectural Standard</span></div>
+<div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">precision_manufacturing</span> <span class="font-label-md uppercase">Meticulous Detail</span></div>
+<div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">schedule</span> <span class="font-label-md uppercase">Fast Turnaround</span></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-tertiary text-on-primary w-full flex flex-col items-center justify-center py-10 px-margin-mobile gap-4 border-t border-primary-fixed-dim/20">
+<h2 class="font-headline-md text-headline-md text-on-primary">BHUMI ENTERPRISES</h2>
+<p class="font-label-sm text-label-sm opacity-80 text-center">© 2024 Bhumi Enterprises. Architectural Excellence.</p>
+<div class="flex gap-6 mt-4">
+<a class="font-label-sm text-label-sm text-on-primary-container hover:text-secondary-fixed transition-colors" href="#">Facebook</a>
+<a class="font-label-sm text-label-sm text-on-primary-container hover:text-secondary-fixed transition-colors" href="#">Instagram</a>
+<a class="font-label-sm text-label-sm text-on-primary-container hover:text-secondary-fixed transition-colors" href="#">LinkedIn</a>
+<a class="font-label-sm text-label-sm text-on-primary-container hover:text-secondary-fixed transition-colors" href="#">Contact</a>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl shadow-lg bg-surface-container flex justify-around items-center h-16 px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="font-label-sm text-label-sm">Workflow</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary font-bold bg-secondary-container/10 rounded-full px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+<span class="font-label-sm text-label-sm">3D Vision</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="architecture">architecture</span>
+<span class="font-label-sm text-label-sm">Maps</span>
+</a>
+</nav>
+<script>
+        // Simple scroll interaction for Header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md');
+                header.classList.remove('border-b-transparent');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+
+        // Interactive hover effects for gallery cards
+        const cards = document.querySelectorAll('.group');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.querySelector('img').style.transform = 'scale(1.05)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.querySelector('img').style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>
