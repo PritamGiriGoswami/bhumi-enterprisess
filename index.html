@@ -169,6 +169,37 @@
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
             transition: width 0.2s, height 0.2s;
         }
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 9997;
+            width: 48px;
+            height: 48px;
+            background: #F59E0B;
+            color: #0B1120;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            background: #FCD34D;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4);
+        }
     </style>
 </head>
 <body class="bg-brand-light text-brand-primary font-sans antialiased overflow-x-hidden">
@@ -176,6 +207,9 @@
     <!-- AI Animated Cursor -->
     <div class="cursor-dot" data-cursor-dot></div>
     <div class="cursor-outline" data-cursor-outline></div>
+    <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <span class="material-symbols-rounded">arrow_upward</span>
+    </button>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
@@ -686,6 +720,18 @@
         }
 
         renderCalendar();
+    </script>
+
+    <!-- Back to Top Script -->
+    <script>
+        const backToTopBtn = document.getElementById("backToTop");
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.add("visible");
+            } else {
+                backToTopBtn.classList.remove("visible");
+            }
+        });
     </script>
 
     <!-- AI Cursor Script -->
