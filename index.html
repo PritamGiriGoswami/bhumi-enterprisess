@@ -56,6 +56,7 @@
         .text-gradient {
             background: linear-gradient(to right, #F59E0B, #FCD34D);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -499,17 +500,6 @@
                 </div>
 
                 <div class="nav-desktop-buttons flex items-center gap-3">
-                    <a href="tel:+919950608995" class="group hidden md:flex items-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-3 lg:px-4 py-2 rounded-full font-bold text-xs lg:text-sm transition-all shadow-lg hover:shadow-brand-accent/30 transform hover:-translate-y-0.5">
-                        <span class="material-symbols-rounded text-[16px] lg:text-[18px]">call</span>
-                        <span class="font-heading tracking-wide">Chirag: 9950608995</span>
-                    </a>
-                    <a href="tel:+918955895095" class="group hidden md:flex items-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-3 lg:px-4 py-2 rounded-full font-bold text-xs lg:text-sm transition-all shadow-lg hover:shadow-brand-accent/30 transform hover:-translate-y-0.5">
-                        <span class="material-symbols-rounded text-[16px] lg:text-[18px]">call</span>
-                        <span class="font-heading tracking-wide">Hitesh: 8955895095</span>
-                    </a>
-                    <a href="tel:+919950608995" class="flex md:hidden items-center justify-center bg-brand-accent hover:bg-yellow-400 text-brand-dark w-10 h-10 rounded-full font-bold transition-all">
-                        <span class="material-symbols-rounded text-[20px]">call</span>
-                    </a>
                     <button class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
                         <span class="material-symbols-rounded text-3xl">menu</span>
                     </button>
@@ -792,22 +782,28 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <!-- Engineer 1 -->
                 <div class="bg-brand-light rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 text-center group">
-                    <div class="w-20 h-20 bg-brand-dark text-brand-accent rounded-full flex items-center justify-center mx-auto mb-5 group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors">
-                        <span class="material-symbols-rounded text-4xl">engineering</span>
+                    <div class="w-24 h-24 rounded-full mx-auto mb-5 overflow-hidden border-2 border-brand-accent/20 group-hover:border-brand-accent transition-colors">
+                        <img src="./images/chirag-goswami.jpg" alt="Chirag Goswami" class="w-full h-full object-cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                        <div class="w-full h-full bg-gradient-to-br from-brand-accent to-yellow-300 text-brand-dark font-heading font-bold text-2xl items-center justify-center hidden" style="display:none;">CG</div>
                     </div>
                     <h3 class="font-heading text-2xl font-bold text-brand-dark mb-1">Chirag Goswami</h3>
                     <p class="text-brand-accent font-semibold text-sm mb-4">Civil Engineer</p>
+                    <a href="tel:+919950608995" class="inline-flex items-center gap-1.5 text-gray-500 hover:text-brand-accent transition-colors text-sm mb-4">
+                        <span class="material-symbols-rounded text-[16px]">call</span>
+                        9950608995
+                    </a>
                     <p class="text-gray-600 leading-relaxed">Expert civil engineer with deep knowledge of structural design, construction planning, and project execution. Committed to delivering safe, durable, and cost-effective engineering solutions.</p>
                 </div>
                 
                 <!-- Engineer 2 -->
                 <div class="bg-brand-light rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 text-center group">
-                    <div class="w-20 h-20 bg-brand-dark text-brand-accent rounded-full flex items-center justify-center mx-auto mb-5 group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors">
-                        <span class="material-symbols-rounded text-4xl">engineering</span>
+                    <div class="w-24 h-24 rounded-full mx-auto mb-5 overflow-hidden border-2 border-brand-accent/20 group-hover:border-brand-accent transition-colors">
+                        <img src="./images/hitesh-patidar.jpg" alt="Hitesh Patidar" class="w-full h-full object-cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                        <div class="w-full h-full bg-gradient-to-br from-brand-accent to-yellow-300 text-brand-dark font-heading font-bold text-2xl items-center justify-center hidden" style="display:none;">HP</div>
                     </div>
                     <h3 class="font-heading text-2xl font-bold text-brand-dark mb-1">Hitesh Patidar</h3>
                     <p class="text-brand-accent font-semibold text-sm mb-1">Civil Engineer</p>
-                    <a href="tel:+918955895095" class="inline-flex items-center gap-1 text-gray-500 hover:text-brand-accent transition-colors text-sm mb-4">
+                    <a href="tel:+918955895095" class="inline-flex items-center gap-1.5 text-gray-500 hover:text-brand-accent transition-colors text-sm mb-4">
                         <span class="material-symbols-rounded text-[16px]">call</span>
                         8955895095
                     </a>
