@@ -242,23 +242,6 @@
             opacity: 1;
             visibility: visible;
         }
-        .testimonial-card {
-            background: white;
-            border-radius: 16px;
-            padding: 32px;
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            min-width: 100%;
-            transition: all 0.3s ease;
-        }
-        .testimonial-track {
-            display: flex;
-            gap: 24px;
-            transition: transform 0.5s ease;
-        }
-        .testimonial-container {
-            overflow: hidden;
-        }
         .gallery-filter-btn {
             padding: 8px 20px;
             border-radius: 9999px;
@@ -833,61 +816,47 @@
     </section>
 
     <!-- Client Testimonials -->
-    <section id="testimonials" class="py-24 bg-white relative overflow-hidden">
+    <section id="testimonials" class="py-24 bg-gray-50 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Testimonials</p>
                 <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">What Our Clients Say</h2>
                 <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
             </div>
-            <div class="testimonial-container relative max-w-4xl mx-auto">
-                <div class="testimonial-track" id="testimonialTrack">
-                    <div class="testimonial-card flex-shrink-0">
-                        <div class="flex items-center gap-1 mb-4">
-                            <span class="material-symbols-rounded text-brand-accent">star</span>
-                            <span class="material-symbols-rounded text-brand-accent">star</span>
-                            <span class="material-symbols-rounded text-brand-accent">star</span>
-                            <span class="material-symbols-rounded text-brand-accent">star</span>
-                            <span class="material-symbols-rounded text-brand-accent">star</span>
-                        </div>
-                        <p class="text-gray-600 leading-relaxed mb-6 text-lg">"Bhumi Enterprises designed our entire residential structure. The team was professional, responsive, and delivered beyond expectations. Our home stands strong because of their precision engineering."</p>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-brand-dark text-brand-accent rounded-full flex items-center justify-center font-heading font-bold text-lg">RK</div>
-                            <div>
-                                <p class="font-heading font-bold text-brand-dark">Ramesh Kumar</p>
-                                <p class="text-gray-500 text-sm">Homeowner, Ahmedabad</p>
-                            </div>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div class="flex items-center gap-1 mb-5">
+                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
+                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
+                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
+                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
+                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
                     </div>
-                    <div class="testimonial-card flex-shrink-0">
-                        <div class="flex items-center gap-1 mb-4">
-                            <span class="material-symbols-rounded text-brand-accent">star</span>
-                            <span class="material-symbols-rounded text-brand-accent">star</span>
-                            <span class="material-symbols-rounded text-brand-accent">star</span>
-                            <span class="material-symbols-rounded text-brand-accent">star</span>
-                            <span class="material-symbols-rounded text-brand-accent">star</span>
-                        </div>
-                        <p class="text-gray-600 leading-relaxed mb-6 text-lg">"The 3D visualization service helped us see our commercial complex before construction. We made design changes early, saving both time and money. Highly recommend their team."</p>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-brand-dark text-brand-accent rounded-full flex items-center justify-center font-heading font-bold text-lg">SP</div>
-                            <div>
-                                <p class="font-heading font-bold text-brand-dark">Sneha Patel</p>
-                                <p class="text-gray-500 text-sm">Developer, Vadodara</p>
-                            </div>
+                    <p class="text-gray-700 leading-relaxed mb-6 text-base">"Bhumi Enterprises designed our entire residential structure. The team was professional, responsive, and delivered beyond expectations. Our home stands strong because of their precision engineering."</p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100">
+                        <div class="w-11 h-11 bg-brand-dark text-brand-accent rounded-full flex items-center justify-center font-heading font-bold text-base flex-shrink-0">RK</div>
+                        <div>
+                            <p class="font-heading font-bold text-brand-dark">Ramesh Kumar</p>
+                            <p class="text-gray-400 text-sm">Homeowner, Ahmedabad</p>
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center justify-center gap-3 mt-8">
-                    <button onclick="slideTestimonial(-1)" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-brand-accent hover:text-brand-accent transition-all text-gray-400 bg-white">
-                        <span class="material-symbols-rounded">chevron_left</span>
-                    </button>
-                    <div class="flex gap-2" id="testimonialDots">
-                        <span class="w-2.5 h-2.5 rounded-full bg-brand-accent transition-all" onclick="goToTestimonial(0)"></span>
-                        <span class="w-2.5 h-2.5 rounded-full bg-gray-300 transition-all cursor-pointer" onclick="goToTestimonial(1)"></span>
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div class="flex items-center gap-1 mb-5">
+                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
+                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
+                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
+                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
+                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
                     </div>
-                    <button onclick="slideTestimonial(1)" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-brand-accent hover:text-brand-accent transition-all text-gray-400 bg-white">
-                        <span class="material-symbols-rounded">chevron_right</span>
-                    </button>
+                    <p class="text-gray-700 leading-relaxed mb-6 text-base">"The 3D visualization service helped us see our commercial complex before construction. We made design changes early, saving both time and money. Highly recommend their team."</p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100">
+                        <div class="w-11 h-11 bg-brand-dark text-brand-accent rounded-full flex items-center justify-center font-heading font-bold text-base flex-shrink-0">SP</div>
+                        <div>
+                            <p class="font-heading font-bold text-brand-dark">Sneha Patel</p>
+                            <p class="text-gray-400 text-sm">Developer, Vadodara</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1537,40 +1506,6 @@
             document.getElementById("mobileMenu").classList.remove("open");
             document.getElementById("mobileOverlay").classList.remove("open");
         }
-    </script>
-
-    <!-- Testimonial Carousel Script -->
-    <script>
-        let testimonialIndex = 0;
-        const testimonialTrack = document.getElementById("testimonialTrack");
-        const testimonialDots = document.querySelectorAll("#testimonialDots span");
-        const totalTestimonials = testimonialDots.length;
-
-        function updateTestimonial() {
-            const width = testimonialTrack.querySelector(".testimonial-card").offsetWidth + 24;
-            testimonialTrack.style.transform = `translateX(-${testimonialIndex * width}px)`;
-            testimonialDots.forEach((dot, i) => {
-                dot.style.background = i === testimonialIndex ? "#F59E0B" : "#d1d5db";
-            });
-        }
-
-        function slideTestimonial(dir) {
-            testimonialIndex += dir;
-            if (testimonialIndex < 0) testimonialIndex = totalTestimonials - 1;
-            if (testimonialIndex >= totalTestimonials) testimonialIndex = 0;
-            updateTestimonial();
-        }
-
-        function goToTestimonial(index) {
-            testimonialIndex = index;
-            updateTestimonial();
-        }
-
-        let testimonialAuto = setInterval(() => slideTestimonial(1), 5000);
-        document.querySelector(".testimonial-container")?.addEventListener("mouseenter", () => clearInterval(testimonialAuto));
-        document.querySelector(".testimonial-container")?.addEventListener("mouseleave", () => {
-            testimonialAuto = setInterval(() => slideTestimonial(1), 5000);
-        });
     </script>
 
     <!-- Gallery Filter Script -->
