@@ -58,6 +58,86 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Schedule Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99990;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        .modal-overlay.active { display: block; }
+        .schedule-modal {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 99991;
+            background: #0B1120;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 32px;
+            width: 90%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        }
+        .schedule-modal.active { display: block; }
+        .schedule-modal::-webkit-scrollbar { width: 6px; }
+        .schedule-modal::-webkit-scrollbar-track { background: transparent; }
+        .schedule-modal::-webkit-scrollbar-thumb { background: rgba(245,158,11,0.3); border-radius: 3px; }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+        .cal-day {
+            padding: 8px 4px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #cbd5e1;
+        }
+        .cal-day:hover { background: rgba(245,158,11,0.15); color: #F59E0B; }
+        .cal-day.selected { background: #F59E0B; color: #0B1120; font-weight: 700; }
+        .cal-day.disabled { opacity: 0.2; pointer-events: none; }
+        .cal-day.other-month { opacity: 0.3; }
+        .cal-day-header { font-weight: 600; color: #64748b; font-size: 12px; padding: 8px 0; }
+        .time-slot {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: #cbd5e1;
+            text-align: center;
+        }
+        .time-slot:hover { border-color: rgba(245,158,11,0.4); color: #F59E0B; }
+        .time-slot.selected { background: #F59E0B; color: #0B1120; border-color: #F59E0B; font-weight: 600; }
+        .modal-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .modal-input:focus { border-color: #F59E0B; box-shadow: 0 0 0 3px rgba(245,158,11,0.15); }
+        .modal-input::placeholder { color: #64748b; }
+        .confirmation-view { display: none; }
+        .confirmation-view.active { display: block; }
+        .step-view { display: block; }
+        .step-view.hidden { display: none; }
+
         /* AI Cursor Styles */
         body { cursor: none; }
         a, button, [role="button"] { cursor: none; }
@@ -146,9 +226,10 @@
                     <span class="material-symbols-rounded">engineering</span>
                     Contact Builder Today
                 </a>
-                <a href="#services" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white backdrop-blur-md px-8 py-4 rounded-full font-bold text-lg transition-all border border-white/20 hover:border-white/40">
-                    Explore Our Work
-                </a>
+                <button onclick="openScheduleModal()" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white backdrop-blur-md px-8 py-4 rounded-full font-bold text-lg transition-all border border-white/20 hover:border-white/40 flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                    <span class="material-symbols-rounded">calendar_month</span>
+                    Schedule Meeting
+                </button>
             </div>
             
             <!-- Contact Quick Info -->
@@ -216,10 +297,16 @@
                         <p class="text-brand-accent font-semibold mb-1 uppercase tracking-wider text-sm">Direct Contact</p>
                         <p class="text-white font-heading text-3xl md:text-4xl font-bold">8955895095</p>
                     </div>
-                    <a href="tel:+918955895095" class="bg-brand-accent hover:bg-yellow-400 text-brand-dark px-8 py-4 rounded-xl font-bold transition-all w-full md:w-auto flex items-center justify-center gap-2">
-                        <span class="material-symbols-rounded">phone_in_talk</span>
-                        Call Builder Now
-                    </a>
+                    <div class="flex gap-4 w-full md:w-auto">
+                        <a href="tel:+918955895095" class="bg-brand-accent hover:bg-yellow-400 text-brand-dark px-8 py-4 rounded-xl font-bold transition-all w-full flex items-center justify-center gap-2">
+                            <span class="material-symbols-rounded">phone_in_talk</span>
+                            Call Now
+                        </a>
+                        <a href="mailto:booking@bhumienterprisess.com?subject=Meeting%20Request" class="bg-brand-dark hover:bg-gray-800 text-white border border-white/20 px-8 py-4 rounded-xl font-bold transition-all w-full flex items-center justify-center gap-2">
+                            <span class="material-symbols-rounded">calendar_month</span>
+                            Schedule
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -243,6 +330,236 @@
             </div>
         </div>
     </footer>
+
+    <!-- Schedule Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeScheduleModal()"></div>
+    <div class="schedule-modal" id="scheduleModal">
+        <div class="step-view" id="bookingStep">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="font-heading text-2xl font-bold text-white">Schedule Meeting</h3>
+                <button onclick="closeScheduleModal()" class="text-gray-400 hover:text-white transition-colors p-1">
+                    <span class="material-symbols-rounded text-2xl">close</span>
+                </button>
+            </div>
+
+            <!-- Calendar -->
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <button onclick="prevMonth()" class="text-gray-400 hover:text-brand-accent transition-colors p-1">
+                        <span class="material-symbols-rounded">chevron_left</span>
+                    </button>
+                    <span class="text-white font-heading font-bold text-lg" id="monthLabel">January 2026</span>
+                    <button onclick="nextMonth()" class="text-gray-400 hover:text-brand-accent transition-colors p-1">
+                        <span class="material-symbols-rounded">chevron_right</span>
+                    </button>
+                </div>
+                <div class="cal-grid">
+                    <div class="cal-day-header">Mon</div>
+                    <div class="cal-day-header">Tue</div>
+                    <div class="cal-day-header">Wed</div>
+                    <div class="cal-day-header">Thu</div>
+                    <div class="cal-day-header">Fri</div>
+                    <div class="cal-day-header">Sat</div>
+                    <div class="cal-day-header">Sun</div>
+                </div>
+                <div class="cal-grid" id="calendarDays"></div>
+            </div>
+
+            <!-- Selected Date -->
+            <div class="text-sm text-gray-400 mb-4" id="selectedDateDisplay">No date selected</div>
+
+            <!-- Time Slots -->
+            <div class="mb-6">
+                <label class="text-gray-300 font-medium text-sm mb-3 block">Available Time Slots</label>
+                <div class="grid grid-cols-4 gap-2" id="timeSlots"></div>
+            </div>
+
+            <!-- Customer Details -->
+            <div class="mb-6 space-y-3">
+                <input type="text" id="customerName" placeholder="Your Name" class="modal-input">
+                <input type="tel" id="customerPhone" placeholder="Phone Number" class="modal-input">
+            </div>
+
+            <button onclick="confirmBooking()" class="w-full bg-brand-accent hover:bg-yellow-400 text-brand-dark font-bold py-3.5 px-6 rounded-xl transition-all flex items-center justify-center gap-2 text-lg">
+                <span class="material-symbols-rounded">check_circle</span>
+                Confirm Meeting
+            </button>
+        </div>
+
+        <!-- Confirmation View -->
+        <div class="confirmation-view" id="confirmationView">
+            <div class="text-center py-8">
+                <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="material-symbols-rounded text-4xl text-green-400">check_circle</span>
+                </div>
+                <h3 class="font-heading text-2xl font-bold text-white mb-2">Meeting Request Sent!</h3>
+                <p class="text-gray-400 mb-6">We'll confirm your appointment shortly.</p>
+                <div class="bg-white/5 rounded-xl p-4 mb-6 text-left space-y-2">
+                    <div class="flex justify-between text-sm"><span class="text-gray-400">Date</span><span class="text-white font-medium" id="confirmDate">-</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-400">Time</span><span class="text-white font-medium" id="confirmTime">-</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-400">Name</span><span class="text-white font-medium" id="confirmName">-</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-400">Phone</span><span class="text-white font-medium" id="confirmPhone">-</span></div>
+                </div>
+                <p class="text-gray-500 text-sm mb-6">Need to change? Call us at <strong class="text-white">8955895095</strong></p>
+                <button onclick="closeScheduleModal()" class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-6 rounded-xl transition-all border border-white/10">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Modal Script -->
+    <script>
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let selectedDate = null;
+        let selectedTime = null;
+
+        const timeSlots = ["09:00","10:00","11:00","12:00","14:00","15:00","16:00","17:00"];
+
+        function openScheduleModal() {
+            document.getElementById("modalOverlay").classList.add("active");
+            document.getElementById("scheduleModal").classList.add("active");
+            document.getElementById("bookingStep").classList.remove("hidden");
+            document.getElementById("confirmationView").classList.remove("active");
+            selectedDate = null;
+            selectedTime = null;
+            renderCalendar();
+        }
+
+        function closeScheduleModal() {
+            document.getElementById("modalOverlay").classList.remove("active");
+            document.getElementById("scheduleModal").classList.remove("active");
+        }
+
+        function renderCalendar() {
+            const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            document.getElementById("monthLabel").textContent = monthNames[currentMonth] + " " + currentYear;
+
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+            const container = document.getElementById("calendarDays");
+            container.innerHTML = "";
+
+            const adjustFirstDay = firstDay === 0 ? 6 : firstDay - 1;
+
+            for (let i = adjustFirstDay - 1; i >= 0; i--) {
+                const div = document.createElement("div");
+                div.className = "cal-day other-month disabled";
+                div.textContent = daysInPrevMonth - i;
+                container.appendChild(div);
+            }
+
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const div = document.createElement("div");
+                div.className = "cal-day";
+                const dateObj = new Date(currentYear, currentMonth, d);
+                dateObj.setHours(0,0,0,0);
+                if (dateObj < today) {
+                    div.classList.add("disabled");
+                }
+                if (selectedDate && selectedDate.getDate() === d && selectedDate.getMonth() === currentMonth && selectedDate.getFullYear() === currentYear) {
+                    div.classList.add("selected");
+                }
+                div.textContent = d;
+                div.dataset.day = d;
+                div.addEventListener("click", function() {
+                    if (this.classList.contains("disabled")) return;
+                    const day = parseInt(this.dataset.day);
+                    selectedDate = new Date(currentYear, currentMonth, day);
+                    document.querySelectorAll("#calendarDays .cal-day").forEach(el => el.classList.remove("selected"));
+                    this.classList.add("selected");
+                    const opts = { weekday: "short", year: "numeric", month: "short", day: "numeric" };
+                    document.getElementById("selectedDateDisplay").textContent = "Selected: " + selectedDate.toLocaleDateString("en-US", opts);
+                    renderTimeSlots();
+                });
+                container.appendChild(div);
+            }
+
+            const totalCells = adjustFirstDay + daysInMonth;
+            const remaining = (7 - (totalCells % 7)) % 7;
+            for (let i = 1; i <= remaining; i++) {
+                const div = document.createElement("div");
+                div.className = "cal-day other-month disabled";
+                div.textContent = i;
+                container.appendChild(div);
+            }
+        }
+
+        function prevMonth() {
+            currentMonth--;
+            if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+            renderCalendar();
+            renderTimeSlots();
+        }
+
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+            renderCalendar();
+            renderTimeSlots();
+        }
+
+        function renderTimeSlots() {
+            const container = document.getElementById("timeSlots");
+            container.innerHTML = "";
+            if (!selectedDate) {
+                document.getElementById("selectedDateDisplay").textContent = "Select a date first";
+                return;
+            }
+            timeSlots.forEach(t => {
+                const div = document.createElement("div");
+                div.className = "time-slot";
+                div.textContent = t;
+                if (selectedTime === t) div.classList.add("selected");
+                div.addEventListener("click", function() {
+                    document.querySelectorAll(".time-slot").forEach(el => el.classList.remove("selected"));
+                    this.classList.add("selected");
+                    selectedTime = t;
+                });
+                container.appendChild(div);
+            });
+        }
+
+        function confirmBooking() {
+            const name = document.getElementById("customerName").value.trim();
+            const phone = document.getElementById("customerPhone").value.trim();
+
+            if (!selectedDate) { alert("Please select a date."); return; }
+            if (!selectedTime) { alert("Please select a time slot."); return; }
+            if (!name) { alert("Please enter your name."); return; }
+            if (!phone) { alert("Please enter your phone number."); return; }
+
+            const dateStr = selectedDate.toLocaleDateString("en-US", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+
+            document.getElementById("confirmDate").textContent = dateStr;
+            document.getElementById("confirmTime").textContent = selectedTime;
+            document.getElementById("confirmName").textContent = name;
+            document.getElementById("confirmPhone").textContent = phone;
+
+            document.getElementById("bookingStep").classList.add("hidden");
+            document.getElementById("confirmationView").classList.add("active");
+
+            const subject = encodeURIComponent("Meeting Request - " + dateStr + " at " + selectedTime);
+            const body = encodeURIComponent(
+                "Name: " + name + "\n" +
+                "Phone: " + phone + "\n" +
+                "Requested Date: " + dateStr + "\n" +
+                "Requested Time: " + selectedTime + "\n\n" +
+                "Please confirm this meeting time. Thank you!"
+            );
+            setTimeout(() => {
+                window.open("mailto:booking@bhumienterprisess.com?subject=" + subject + "&body=" + body, "_blank");
+            }, 500);
+        }
+
+        renderCalendar();
+    </script>
 
     <!-- AI Cursor Script -->
     <script>
