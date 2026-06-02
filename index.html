@@ -57,9 +57,42 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* AI Cursor Styles */
+        body { cursor: none; }
+        a, button, [role="button"] { cursor: none; }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #F59E0B;
+            position: fixed;
+            top: 0; left: 0;
+            border-radius: 50%;
+            z-index: 99999;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(245, 158, 11, 0.5);
+            position: fixed;
+            top: 0; left: 0;
+            border-radius: 50%;
+            z-index: 99998;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            transition: width 0.2s, height 0.2s;
+        }
     </style>
 </head>
 <body class="bg-brand-light text-brand-primary font-sans antialiased overflow-x-hidden">
+
+    <!-- AI Animated Cursor -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
@@ -211,5 +244,40 @@
         </div>
     </footer>
 
+    <!-- AI Cursor Script -->
+    <script>
+        const cursorDot = document.querySelector("[data-cursor-dot]");
+        const cursorOutline = document.querySelector("[data-cursor-outline]");
+        
+        window.addEventListener("mousemove", function (e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Add hover effect for links and buttons
+        const interactables = document.querySelectorAll("a, button");
+        interactables.forEach(el => {
+            el.addEventListener("mouseenter", () => {
+                cursorOutline.style.width = "60px";
+                cursorOutline.style.height = "60px";
+                cursorOutline.style.backgroundColor = "rgba(245, 158, 11, 0.1)";
+                cursorDot.style.transform = "translate(-50%, -50%) scale(1.5)";
+            });
+            el.addEventListener("mouseleave", () => {
+                cursorOutline.style.width = "40px";
+                cursorOutline.style.height = "40px";
+                cursorOutline.style.backgroundColor = "transparent";
+                cursorDot.style.transform = "translate(-50%, -50%) scale(1)";
+            });
+        });
+    </script>
 </body>
 </html>
