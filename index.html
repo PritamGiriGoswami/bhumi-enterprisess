@@ -28,6 +28,9 @@
                     animation: {
                         'fade-in-up': 'fadeInUp 1s ease-out',
                         'float': 'float 6s ease-in-out infinite',
+                        'fade-in-left': 'fadeInLeft 0.8s ease-out',
+                        'fade-in-right': 'fadeInRight 0.8s ease-out',
+                        'scale-in': 'scaleIn 0.7s ease-out',
                     },
                     keyframes: {
                         fadeInUp: {
@@ -37,6 +40,18 @@
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-40px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        fadeInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(40px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.9)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
                         }
                     }
                 }
@@ -434,6 +449,44 @@
                 text-align: center;
             }
         }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+        }
+        .reveal-up {
+            transform: translateY(40px);
+        }
+        .reveal-up.visible {
+            transform: translateY(0);
+        }
+        .reveal-left {
+            transform: translateX(-50px);
+        }
+        .reveal-left.visible {
+            transform: translateX(0);
+        }
+        .reveal-right {
+            transform: translateX(50px);
+        }
+        .reveal-right.visible {
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            transform: scale(0.9);
+        }
+        .reveal-scale.visible {
+            transform: scale(1);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
     </style>
 </head>
 <body class="bg-brand-light text-brand-primary font-sans antialiased overflow-x-hidden">
@@ -553,14 +606,14 @@
     <!-- Services Overview -->
     <section id="services" class="py-24 bg-brand-light relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16" data-reveal="up">
                 <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Our Expertise</h2>
                 <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Service 1 -->
-                <div class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group">
+                <div data-reveal="up" data-reveal-delay="1" class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group">
                     <div class="w-14 h-14 bg-brand-dark text-brand-accent rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors">
                         <span class="material-symbols-rounded text-3xl">domain</span>
                     </div>
@@ -573,7 +626,7 @@
                 </div>
                 
                 <!-- Service 2 -->
-                <div class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group">
+                <div data-reveal="up" data-reveal-delay="2" class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group">
                     <div class="w-14 h-14 bg-brand-dark text-brand-accent rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors">
                         <span class="material-symbols-rounded text-3xl">home_work</span>
                     </div>
@@ -586,7 +639,7 @@
                 </div>
 
                 <!-- Service 3 -->
-                <div class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group">
+                <div data-reveal="up" data-reveal-delay="3" class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group">
                     <div class="w-14 h-14 bg-brand-dark text-brand-accent rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors">
                         <span class="material-symbols-rounded text-3xl">view_in_ar</span>
                     </div>
@@ -604,7 +657,7 @@
     <!-- House Mapping Gallery -->
     <section id="mapping-gallery" class="py-24 blueprint-surface relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12" data-reveal="left">
                 <div class="max-w-2xl">
                     <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Architectural Mapping</p>
                     <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Blueprints That Move Projects Forward</h2>
@@ -617,7 +670,7 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <article class="mapping-card lg:col-span-7">
+                <article class="mapping-card lg:col-span-7" data-reveal="up" data-reveal-delay="1">
                     <div class="aspect-[16/10] overflow-hidden">
                         <img src="./images/mapping-grand-horizon.jpg" alt="Detailed luxury residence blueprint with room layout and site markings" class="w-full h-full object-cover">
                     </div>
@@ -637,7 +690,7 @@
                 </article>
 
                 <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
-                    <article class="mapping-card">
+                    <article class="mapping-card" data-reveal="right" data-reveal-delay="1">
                         <div class="aspect-[16/9] overflow-hidden">
                             <img src="./images/mapping-urban-grid.jpg" alt="Urban site mapping plan with lot divisions and utility paths" class="w-full h-full object-cover">
                         </div>
@@ -648,7 +701,7 @@
                         </div>
                     </article>
 
-                    <article class="mapping-card">
+                    <article class="mapping-card" data-reveal="right" data-reveal-delay="2">
                         <div class="aspect-[16/9] overflow-hidden">
                             <img src="./images/mapping-glass-pavilion.jpg" alt="Digital floor plan for a modern villa with indoor outdoor flow" class="w-full h-full object-cover">
                         </div>
@@ -661,7 +714,7 @@
                 </div>
             </div>
 
-            <div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4" data-reveal="up">
                 <div class="bg-white border border-gray-100 rounded-lg p-5">
                     <span class="material-symbols-rounded text-brand-accent mb-3">straighten</span>
                     <p class="font-heading font-bold text-brand-dark">Site Measurement</p>
@@ -693,12 +746,12 @@
         <div class="absolute inset-0 z-[1] bg-gradient-to-r from-brand-dark via-brand-dark/75 to-brand-dark/20"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[650px] flex items-center">
-            <div class="max-w-xl py-24">
+            <div class="max-w-xl py-24" data-reveal="left">
                 <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-4">3D Vision Animation</p>
                 <h2 class="font-heading text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">See The Structure Before Construction Starts</h2>
                 <p class="text-gray-300 text-lg leading-relaxed mb-8">Bhumi Enterprises turns 2D plans into animated massing, facade, and walkthrough visuals so clients can approve the design with confidence.</p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-9">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-9" data-reveal="up" data-reveal-delay="2">
                     <div class="vision-metric">
                         <p class="font-heading text-2xl font-bold text-white">360°</p>
                         <p class="text-gray-400 text-sm">Model View</p>
@@ -730,7 +783,7 @@
     <!-- 3D Render Samples -->
     <section class="py-20 bg-brand-dark border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10" data-reveal="up">
                 <div>
                     <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Render Frames</p>
                     <h2 class="font-heading text-3xl md:text-4xl font-bold text-white">Project Visual Samples</h2>
@@ -739,7 +792,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden">
+                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden" data-reveal="up" data-reveal-delay="1">
                     <div class="h-72 overflow-hidden">
                         <img src="./images/vision-azure-residence.jpg" alt="Luxury modern residence 3D exterior render" class="w-full h-full object-cover">
                     </div>
@@ -748,7 +801,7 @@
                         <h3 class="font-heading text-xl font-bold text-white">The Azure Residence</h3>
                     </div>
                 </article>
-                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden">
+                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden" data-reveal="up" data-reveal-delay="2">
                     <div class="h-72 overflow-hidden">
                         <img src="./images/vision-skyloft.jpg" alt="Premium penthouse interior 3D visualization" class="w-full h-full object-cover">
                     </div>
@@ -757,7 +810,7 @@
                         <h3 class="font-heading text-xl font-bold text-white">Skyloft V-01</h3>
                     </div>
                 </article>
-                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden">
+                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden" data-reveal="up" data-reveal-delay="3">
                     <div class="h-72 overflow-hidden">
                         <img src="./images/vision-corporate-plaza.jpg" alt="Commercial tower 3D wireframe and facade render" class="w-full h-full object-cover">
                     </div>
@@ -773,7 +826,7 @@
     <!-- Meet Our Engineers -->
     <section id="engineers" class="py-24 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16" data-reveal="up">
                 <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Meet Our Engineers</h2>
                 <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
                 <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Experienced civil engineers dedicated to delivering excellence in every project.</p>
@@ -781,7 +834,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <!-- Engineer 1 -->
-                <div class="bg-brand-light rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 text-center group">
+                <div data-reveal="left" data-reveal-delay="1" class="bg-brand-light rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 text-center group">
                     <div class="w-24 h-24 rounded-full mx-auto mb-5 overflow-hidden border-2 border-brand-accent/20 group-hover:border-brand-accent transition-colors">
                         <img src="./images/chirag-goswami.jpg" alt="Chirag Goswami" class="w-full h-full object-cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                         <div class="w-full h-full bg-gradient-to-br from-brand-accent to-yellow-300 text-brand-dark font-heading font-bold text-2xl items-center justify-center hidden" style="display:none;">CG</div>
@@ -796,7 +849,7 @@
                 </div>
                 
                 <!-- Engineer 2 -->
-                <div class="bg-brand-light rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 text-center group">
+                <div data-reveal="right" data-reveal-delay="1" class="bg-brand-light rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 text-center group">
                     <div class="w-24 h-24 rounded-full mx-auto mb-5 overflow-hidden border-2 border-brand-accent/20 group-hover:border-brand-accent transition-colors">
                         <img src="./images/hitesh-patidar.jpg" alt="Hitesh Patidar" class="w-full h-full object-cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                         <div class="w-full h-full bg-gradient-to-br from-brand-accent to-yellow-300 text-brand-dark font-heading font-bold text-2xl items-center justify-center hidden" style="display:none;">HP</div>
@@ -819,30 +872,30 @@
         <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-3xl"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16" data-reveal="up">
                 <h2 class="font-heading text-4xl md:text-5xl font-bold text-white mb-4">Experience & Quality</h2>
                 <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
+                <div data-reveal="up" data-reveal-delay="1" class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
                     <div class="text-brand-accent text-5xl font-heading font-extrabold mb-2">100+</div>
                     <p class="text-gray-300 font-medium">Projects Completed</p>
                     <p class="text-gray-500 text-sm mt-2">Residential & commercial structures delivered with precision.</p>
                 </div>
-                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
+                <div data-reveal="up" data-reveal-delay="2" class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
                     <div class="text-brand-accent text-5xl font-heading font-extrabold mb-2">10+</div>
                     <p class="text-gray-300 font-medium">Years Experience</p>
                     <p class="text-gray-500 text-sm mt-2">Combined expertise in civil engineering and structural design.</p>
                 </div>
-                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
+                <div data-reveal="up" data-reveal-delay="3" class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
                     <div class="text-brand-accent text-5xl font-heading font-extrabold mb-2">100%</div>
                     <p class="text-gray-300 font-medium">Quality Commitment</p>
                     <p class="text-gray-500 text-sm mt-2">Premium materials & rigorous quality checks on every project.</p>
                 </div>
             </div>
 
-            <div class="mt-12 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 md:p-10">
+            <div class="mt-12 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 md:p-10" data-reveal="scale">
                 <div class="flex items-start gap-4">
                     <span class="material-symbols-rounded text-brand-accent text-3xl flex-shrink-0">verified</span>
                     <div>
@@ -857,13 +910,13 @@
     <!-- Client Testimonials -->
     <section id="testimonials" class="py-24 bg-gray-50 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16" data-reveal="up">
                 <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Testimonials</p>
                 <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">What Our Clients Say</h2>
                 <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100" data-reveal="left" data-reveal-delay="1">
                     <div class="flex items-center gap-1 mb-5">
                         <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
                         <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
@@ -880,7 +933,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100" data-reveal="right" data-reveal-delay="1">
                     <div class="flex items-center gap-1 mb-5">
                         <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
                         <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
@@ -905,7 +958,7 @@
     <section id="portfolio-gallery" class="py-24 bg-brand-dark relative overflow-hidden">
         <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-accent opacity-10 rounded-full blur-3xl"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-12">
+            <div class="text-center mb-12" data-reveal="up">
                 <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Our Portfolio</p>
                 <h2 class="font-heading text-4xl md:text-5xl font-bold text-white mb-4">Projects We've Delivered</h2>
                 <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
@@ -917,7 +970,7 @@
                 <button class="gallery-filter-btn text-white border-white/20 bg-white/5" data-filter="interior" onclick="filterGallery('interior', this)">Interior</button>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-category="residential">
+                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="1" data-category="residential">
                     <div class="aspect-[4/3] overflow-hidden">
                         <img src="./images/vision-azure-residence.jpg" alt="Azure Residence" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     </div>
@@ -926,7 +979,7 @@
                         <h3 class="font-heading text-lg font-bold text-white">The Azure Residence</h3>
                     </div>
                 </div>
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-category="commercial">
+                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="2" data-category="commercial">
                     <div class="aspect-[4/3] overflow-hidden">
                         <img src="./images/vision-corporate-plaza.jpg" alt="Corporate Plaza" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     </div>
@@ -935,7 +988,7 @@
                         <h3 class="font-heading text-lg font-bold text-white">Corporate Plaza</h3>
                     </div>
                 </div>
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-category="residential">
+                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="3" data-category="residential">
                     <div class="aspect-[4/3] overflow-hidden">
                         <img src="./images/mapping-grand-horizon.jpg" alt="Grand Horizon" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     </div>
@@ -944,7 +997,7 @@
                         <h3 class="font-heading text-lg font-bold text-white">Grand Horizon Estate</h3>
                     </div>
                 </div>
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-category="interior">
+                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="1" data-category="interior">
                     <div class="aspect-[4/3] overflow-hidden">
                         <img src="./images/vision-skyloft.jpg" alt="Skyloft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     </div>
@@ -953,7 +1006,7 @@
                         <h3 class="font-heading text-lg font-bold text-white">Skyloft V-01</h3>
                     </div>
                 </div>
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-category="commercial">
+                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="2" data-category="commercial">
                     <div class="aspect-[4/3] overflow-hidden">
                         <img src="./images/mapping-urban-grid.jpg" alt="Urban Grid" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     </div>
@@ -962,7 +1015,7 @@
                         <h3 class="font-heading text-lg font-bold text-white">Urban Loft Grid</h3>
                     </div>
                 </div>
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-category="residential">
+                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="3" data-category="residential">
                     <div class="aspect-[4/3] overflow-hidden">
                         <img src="./images/mapping-glass-pavilion.jpg" alt="Glass Pavilion" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     </div>
@@ -978,13 +1031,13 @@
     <!-- Contact Enquiry Form -->
     <section id="contact-form" class="py-24 bg-brand-light relative">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
+            <div class="text-center mb-12" data-reveal="up">
                 <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Get In Touch</p>
                 <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Send Us a Message</h2>
                 <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
                 <p class="text-gray-500 mt-4 max-w-lg mx-auto">Have a project in mind? Fill out the form and our team will get back to you within 24 hours.</p>
             </div>
-            <div class="bg-white rounded-2xl p-8 md:p-10 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100">
+            <div class="bg-white rounded-2xl p-8 md:p-10 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100" data-reveal="up" data-reveal-delay="1">
                 <form id="contactForm" onsubmit="submitContactForm(event)" class="space-y-5">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <input type="text" id="contactName" placeholder="Full Name *" required class="w-full px-5 py-3.5 rounded-xl bg-brand-light border border-gray-200 text-brand-dark font-medium outline-none transition-all focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 placeholder:text-gray-400">
@@ -1027,11 +1080,11 @@
         <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-accent opacity-10 rounded-full blur-3xl"></div>
         <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-3xl"></div>
         
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10" data-reveal="up">
             <h2 class="font-heading text-3xl md:text-5xl font-bold text-white mb-6">Ready to Build the Future?</h2>
             <p class="text-gray-400 text-lg mb-10">Connect directly with our lead builder to discuss your next big project.</p>
             
-            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl inline-block w-full max-w-2xl">
+            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl inline-block w-full max-w-2xl" data-reveal="scale" data-reveal-delay="1">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="text-left space-y-3">
                         <div>
@@ -1702,6 +1755,27 @@
                 cursorOutline.style.backgroundColor = "transparent";
                 cursorDot.style.transform = "translate(-50%, -50%) scale(1)";
             });
+        });
+    </script>
+
+    <!-- Scroll Reveal Animations -->
+    <script>
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('[data-reveal]').forEach(el => {
+            const dir = el.dataset.reveal || 'up';
+            el.classList.add('reveal', 'reveal-' + dir);
+            revealObserver.observe(el);
+        });
+
+        document.querySelectorAll('[data-reveal-delay]').forEach(el => {
+            el.classList.add('reveal-delay-' + el.dataset.revealDelay);
         });
     </script>
 </body>
