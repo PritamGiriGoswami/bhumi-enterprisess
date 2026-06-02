@@ -133,6 +133,8 @@
         }
         .modal-input:focus { border-color: #F59E0B; box-shadow: 0 0 0 3px rgba(245,158,11,0.15); }
         .modal-input::placeholder { color: #64748b; }
+        .modal-input option { background: #0B1120; color: #cbd5e1; }
+        select.modal-input { appearance: auto; }
         .confirmation-view { display: none; }
         .confirmation-view.active { display: block; }
         .step-view { display: block; }
@@ -376,8 +378,19 @@
 
             <!-- Customer Details -->
             <div class="mb-6 space-y-3">
-                <input type="text" id="customerName" placeholder="Your Name" class="modal-input">
-                <input type="tel" id="customerPhone" placeholder="Phone Number" class="modal-input">
+                <input type="text" id="customerName" placeholder="Full Name *" class="modal-input">
+                <input type="tel" id="customerPhone" placeholder="Phone Number *" class="modal-input">
+                <input type="email" id="customerEmail" placeholder="Email Address" class="modal-input">
+                <select id="projectType" class="modal-input">
+                    <option value="" disabled selected class="text-gray-400">Select Project Type</option>
+                    <option value="Residential">Residential</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Renovation">Renovation</option>
+                    <option value="Industrial">Industrial</option>
+                    <option value="Interior Design">Interior Design</option>
+                    <option value="Other">Other</option>
+                </select>
+                <textarea id="customerMessage" placeholder="Message / Project Details (optional)" class="modal-input" rows="3" style="resize: vertical; min-height: 80px;"></textarea>
             </div>
 
             <button onclick="confirmBooking()" class="w-full bg-brand-accent hover:bg-yellow-400 text-brand-dark font-bold py-3.5 px-6 rounded-xl transition-all flex items-center justify-center gap-2 text-lg">
@@ -399,6 +412,9 @@
                     <div class="flex justify-between text-sm"><span class="text-gray-400">Time</span><span class="text-white font-medium" id="confirmTime">-</span></div>
                     <div class="flex justify-between text-sm"><span class="text-gray-400">Name</span><span class="text-white font-medium" id="confirmName">-</span></div>
                     <div class="flex justify-between text-sm"><span class="text-gray-400">Phone</span><span class="text-white font-medium" id="confirmPhone">-</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-400">Email</span><span class="text-white font-medium" id="confirmEmail">-</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-400">Project</span><span class="text-white font-medium" id="confirmProject">-</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-400">Message</span><span class="text-white font-medium" id="confirmMessage">-</span></div>
                 </div>
                 <p class="text-gray-500 text-sm mb-6">Need to change? Call us at <strong class="text-white">8955895095</strong></p>
                 <button onclick="closeScheduleModal()" class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-6 rounded-xl transition-all border border-white/10">
@@ -529,6 +545,9 @@
         function confirmBooking() {
             const name = document.getElementById("customerName").value.trim();
             const phone = document.getElementById("customerPhone").value.trim();
+            const email = document.getElementById("customerEmail").value.trim();
+            const project = document.getElementById("projectType").value;
+            const message = document.getElementById("customerMessage").value.trim();
 
             if (!selectedDate) { alert("Please select a date."); return; }
             if (!selectedTime) { alert("Please select a time slot."); return; }
@@ -541,14 +560,22 @@
             document.getElementById("confirmTime").textContent = selectedTime;
             document.getElementById("confirmName").textContent = name;
             document.getElementById("confirmPhone").textContent = phone;
+            document.getElementById("confirmEmail").textContent = email || "-";
+            document.getElementById("confirmProject").textContent = project || "-";
+            document.getElementById("confirmMessage").textContent = message || "-";
 
             document.getElementById("bookingStep").classList.add("hidden");
             document.getElementById("confirmationView").classList.add("active");
 
-            const subject = encodeURIComponent("Meeting Request - " + dateStr + " at " + selectedTime);
+            const subject = encodeURIComponent("Meeting Request - " + name + " - " + dateStr + " at " + selectedTime);
             const body = encodeURIComponent(
+                "New Meeting Request\n" +
+                "==================\n" +
                 "Name: " + name + "\n" +
                 "Phone: " + phone + "\n" +
+                "Email: " + (email || "N/A") + "\n" +
+                "Project Type: " + (project || "N/A") + "\n" +
+                "Message: " + (message || "N/A") + "\n" +
                 "Requested Date: " + dateStr + "\n" +
                 "Requested Time: " + selectedTime + "\n\n" +
                 "Please confirm this meeting time. Thank you!"
