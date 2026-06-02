@@ -200,6 +200,132 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4);
         }
+        .service-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #0B1120;
+            font-weight: 800;
+            font-family: Outfit, sans-serif;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .service-action:hover {
+            color: #F59E0B;
+            transform: translateX(3px);
+        }
+        .blueprint-surface {
+            background-color: #F8FAFC;
+            background-image:
+                linear-gradient(rgba(30, 41, 59, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 41, 59, 0.06) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        .mapping-card {
+            overflow: hidden;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.07);
+        }
+        .mapping-card img,
+        .vision-card img {
+            transition: transform 0.7s ease;
+        }
+        .mapping-card:hover img,
+        .vision-card:hover img {
+            transform: scale(1.05);
+        }
+        .vision-stage {
+            min-height: 650px;
+            background: #0B1120;
+            isolation: isolate;
+        }
+        #visionCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .vision-metric {
+            border-left: 2px solid #F59E0B;
+            padding-left: 14px;
+        }
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: #0B1120;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            z-index: 99996;
+            padding: 24px;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .mobile-menu.open {
+            right: 0;
+        }
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99995;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .mobile-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: white;
+            padding: 8px;
+            cursor: pointer;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            body,
+            a,
+            button,
+            [role="button"] {
+                cursor: auto;
+            }
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+            .vision-stage {
+                min-height: 760px;
+            }
+            .nav-desktop-links {
+                display: none !important;
+            }
+            .nav-desktop-buttons {
+                display: none !important;
+            }
+            .hamburger-btn {
+                display: block;
+            }
+            .hero-quick-info {
+                font-size: 12px;
+                padding: 10px 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-quick-info .separator {
+                display: none;
+            }
+            .hero-quick-info .block-mobile {
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body class="bg-brand-light text-brand-primary font-sans antialiased overflow-x-hidden">
@@ -211,30 +337,61 @@
         <span class="material-symbols-rounded">arrow_upward</span>
     </button>
 
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="flex items-center justify-between mb-4">
+            <span class="font-heading font-bold text-lg text-white">Menu</span>
+            <button onclick="closeMobileMenu()" class="text-gray-400 hover:text-white transition-colors p-1">
+                <span class="material-symbols-rounded text-2xl">close</span>
+            </button>
+        </div>
+        <a href="#mapping-gallery" onclick="closeMobileMenu()" class="text-gray-300 hover:text-brand-accent transition-colors font-medium text-lg py-2 border-b border-white/5">Portfolio</a>
+        <a href="#services" onclick="closeMobileMenu()" class="text-gray-300 hover:text-brand-accent transition-colors font-medium text-lg py-2 border-b border-white/5">Services</a>
+        <a href="#engineers" onclick="closeMobileMenu()" class="text-gray-300 hover:text-brand-accent transition-colors font-medium text-lg py-2 border-b border-white/5">About</a>
+        <div class="mt-auto space-y-3 pt-4 border-t border-white/10">
+            <a href="tel:+919950608995" class="flex items-center justify-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-4 py-3 rounded-xl font-bold transition-all w-full">
+                <span class="material-symbols-rounded text-[18px]">call</span>
+                Chirag: 9950608995
+            </a>
+            <a href="tel:+918955895095" class="flex items-center justify-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-4 py-3 rounded-xl font-bold transition-all w-full">
+                <span class="material-symbols-rounded text-[18px]">call</span>
+                Hitesh: 8955895095
+            </a>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3 cursor-pointer group">
-                    <img src="./images/bhumi-icon.png" alt="Bhumi Enterprises logo" class="h-14 w-14 object-contain group-hover:scale-105 transition-transform">
-                    <span class="font-heading font-bold text-xl md:text-2xl tracking-tight text-white uppercase">BHUMI ENTERPRISESS</span>
+                    <img src="./images/bhumi-icon.png" alt="Bhumi Enterprises logo" class="h-10 w-10 md:h-14 md:w-14 object-contain group-hover:scale-105 transition-transform">
+                    <span class="font-heading font-bold text-base md:text-2xl tracking-tight text-white uppercase">BHUMI ENTERPRISESS</span>
                 </div>
                 
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">Portfolio</a>
-                    <a href="#" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">Services</a>
-                    <a href="#" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">About</a>
+                <div class="nav-desktop-links hidden md:flex items-center space-x-8">
+                    <a href="#mapping-gallery" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">Portfolio</a>
+                    <a href="#services" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">Services</a>
+                    <a href="#engineers" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">About</a>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <a href="tel:+919950608995" class="group flex items-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-4 py-2 rounded-full font-bold text-sm transition-all shadow-lg hover:shadow-brand-accent/30 transform hover:-translate-y-0.5">
-                        <span class="material-symbols-rounded text-[18px]">call</span>
-                        <span class="font-heading tracking-wide">Chirag Goswami: 9950608995</span>
+                <div class="nav-desktop-buttons flex items-center gap-3">
+                    <a href="tel:+919950608995" class="group hidden md:flex items-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-3 lg:px-4 py-2 rounded-full font-bold text-xs lg:text-sm transition-all shadow-lg hover:shadow-brand-accent/30 transform hover:-translate-y-0.5">
+                        <span class="material-symbols-rounded text-[16px] lg:text-[18px]">call</span>
+                        <span class="font-heading tracking-wide">Chirag: 9950608995</span>
                     </a>
-                    <a href="tel:+918955895095" class="group flex items-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-4 py-2 rounded-full font-bold text-sm transition-all shadow-lg hover:shadow-brand-accent/30 transform hover:-translate-y-0.5">
-                        <span class="material-symbols-rounded text-[18px]">call</span>
-                        <span class="font-heading tracking-wide">Hitesh Patidar: 8955895095</span>
+                    <a href="tel:+918955895095" class="group hidden md:flex items-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-3 lg:px-4 py-2 rounded-full font-bold text-xs lg:text-sm transition-all shadow-lg hover:shadow-brand-accent/30 transform hover:-translate-y-0.5">
+                        <span class="material-symbols-rounded text-[16px] lg:text-[18px]">call</span>
+                        <span class="font-heading tracking-wide">Hitesh: 8955895095</span>
                     </a>
+                    <a href="tel:+919950608995" class="flex md:hidden items-center justify-center bg-brand-accent hover:bg-yellow-400 text-brand-dark w-10 h-10 rounded-full font-bold transition-all">
+                        <span class="material-symbols-rounded text-[20px]">call</span>
+                    </a>
+                    <button class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                        <span class="material-symbols-rounded text-3xl">menu</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -269,12 +426,15 @@
             </div>
             
             <!-- Contact Quick Info -->
-            <div class="mt-16 inline-flex items-center gap-3 bg-brand-dark/50 backdrop-blur-md border border-white/10 rounded-full py-3 px-6 animate-float">
-                <span class="relative flex h-3 w-3">
+            <div class="hero-quick-info mt-16 inline-flex items-center gap-2 md:gap-3 bg-brand-dark/50 backdrop-blur-md border border-white/10 rounded-full py-2.5 md:py-3 px-4 md:px-6 animate-float">
+                <span class="relative flex h-2 w-2 md:h-3 md:w-3 flex-shrink-0">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 md:h-3 md:w-3 bg-green-500"></span>
                 </span>
-                <span class="text-gray-300 font-medium">Available for new projects. Chirag Goswami: <span class="text-white font-bold tracking-wider">9950608995</span> &nbsp;|&nbsp; Hitesh Patidar: <span class="text-white font-bold tracking-wider">8955895095</span></span>
+                <span class="text-gray-300 font-medium text-xs md:text-sm">Available for new projects.</span>
+                <span class="text-gray-300 font-medium text-xs md:text-sm whitespace-nowrap"><span class="text-white font-bold">Chirag:</span> 9950608995</span>
+                <span class="text-gray-600 hidden sm:inline">|</span>
+                <span class="text-gray-300 font-medium text-xs md:text-sm whitespace-nowrap"><span class="text-white font-bold">Hitesh:</span> 8955895095</span>
             </div>
         </div>
     </section>
@@ -295,6 +455,10 @@
                     </div>
                     <h3 class="font-heading text-2xl font-bold text-brand-dark mb-3">Structural System</h3>
                     <p class="text-gray-600 leading-relaxed mb-6">Robust and durable structural designs tailored for commercial and residential massive-scale projects.</p>
+                    <a href="#quality" class="service-action">
+                        View quality process
+                        <span class="material-symbols-rounded text-[20px]">arrow_forward</span>
+                    </a>
                 </div>
                 
                 <!-- Service 2 -->
@@ -304,6 +468,10 @@
                     </div>
                     <h3 class="font-heading text-2xl font-bold text-brand-dark mb-3">House Mapping</h3>
                     <p class="text-gray-600 leading-relaxed mb-6">Precision blueprints and architectural mapping that maximize space utilization and aesthetic appeal.</p>
+                    <a href="#mapping-gallery" class="service-action">
+                        View mapping work
+                        <span class="material-symbols-rounded text-[20px]">arrow_forward</span>
+                    </a>
                 </div>
 
                 <!-- Service 3 -->
@@ -313,13 +481,186 @@
                     </div>
                     <h3 class="font-heading text-2xl font-bold text-brand-dark mb-3">3D Vision Animation</h3>
                     <p class="text-gray-600 leading-relaxed mb-6">Immersive 3D renderings and animations bringing your conceptual structures to life before construction begins.</p>
+                    <a href="#vision-animation" class="service-action">
+                        Open 3D preview
+                        <span class="material-symbols-rounded text-[20px]">arrow_forward</span>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- House Mapping Gallery -->
+    <section id="mapping-gallery" class="py-24 blueprint-surface relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+                <div class="max-w-2xl">
+                    <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Architectural Mapping</p>
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Blueprints That Move Projects Forward</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed">From compact house plans to villa layouts and site planning, our mapping package gives every room, setback, opening, and utility path a clear construction-ready reference.</p>
+                </div>
+                <button onclick="openScheduleModal()" class="bg-brand-dark hover:bg-slate-800 text-white px-7 py-3.5 rounded-lg font-bold transition-all inline-flex items-center justify-center gap-2 w-full sm:w-auto">
+                    <span class="material-symbols-rounded">architecture</span>
+                    Request Mapping Visit
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <article class="mapping-card lg:col-span-7">
+                    <div class="aspect-[16/10] overflow-hidden">
+                        <img src="./images/mapping-grand-horizon.jpg" alt="Detailed luxury residence blueprint with room layout and site markings" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                            <div>
+                                <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Luxury Residence</p>
+                                <h3 class="font-heading text-2xl md:text-3xl font-bold text-brand-dark">Grand Horizon Estate</h3>
+                                <p class="text-gray-600 mt-3 leading-relaxed">A complete residential map with room planning, structural notes, circulation flow, and working dimensions for on-site execution.</p>
+                            </div>
+                            <div class="text-left sm:text-right flex-shrink-0">
+                                <p class="font-heading text-2xl font-bold text-brand-dark">7,500 sq ft</p>
+                                <p class="text-gray-500 text-sm">Residence Mapping</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+                    <article class="mapping-card">
+                        <div class="aspect-[16/9] overflow-hidden">
+                            <img src="./images/mapping-urban-grid.jpg" alt="Urban site mapping plan with lot divisions and utility paths" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Site Planning</p>
+                            <h3 class="font-heading text-xl font-bold text-brand-dark">Urban Loft Grid</h3>
+                            <p class="text-gray-600 mt-2 text-sm leading-relaxed">Plot planning, access routes, service lines, and building footprint alignment.</p>
+                        </div>
+                    </article>
+
+                    <article class="mapping-card">
+                        <div class="aspect-[16/9] overflow-hidden">
+                            <img src="./images/mapping-glass-pavilion.jpg" alt="Digital floor plan for a modern villa with indoor outdoor flow" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Modern Villa</p>
+                            <h3 class="font-heading text-xl font-bold text-brand-dark">Glass Pavilion</h3>
+                            <p class="text-gray-600 mt-2 text-sm leading-relaxed">Floor plan refinement with ventilation, natural light, and practical room zoning.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white border border-gray-100 rounded-lg p-5">
+                    <span class="material-symbols-rounded text-brand-accent mb-3">straighten</span>
+                    <p class="font-heading font-bold text-brand-dark">Site Measurement</p>
+                    <p class="text-gray-500 text-sm mt-1">Accurate room and plot dimensions</p>
+                </div>
+                <div class="bg-white border border-gray-100 rounded-lg p-5">
+                    <span class="material-symbols-rounded text-brand-accent mb-3">grid_view</span>
+                    <p class="font-heading font-bold text-brand-dark">Space Planning</p>
+                    <p class="text-gray-500 text-sm mt-1">Better flow for daily use</p>
+                </div>
+                <div class="bg-white border border-gray-100 rounded-lg p-5">
+                    <span class="material-symbols-rounded text-brand-accent mb-3">fact_check</span>
+                    <p class="font-heading font-bold text-brand-dark">Working Drawings</p>
+                    <p class="text-gray-500 text-sm mt-1">Clear drawings for execution</p>
+                </div>
+                <div class="bg-white border border-gray-100 rounded-lg p-5">
+                    <span class="material-symbols-rounded text-brand-accent mb-3">view_in_ar</span>
+                    <p class="font-heading font-bold text-brand-dark">3D Sync</p>
+                    <p class="text-gray-500 text-sm mt-1">Plans ready for visual preview</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Vision Animation -->
+    <section id="vision-animation" class="vision-stage relative overflow-hidden">
+        <img id="visionFallback" src="./images/vision-azure-residence.jpg" alt="Modern 3D architectural residence render" class="absolute inset-0 z-0 w-full h-full object-cover opacity-30">
+        <canvas id="visionCanvas" class="absolute inset-0 z-0" aria-label="Animated 3D architectural model"></canvas>
+        <div class="absolute inset-0 z-[1] bg-gradient-to-r from-brand-dark via-brand-dark/75 to-brand-dark/20"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[650px] flex items-center">
+            <div class="max-w-xl py-24">
+                <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-4">3D Vision Animation</p>
+                <h2 class="font-heading text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">See The Structure Before Construction Starts</h2>
+                <p class="text-gray-300 text-lg leading-relaxed mb-8">Bhumi Enterprises turns 2D plans into animated massing, facade, and walkthrough visuals so clients can approve the design with confidence.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-9">
+                    <div class="vision-metric">
+                        <p class="font-heading text-2xl font-bold text-white">360°</p>
+                        <p class="text-gray-400 text-sm">Model View</p>
+                    </div>
+                    <div class="vision-metric">
+                        <p class="font-heading text-2xl font-bold text-white">4K</p>
+                        <p class="text-gray-400 text-sm">Render Output</p>
+                    </div>
+                    <div class="vision-metric">
+                        <p class="font-heading text-2xl font-bold text-white">CAD</p>
+                        <p class="text-gray-400 text-sm">Plan Based</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="openScheduleModal()" class="bg-brand-accent hover:bg-yellow-400 text-brand-dark px-7 py-3.5 rounded-lg font-bold transition-all inline-flex items-center justify-center gap-2">
+                        <span class="material-symbols-rounded">play_circle</span>
+                        Start 3D Design
+                    </button>
+                    <a href="tel:+919950608995" class="bg-white/10 hover:bg-white/20 text-white px-7 py-3.5 rounded-lg font-bold transition-all border border-white/20 inline-flex items-center justify-center gap-2">
+                        <span class="material-symbols-rounded">phone_in_talk</span>
+                        Talk To Engineer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Render Samples -->
+    <section class="py-20 bg-brand-dark border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
+                <div>
+                    <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Render Frames</p>
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-white">Project Visual Samples</h2>
+                </div>
+                <p class="text-gray-400 max-w-xl">Exterior, interior, and commercial previews help clients review materials, scale, and lighting before money is spent on site.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden">
+                    <div class="h-72 overflow-hidden">
+                        <img src="./images/vision-azure-residence.jpg" alt="Luxury modern residence 3D exterior render" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Exterior Animation</p>
+                        <h3 class="font-heading text-xl font-bold text-white">The Azure Residence</h3>
+                    </div>
+                </article>
+                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden">
+                    <div class="h-72 overflow-hidden">
+                        <img src="./images/vision-skyloft.jpg" alt="Premium penthouse interior 3D visualization" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Interior Preview</p>
+                        <h3 class="font-heading text-xl font-bold text-white">Skyloft V-01</h3>
+                    </div>
+                </article>
+                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden">
+                    <div class="h-72 overflow-hidden">
+                        <img src="./images/vision-corporate-plaza.jpg" alt="Commercial tower 3D wireframe and facade render" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Commercial Planning</p>
+                        <h3 class="font-heading text-xl font-bold text-white">Corporate Plaza</h3>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <!-- Meet Our Engineers -->
-    <section class="py-24 bg-white relative">
+    <section id="engineers" class="py-24 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Meet Our Engineers</h2>
@@ -356,7 +697,7 @@
     </section>
 
     <!-- Work Experience & Quality -->
-    <section class="py-24 bg-brand-dark relative overflow-hidden">
+    <section id="quality" class="py-24 bg-brand-dark relative overflow-hidden">
         <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-accent opacity-10 rounded-full blur-3xl"></div>
         <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-3xl"></div>
         
@@ -397,7 +738,7 @@
     </section>
 
     <!-- Call to Action Banner -->
-    <section class="py-20 bg-brand-dark relative overflow-hidden">
+    <section id="contact" class="py-20 bg-brand-dark relative overflow-hidden">
         <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-accent opacity-10 rounded-full blur-3xl"></div>
         <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-3xl"></div>
         
@@ -507,7 +848,7 @@
             <!-- Time Slots -->
             <div class="mb-6">
                 <label class="text-gray-300 font-medium text-sm mb-3 block">Available Time Slots</label>
-                <div class="grid grid-cols-4 gap-2" id="timeSlots"></div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="timeSlots"></div>
             </div>
 
             <!-- Customer Details -->
@@ -557,6 +898,175 @@
             </div>
         </div>
     </div>
+
+    <!-- 3D Vision Animation Script -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script>
+        (function () {
+            const canvas = document.getElementById("visionCanvas");
+            const stage = document.getElementById("vision-animation");
+            const fallback = document.getElementById("visionFallback");
+
+            if (!canvas || !stage || !window.THREE) return;
+
+            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+            renderer.setClearColor(0x0b1120, 1);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+            if (THREE.SRGBColorSpace) renderer.outputColorSpace = THREE.SRGBColorSpace;
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x0b1120, 14, 30);
+
+            const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+            camera.position.set(6.8, 4.3, 7.4);
+
+            const hemiLight = new THREE.HemisphereLight(0xf8fafc, 0x0f172a, 1.4);
+            scene.add(hemiLight);
+
+            const sunLight = new THREE.DirectionalLight(0xfcd34d, 2.7);
+            sunLight.position.set(5, 8, 6);
+            sunLight.castShadow = true;
+            sunLight.shadow.mapSize.width = 2048;
+            sunLight.shadow.mapSize.height = 2048;
+            scene.add(sunLight);
+
+            const accentLight = new THREE.PointLight(0xf59e0b, 18, 12);
+            accentLight.position.set(-4, 2.2, 3.8);
+            scene.add(accentLight);
+
+            const concrete = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.42, metalness: 0.08 });
+            const concreteDark = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.6, metalness: 0.18 });
+            const glass = new THREE.MeshPhysicalMaterial({
+                color: 0x93c5fd,
+                roughness: 0.08,
+                metalness: 0.05,
+                transparent: true,
+                opacity: 0.62,
+                transmission: 0.35
+            });
+            const warmGlass = new THREE.MeshStandardMaterial({
+                color: 0xfbbf24,
+                emissive: 0xf59e0b,
+                emissiveIntensity: 0.24,
+                roughness: 0.18,
+                transparent: true,
+                opacity: 0.78
+            });
+            const steel = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.38, metalness: 0.55 });
+            const accent = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.34, metalness: 0.28, emissive: 0x7c2d12, emissiveIntensity: 0.2 });
+            const lawn = new THREE.MeshStandardMaterial({ color: 0x164e3f, roughness: 0.85, metalness: 0.02 });
+
+            const ground = new THREE.Mesh(
+                new THREE.PlaneGeometry(22, 22),
+                new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.9, metalness: 0.08 })
+            );
+            ground.rotation.x = -Math.PI / 2;
+            ground.receiveShadow = true;
+            scene.add(ground);
+
+            const grid = new THREE.GridHelper(20, 40, 0xf59e0b, 0x334155);
+            grid.position.y = 0.025;
+            scene.add(grid);
+
+            const building = new THREE.Group();
+            scene.add(building);
+
+            function addBox(width, height, depth, x, y, z, material) {
+                const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material);
+                mesh.position.set(x, y, z);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+                building.add(mesh);
+                return mesh;
+            }
+
+            addBox(5.6, 0.16, 3.8, 0, 0.12, 0, concreteDark);
+            addBox(4.5, 0.8, 2.5, -0.35, 0.62, 0.05, concrete);
+            addBox(4.9, 0.16, 2.9, -0.35, 1.08, 0.05, steel);
+            addBox(3.8, 0.76, 2.18, -0.72, 1.55, 0.12, glass);
+            addBox(4.35, 0.16, 2.7, -0.72, 1.98, 0.12, concreteDark);
+            addBox(1.55, 2.25, 1.75, 1.55, 1.42, -0.28, glass);
+            addBox(1.9, 0.18, 2.05, 1.55, 2.64, -0.28, concrete);
+            addBox(1.1, 0.58, 1.05, 1.65, 0.53, 1.12, warmGlass);
+            addBox(1.45, 0.12, 1.35, 1.65, 0.89, 1.12, accent);
+            addBox(1.4, 0.08, 2.4, -1.92, 1.18, 1.38, accent);
+            addBox(1.4, 0.08, 2.4, -1.92, 2.08, 1.38, accent);
+
+            for (let i = 0; i < 7; i++) {
+                addBox(0.045, 0.86, 0.08, -2.25 + i * 0.52, 1.55, 1.26, steel);
+            }
+            for (let i = 0; i < 4; i++) {
+                addBox(0.05, 1.9, 0.06, 1.05 + i * 0.34, 1.55, 0.66, steel);
+            }
+
+            const columnGeometry = new THREE.CylinderGeometry(0.045, 0.045, 1.6, 20);
+            [[-2.35, 0.95, 1.24], [-1.55, 0.95, 1.24], [0.6, 0.95, 1.24], [2.32, 0.95, 0.95]].forEach(([x, y, z]) => {
+                const column = new THREE.Mesh(columnGeometry, accent);
+                column.position.set(x, y, z);
+                column.castShadow = true;
+                building.add(column);
+            });
+
+            const pool = addBox(1.5, 0.035, 0.82, -2.05, 0.18, -1.45, new THREE.MeshStandardMaterial({ color: 0x0ea5e9, roughness: 0.08, metalness: 0.1 }));
+            pool.material.transparent = true;
+            pool.material.opacity = 0.72;
+
+            for (let i = 0; i < 10; i++) {
+                const shrub = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.42, 8), lawn);
+                shrub.position.set(-3.1 + i * 0.68, 0.3, -2.15 + (i % 2) * 0.25);
+                shrub.castShadow = true;
+                building.add(shrub);
+            }
+
+            const pathMaterial = new THREE.LineBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.72 });
+            const pathPoints = [
+                new THREE.Vector3(-3.2, 0.04, 2.2),
+                new THREE.Vector3(-1.2, 0.04, 1.7),
+                new THREE.Vector3(0.8, 0.04, 1.85),
+                new THREE.Vector3(2.7, 0.04, 1.25)
+            ];
+            const pathLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pathPoints), pathMaterial);
+            scene.add(pathLine);
+
+            let pointerX = 0;
+            let pointerY = 0;
+            stage.addEventListener("pointermove", function (event) {
+                const rect = stage.getBoundingClientRect();
+                pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+                pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+            });
+
+            function resizeRenderer() {
+                const rect = stage.getBoundingClientRect();
+                renderer.setSize(rect.width, rect.height, false);
+                camera.aspect = rect.width / Math.max(rect.height, 1);
+                camera.updateProjectionMatrix();
+            }
+
+            if ("ResizeObserver" in window) {
+                new ResizeObserver(resizeRenderer).observe(stage);
+            } else {
+                window.addEventListener("resize", resizeRenderer);
+            }
+            resizeRenderer();
+            if (fallback) fallback.style.opacity = "0";
+
+            const lookAt = new THREE.Vector3(0, 1.1, 0);
+            function animateVision(time) {
+                const seconds = time * 0.001;
+                building.rotation.y = seconds * 0.22 + pointerX * 0.25;
+                building.rotation.x = pointerY * 0.035;
+                building.position.y = Math.sin(seconds * 1.4) * 0.035;
+                accentLight.intensity = 16 + Math.sin(seconds * 2.2) * 3;
+                camera.lookAt(lookAt);
+                renderer.render(scene, camera);
+                requestAnimationFrame(animateVision);
+            }
+            requestAnimationFrame(animateVision);
+        })();
+    </script>
 
     <!-- Schedule Modal Script -->
     <script>
@@ -720,6 +1230,18 @@
         }
 
         renderCalendar();
+    </script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById("mobileMenu").classList.toggle("open");
+            document.getElementById("mobileOverlay").classList.toggle("open");
+        }
+        function closeMobileMenu() {
+            document.getElementById("mobileMenu").classList.remove("open");
+            document.getElementById("mobileOverlay").classList.remove("open");
+        }
     </script>
 
     <!-- Back to Top Script -->
