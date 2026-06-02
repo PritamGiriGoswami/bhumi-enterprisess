@@ -171,11 +171,11 @@
         }
         .back-to-top {
             position: fixed;
-            bottom: 32px;
-            right: 32px;
+            bottom: 22px;
+            right: 20px;
             z-index: 9997;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             background: #F59E0B;
             color: #0B1120;
             border: none;
@@ -188,7 +188,7 @@
             visibility: hidden;
             transform: translateY(12px);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 3px 12px rgba(245, 158, 11, 0.3);
         }
         .back-to-top.visible {
             opacity: 1;
@@ -198,59 +198,88 @@
         .back-to-top:hover {
             background: #FCD34D;
             transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+        .back-to-top .material-symbols-rounded {
+            font-size: 22px;
+        }
+        @media (max-width: 768px) {
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                bottom: 16px;
+                right: 16px;
+            }
+            .back-to-top .material-symbols-rounded {
+                font-size: 20px;
+            }
         }
         .social-floating {
             position: fixed;
-            left: 32px;
+            left: 20px;
             z-index: 9997;
-            width: 56px;
-            height: 56px;
+            width: 44px;
+            height: 44px;
             border: none;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.25);
             transition: all 0.3s ease;
             text-decoration: none;
         }
         .social-floating:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.35);
+        }
+        .social-floating svg {
+            width: 20px;
+            height: 20px;
         }
         .social-floating .floating-tooltip {
             position: absolute;
-            left: 66px;
+            left: 54px;
             background: white;
             color: #0B1120;
-            padding: 8px 14px;
+            padding: 6px 12px;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             white-space: nowrap;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            pointer-events: none;
         }
         .social-floating:hover .floating-tooltip {
             opacity: 1;
             visibility: visible;
         }
         .btn-whatsapp {
-            bottom: 96px;
+            bottom: 76px;
             background: #25D366;
             color: white;
         }
         .btn-instagram {
-            bottom: 32px;
+            bottom: 22px;
             background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737);
             color: white;
         }
         @media (max-width: 768px) {
-            .btn-whatsapp { bottom: 80px; }
-            .btn-instagram { bottom: 32px; }
+            .social-floating {
+                width: 40px;
+                height: 40px;
+                left: 16px;
+            }
+            .social-floating svg {
+                width: 18px;
+                height: 18px;
+            }
+            .btn-whatsapp { bottom: 68px; }
+            .btn-instagram { bottom: 20px; }
         }
         .gallery-filter-btn {
             padding: 8px 20px;
