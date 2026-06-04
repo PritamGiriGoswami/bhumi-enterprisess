@@ -1419,7 +1419,24 @@
             if (fallback) fallback.style.opacity = "0";
 
             const lookAt = new THREE.Vector3(0, 1.1, 0);
+            let animationId;
+            let isVisible = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    isVisible = entry.isIntersecting;
+                    if (isVisible) {
+                        animateVision(performance.now());
+                    } else if (animationId) {
+                        cancelAnimationFrame(animationId);
+                        animationId = null;
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(stage);
+
             function animateVision(time) {
+                if (!isVisible) return;
                 const seconds = time * 0.001;
                 building.rotation.y = seconds * 0.22 + pointerX * 0.25;
                 building.rotation.x = pointerY * 0.035;
@@ -1427,9 +1444,8 @@
                 accentLight.intensity = 16 + Math.sin(seconds * 2.2) * 3;
                 camera.lookAt(lookAt);
                 renderer.render(scene, camera);
-                requestAnimationFrame(animateVision);
+                animationId = requestAnimationFrame(animateVision);
             }
-            requestAnimationFrame(animateVision);
         })();
     </script>
 
@@ -1724,18 +1740,30 @@
         const cursorDot = document.querySelector("[data-cursor-dot]");
         const cursorOutline = document.querySelector("[data-cursor-outline]");
         
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let outlineX = mouseX;
+        let outlineY = mouseY;
+        
         window.addEventListener("mousemove", function (e) {
-            const posX = e.clientX;
-            const posY = e.clientY;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
             
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
         });
+
+        function animateCursor() {
+            // Smoothly ease the outline towards the mouse position
+            outlineX += (mouseX - outlineX) * 0.2;
+            outlineY += (mouseY - outlineY) * 0.2;
+            
+            cursorOutline.style.left = `${outlineX}px`;
+            cursorOutline.style.top = `${outlineY}px`;
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
 
         // Add hover effect for links and buttons
         const interactables = document.querySelectorAll("a, button");
