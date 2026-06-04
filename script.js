@@ -306,21 +306,21 @@
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x0b1120, 14, 30);
 
-    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(6.8, 4.3, 7.4);
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+    camera.position.set(7.5, 4.8, 8.5);
 
-    const hemiLight = new THREE.HemisphereLight(0xf8fafc, 0x0f172a, 1.4);
+    const hemiLight = new THREE.HemisphereLight(0xf8fafc, 0x0f172a, 1.6);
     scene.add(hemiLight);
 
-    const sunLight = new THREE.DirectionalLight(0xfcd34d, 2.7);
-    sunLight.position.set(5, 8, 6);
+    const sunLight = new THREE.DirectionalLight(0xfcd34d, 3.0);
+    sunLight.position.set(6, 10, 7);
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 1024;
     sunLight.shadow.mapSize.height = 1024;
     scene.add(sunLight);
 
-    const accentLight = new THREE.PointLight(0xf59e0b, 18, 12);
-    accentLight.position.set(-4, 2.2, 3.8);
+    const accentLight = new THREE.PointLight(0xdc2626, 16, 14);
+    accentLight.position.set(-4.5, 2.5, 4.2);
     scene.add(accentLight);
 
     const concrete = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.42, metalness: 0.08 });
@@ -361,45 +361,112 @@
       return mesh;
     }
 
-    addBox(5.6, 0.16, 3.8, 0, 0.12, 0, concreteDark);
-    addBox(4.5, 0.8, 2.5, -0.35, 0.62, 0.05, concrete);
-    addBox(4.9, 0.16, 2.9, -0.35, 1.08, 0.05, steel);
-    addBox(3.8, 0.76, 2.18, -0.72, 1.55, 0.12, glass);
-    addBox(4.35, 0.16, 2.7, -0.72, 1.98, 0.12, concreteDark);
-    addBox(1.55, 2.25, 1.75, 1.55, 1.42, -0.28, glass);
-    addBox(1.9, 0.18, 2.05, 1.55, 2.64, -0.28, concrete);
-    addBox(1.1, 0.58, 1.05, 1.65, 0.53, 1.12, warmGlass);
-    addBox(1.45, 0.12, 1.35, 1.65, 0.89, 1.12, accent);
-    addBox(1.4, 0.08, 2.4, -1.92, 1.18, 1.38, accent);
-    addBox(1.4, 0.08, 2.4, -1.92, 2.08, 1.38, accent);
-
-    for (let i = 0; i < 7; i++) addBox(0.045, 0.86, 0.08, -2.25 + i * 0.52, 1.55, 1.26, steel);
-    for (let i = 0; i < 4; i++) addBox(0.05, 1.9, 0.06, 1.05 + i * 0.34, 1.55, 0.66, steel);
-
-    const colGeom = new THREE.CylinderGeometry(0.045, 0.045, 1.6, 20);
-    [[-2.35, 0.95, 1.24], [-1.55, 0.95, 1.24], [0.6, 0.95, 1.24], [2.32, 0.95, 0.95]].forEach(([x, y, z]) => {
-      const col = new THREE.Mesh(colGeom, accent);
-      col.position.set(x, y, z);
-      col.castShadow = true;
-      building.add(col);
-    });
-
-    const poolMat = new THREE.MeshStandardMaterial({ color: 0x0ea5e9, roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.72 });
-    addBox(1.5, 0.035, 0.82, -2.05, 0.18, -1.45, poolMat);
-
-    for (let i = 0; i < 10; i++) {
-      const shrub = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.42, 8), lawn);
-      shrub.position.set(-3.1 + i * 0.68, 0.3, -2.15 + (i % 2) * 0.25);
-      shrub.castShadow = true;
-      building.add(shrub);
+    function addCyl(rt, rb, h, x, y, z, mat, seg) {
+      const mesh = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg || 12), mat);
+      mesh.position.set(x, y, z);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      building.add(mesh);
+      return mesh;
     }
 
-    const pathMat = new THREE.LineBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.72 });
+    // === MODERN LUXURY VILLA ===
+
+    // Ground platform
+    addBox(7.2, 0.12, 5.2, 0, 0.08, 0, concreteDark);
+
+    // Main ground floor body
+    addBox(5.6, 0.9, 3.8, -0.2, 0.58, 0.05, concrete);
+
+    // Upper floor (slightly set back)
+    addBox(4.8, 0.85, 3.2, 0.15, 1.5, 0.1, concrete);
+
+    // Roof slab (floating effect)
+    addBox(5.8, 0.1, 4.0, -0.2, 2.5, 0.05, concreteDark);
+    addBox(5.0, 0.08, 3.4, 0.15, 2.52, 0.1, steel);
+
+    // === GLASS WALLS ===
+
+    // Ground floor front glass
+    addBox(3.2, 0.8, 0.06, -0.1, 0.62, 1.9, glass);
+    // Ground floor side glass
+    addBox(0.06, 0.8, 1.6, -2.9, 0.62, 0.1, glass);
+    // Upper floor front glass
+    addBox(2.8, 0.76, 0.06, 0.25, 1.52, 1.65, glass);
+    // Upper floor side glass tower
+    addBox(0.06, 1.6, 1.4, 2.5, 1.48, 0.15, glass);
+
+    // === WARM GLASS ACCENT (light glow) ===
+    addBox(0.9, 0.5, 0.9, -2.1, 0.5, 1.35, warmGlass);
+    addBox(0.9, 0.5, 0.9, -2.1, 1.35, 1.35, warmGlass);
+
+    // === ENTRY CANOPY ===
+    addBox(2.0, 0.06, 1.8, -2.2, 0.58, 2.4, accent);
+    addCyl(0.04, 0.04, 0.6, -3.15, 0.32, 2.35, accent);
+    addCyl(0.04, 0.04, 0.6, -1.25, 0.32, 2.35, accent);
+
+    // === TOWER / STAIRCASE FEATURE ===
+    addBox(1.2, 1.9, 1.2, 2.4, 1.08, -0.8, steel);
+    addBox(1.1, 1.8, 1.1, 2.4, 1.03, -0.8, glass);
+
+    // === CARPORT ===
+    addBox(2.4, 0.06, 1.6, -0.4, 0.78, -1.8, accent);
+    addCyl(0.035, 0.035, 0.8, -1.55, 0.42, -1.8, steel);
+    addCyl(0.035, 0.035, 0.8, 0.75, 0.42, -1.8, steel);
+
+    // === TERRACE RAILING ===
+    for (let i = 0; i < 8; i++) addBox(0.035, 0.12, 0.035, -2.9 + i * 0.65, 2.05, 1.95, steel);
+    for (let i = 0; i < 6; i++) addBox(0.035, 0.12, 0.035, 0.6 + i * 0.45, 2.05, 1.95, steel);
+
+    // === SWIMMING POOL ===
+    const poolMat = new THREE.MeshStandardMaterial({ color: 0x0ea5e9, roughness: 0.06, metalness: 0.1, transparent: true, opacity: 0.7 });
+    addBox(1.8, 0.03, 1.0, -2.6, 0.12, -1.2, poolMat);
+    addBox(0.06, 0.1, 1.0, -3.53, 0.15, -1.2, concrete);
+    addBox(0.06, 0.1, 1.0, -1.67, 0.15, -1.2, concrete);
+    addBox(1.8, 0.1, 0.06, -2.6, 0.15, -0.68, concrete);
+    addBox(1.8, 0.1, 0.06, -2.6, 0.15, -1.72, concrete);
+
+    // === DECK / PATIO ===
+    addBox(0.08, 0.04, 1.0, -1.0, 0.06, -0.2, accent);
+    addBox(0.08, 0.04, 1.0, -1.0, 0.06, 0.7, accent);
+
+    // === LANDSCAPING: SHRUBS ===
+    const shrubs = [
+      [-3.6, 0.3, -2.5], [ -2.8, 0.3, -2.7], [ -1.0, 0.3, -2.5],
+      [ 0.8, 0.3, -2.3], [ 2.2, 0.3, -2.0], [ 3.0, 0.3, -1.5],
+      [-3.4, 0.3, 2.8], [ -2.0, 0.3, 2.7], [ 3.0, 0.3, 2.5],
+      [ 3.6, 0.3, 2.0], [ 3.8, 0.3, 0.5], [ 3.8, 0.3, -0.8],
+    ];
+    shrubs.forEach(([x, y, z]) => {
+      const s = new THREE.Mesh(new THREE.ConeGeometry(0.18, 0.45, 8), lawn);
+      s.position.set(x, y, z);
+      s.castShadow = true;
+      building.add(s);
+    });
+
+    // === TREES ===
+    const trunkMat = new THREE.MeshStandardMaterial({ color: 0x451a03, roughness: 0.9 });
+    const leafMat = new THREE.MeshStandardMaterial({ color: 0x065f46, roughness: 0.8 });
+    const treePositions = [[-3.2, 0.2, -2.9], [2.8, 0.2, -2.7], [-3.0, 0.2, 3.1], [3.5, 0.2, 2.8]];
+    treePositions.forEach(([x, y, z]) => {
+      const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.7, 8), trunkMat);
+      trunk.position.set(x, y + 0.35, z);
+      trunk.castShadow = true;
+      building.add(trunk);
+      const leaf = new THREE.Mesh(new THREE.SphereGeometry(0.28, 8, 8), leafMat);
+      leaf.position.set(x, y + 0.85, z);
+      leaf.castShadow = true;
+      building.add(leaf);
+    });
+
+    // === WALKWAY ===
+    const pathMat = new THREE.LineBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.7 });
     const pathPts = [
-      new THREE.Vector3(-3.2, 0.04, 2.2),
-      new THREE.Vector3(-1.2, 0.04, 1.7),
-      new THREE.Vector3(0.8, 0.04, 1.85),
-      new THREE.Vector3(2.7, 0.04, 1.25),
+      new THREE.Vector3(-2.6, 0.04, 2.15),
+      new THREE.Vector3(-1.8, 0.04, 2.0),
+      new THREE.Vector3(-0.6, 0.04, 2.2),
+      new THREE.Vector3(0.8, 0.04, 2.0),
+      new THREE.Vector3(2.4, 0.04, 1.8),
     ];
     scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pathPts), pathMat));
 
@@ -429,7 +496,7 @@
     const fallback = document.getElementById('visionFallback');
     if (fallback) fallback.style.opacity = '0';
 
-    const lookAt = new THREE.Vector3(0, 1.1, 0);
+    const lookAt = new THREE.Vector3(0.1, 1.2, 0);
     let animId;
     let isVisible = false;
 
