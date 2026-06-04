@@ -742,6 +742,7 @@
 
   // ===================== AI CURSOR =====================
   (function initAICursor() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
     const cursor = document.createElement('div');
     cursor.className = 'ai-cursor';
     const dot = document.createElement('div');

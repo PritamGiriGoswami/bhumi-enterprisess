@@ -1660,3 +1660,12 @@ button:hover ~ .ai-cursor-dot,
   height: 6px;
   background: var(--gold-light);
 }
+
+@media (pointer: coarse) {
+  .ai-cursor, .ai-cursor-dot {
+    display: none !important;
+  }
+  body {
+    cursor: auto;
+  }
+}
