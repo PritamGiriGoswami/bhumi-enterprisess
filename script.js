@@ -673,6 +673,50 @@
     });
   }
 
+  // ===================== AI CURSOR =====================
+  (function initAICursor() {
+    const cursor = document.createElement('div');
+    cursor.className = 'ai-cursor';
+    const dot = document.createElement('div');
+    dot.className = 'ai-cursor-dot';
+    document.body.appendChild(cursor);
+    document.body.appendChild(dot);
+
+    let mx = window.innerWidth / 2;
+    let my = window.innerHeight / 2;
+    let cx = mx;
+    let cy = my;
+
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+      const target = e.target;
+      const isHover = target.closest('a, button, .ripple, .filter-btn, .card-link, .chatbot-toggle, .back-to-top, .social-float');
+      cursor.classList.toggle('hover', !!isHover);
+      dot.classList.toggle('hover', !!isHover);
+    });
+
+    function animateCursor() {
+      cx += (mx - cx) * 0.15;
+      cy += (my - cy) * 0.15;
+      cursor.style.left = cx + 'px';
+      cursor.style.top = cy + 'px';
+      dot.style.left = mx + 'px';
+      dot.style.top = my + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0';
+      dot.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      cursor.style.opacity = '1';
+      dot.style.opacity = '1';
+    });
+  })();
+
   console.log('%c Bhumi Enterprises ', 'background:#dc2626;color:#ffffff;font-size:20px;font-weight:bold;padding:8px 12px;border-radius:6px;');
   console.log('%c AI-Powered Structural Design Platform ', 'font-size:14px;color:#94a3b8;');
   console.log('%c Press Ctrl+K to open AI Assistant ', 'font-size:12px;color:#64748b;');

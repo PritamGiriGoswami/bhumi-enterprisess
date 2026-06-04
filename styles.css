@@ -50,10 +50,7 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   transition: background var(--transition-slow), color var(--transition-slow);
-  cursor: grab;
-}
-body:active {
-  cursor: grabbing;
+  cursor: none;
 }
 
 img {
@@ -1616,4 +1613,48 @@ button, input, textarea, select {
 @media (max-width: 480px) {
   .section-pad { padding: 60px 0; }
   .section-grid { width: calc(100% - 32px); }
+}
+
+/* ============================================
+   AI CURSOR
+   ============================================ */
+.ai-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(220, 38, 38, 0.25), transparent 70%);
+  border: 1.5px solid rgba(220, 38, 38, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, border-color 0.2s;
+  will-change: transform, left, top;
+}
+.ai-cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  transform: translate(-50%, -50%);
+  transition: width 0.15s, height 0.15s, background 0.15s;
+  will-change: transform, left, top;
+  box-shadow: 0 0 8px var(--gold), 0 0 20px rgba(220, 38, 38, 0.3);
+}
+a:hover ~ .ai-cursor,
+button:hover ~ .ai-cursor,
+.ai-cursor.hover {
+  width: 48px;
+  height: 48px;
+  border-color: var(--gold);
+}
+a:hover ~ .ai-cursor-dot,
+button:hover ~ .ai-cursor-dot,
+.ai-cursor-dot.hover {
+  width: 6px;
+  height: 6px;
+  background: var(--gold-light);
 }
