@@ -29,39 +29,7 @@ html {
   --shadow-lg: 0 12px 48px rgba(15, 23, 42, 0.12);
 }
 
-html.dark {
-  --surface: #0a0e1a;
-  --surface-low: #111827;
-  --surface-mid: #1e293b;
-  --surface-high: #334155;
-  --text: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --muted: #64748b;
-  --line: #1e293b;
-  --primary: #f1f5f9;
-  --primary-soft: #cbd5e1;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.5);
-}
 
-@media (prefers-color-scheme: dark) {
-  html:not(.dark):not(.light) {
-    --surface: #0a0e1a;
-    --surface-low: #111827;
-    --surface-mid: #1e293b;
-    --surface-high: #334155;
-    --text: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --muted: #64748b;
-    --line: #1e293b;
-    --primary: #f1f5f9;
-    --primary-soft: #cbd5e1;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.5);
-  }
-}
 
 *, *::before, *::after {
   box-sizing: border-box;

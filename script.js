@@ -34,10 +34,7 @@
     }
   }, { passive: true });
 
-  // Dark mode follows system preference only
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.classList.add('dark');
-  }
+  // Always light mode
 
   // ===================== MOBILE MENU =====================
   const menuToggle = document.getElementById('menuToggle');
