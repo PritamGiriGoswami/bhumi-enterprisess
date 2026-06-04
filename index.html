@@ -1,1828 +1,616 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhumi Enterprises | Premium Structural Design</title>
-    <meta name="description" content="Bhumi Enterprises offers premium architectural excellence and structural design.">
-    <link rel="icon" type="image/png" href="./images/bhumi-icon.png">
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preload" href="./images/hero_bg.png" as="image" fetchpriority="high">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" media="print" onload="this.media='all'" />
-    <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
-    </noscript>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            dark: '#0B1120',
-                            primary: '#1E293B',
-                            accent: '#F59E0B',
-                            light: '#F8FAFC'
-                        }
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 1s ease-out',
-                        'float': 'float 6s ease-in-out infinite',
-                        'fade-in-left': 'fadeInLeft 0.8s ease-out',
-                        'fade-in-right': 'fadeInRight 0.8s ease-out',
-                        'scale-in': 'scaleIn 0.7s ease-out',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        fadeInLeft: {
-                            '0%': { opacity: '0', transform: 'translateX(-40px)' },
-                            '100%': { opacity: '1', transform: 'translateX(0)' },
-                        },
-                        fadeInRight: {
-                            '0%': { opacity: '0', transform: 'translateX(40px)' },
-                            '100%': { opacity: '1', transform: 'translateX(0)' },
-                        },
-                        scaleIn: {
-                            '0%': { opacity: '0', transform: 'scale(0.9)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .glass-nav {
-            background: rgba(11, 17, 32, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .hero-gradient {
-            background: linear-gradient(135deg, rgba(11, 17, 32, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%);
-        }
-        .text-gradient {
-            background: linear-gradient(to right, #F59E0B, #FCD34D);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhumi Enterprises | AI-Powered Structural Design</title>
+  <meta name="description" content="Bhumi Enterprises delivers AI-powered architectural excellence and precision structural design." />
+  <link rel="icon" type="image/png" href="./images/bhumi-icon.png" />
 
-        /* Schedule Modal Styles */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 99990;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-        }
-        .modal-overlay.active { display: block; }
-        .schedule-modal {
-            display: none;
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 99991;
-            background: #0B1120;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            padding: 32px;
-            width: 90%;
-            max-width: 520px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-        }
-        .schedule-modal.active { display: block; }
-        .schedule-modal::-webkit-scrollbar { width: 6px; }
-        .schedule-modal::-webkit-scrollbar-track { background: transparent; }
-        .schedule-modal::-webkit-scrollbar-thumb { background: rgba(245,158,11,0.3); border-radius: 3px; }
-        .cal-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-            text-align: center;
-        }
-        .cal-day {
-            padding: 8px 4px;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #cbd5e1;
-        }
-        .cal-day:hover { background: rgba(245,158,11,0.15); color: #F59E0B; }
-        .cal-day.selected { background: #F59E0B; color: #0B1120; font-weight: 700; }
-        .cal-day.disabled { opacity: 0.2; pointer-events: none; }
-        .cal-day.other-month { opacity: 0.3; }
-        .cal-day-header { font-weight: 600; color: #64748b; font-size: 12px; padding: 8px 0; }
-        .time-slot {
-            padding: 10px 16px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 14px;
-            color: #cbd5e1;
-            text-align: center;
-        }
-        .time-slot:hover { border-color: rgba(245,158,11,0.4); color: #F59E0B; }
-        .time-slot.selected { background: #F59E0B; color: #0B1120; border-color: #F59E0B; font-weight: 600; }
-        .modal-input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            font-size: 15px;
-            outline: none;
-            transition: all 0.2s;
-        }
-        .modal-input:focus { border-color: #F59E0B; box-shadow: 0 0 0 3px rgba(245,158,11,0.15); }
-        .modal-input::placeholder { color: #64748b; }
-        .modal-input option { background: #0B1120; color: #cbd5e1; }
-        select.modal-input { appearance: auto; }
-        .confirmation-view { display: none; }
-        .confirmation-view.active { display: block; }
-        .step-view { display: block; }
-        .step-view.hidden { display: none; }
-
-        /* AI Cursor Styles */
-        body { cursor: none; }
-        a, button, [role="button"] { cursor: none; }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #F59E0B;
-            position: fixed;
-            top: 0; left: 0;
-            border-radius: 50%;
-            z-index: 99999;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s;
-        }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(245, 158, 11, 0.5);
-            position: fixed;
-            top: 0; left: 0;
-            border-radius: 50%;
-            z-index: 99998;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
-            transition: width 0.2s, height 0.2s;
-        }
-        .back-to-top {
-            position: fixed;
-            bottom: 22px;
-            right: 20px;
-            z-index: 9997;
-            width: 44px;
-            height: 44px;
-            background: #F59E0B;
-            color: #0B1120;
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(12px);
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 12px rgba(245, 158, 11, 0.3);
-        }
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .back-to-top:hover {
-            background: #FCD34D;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
-        }
-        .back-to-top .material-symbols-rounded {
-            font-size: 22px;
-        }
-        @media (max-width: 768px) {
-            .back-to-top {
-                width: 40px;
-                height: 40px;
-                bottom: 16px;
-                right: 16px;
-            }
-            .back-to-top .material-symbols-rounded {
-                font-size: 20px;
-            }
-        }
-        .social-floating {
-            position: fixed;
-            left: 20px;
-            z-index: 9997;
-            width: 44px;
-            height: 44px;
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.25);
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        .social-floating:hover {
-            transform: scale(1.15);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.35);
-        }
-        .social-floating svg {
-            width: 20px;
-            height: 20px;
-        }
-        .social-floating .floating-tooltip {
-            position: absolute;
-            left: 54px;
-            background: white;
-            color: #0B1120;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            pointer-events: none;
-        }
-        .social-floating:hover .floating-tooltip {
-            opacity: 1;
-            visibility: visible;
-        }
-        .btn-whatsapp {
-            bottom: 76px;
-            background: #25D366;
-            color: white;
-        }
-        .btn-instagram {
-            bottom: 22px;
-            background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737);
-            color: white;
-        }
-        @media (max-width: 768px) {
-            .social-floating {
-                width: 40px;
-                height: 40px;
-                left: 16px;
-            }
-            .social-floating svg {
-                width: 18px;
-                height: 18px;
-            }
-            .btn-whatsapp { bottom: 68px; }
-            .btn-instagram { bottom: 20px; }
-        }
-        .gallery-filter-btn {
-            padding: 8px 20px;
-            border-radius: 9999px;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: 1px solid rgba(15, 23, 42, 0.15);
-            background: white;
-            color: #1E293B;
-            font-size: 14px;
-        }
-        .gallery-filter-btn.active {
-            background: #F59E0B;
-            border-color: #F59E0B;
-            color: #0B1120;
-        }
-        .gallery-filter-btn:hover:not(.active) {
-            border-color: #F59E0B;
-            color: #F59E0B;
-        }
-        .gallery-item {
-            transition: all 0.4s ease;
-        }
-        .gallery-item.hidden {
-            display: none;
-        }
-        .service-action {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #0B1120;
-            font-weight: 800;
-            font-family: Outfit, sans-serif;
-            transition: color 0.2s ease, transform 0.2s ease;
-        }
-        .service-action:hover {
-            color: #F59E0B;
-            transform: translateX(3px);
-        }
-        .blueprint-surface {
-            background-color: #F8FAFC;
-            background-image:
-                linear-gradient(rgba(30, 41, 59, 0.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(30, 41, 59, 0.06) 1px, transparent 1px);
-            background-size: 28px 28px;
-        }
-        .mapping-card {
-            overflow: hidden;
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            border-radius: 8px;
-            background: white;
-            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.07);
-        }
-        .mapping-card img,
-        .vision-card img {
-            transition: transform 0.7s ease;
-        }
-        .mapping-card:hover img,
-        .vision-card:hover img {
-            transform: scale(1.05);
-        }
-        .vision-stage {
-            min-height: 650px;
-            background: #0B1120;
-            isolation: isolate;
-        }
-        #visionCanvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-        .vision-metric {
-            border-left: 2px solid #F59E0B;
-            padding-left: 14px;
-        }
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 280px;
-            height: 100vh;
-            background: #0B1120;
-            border-left: 1px solid rgba(255,255,255,0.1);
-            z-index: 99996;
-            padding: 24px;
-            transition: right 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-        .mobile-menu.open {
-            right: 0;
-        }
-        .mobile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 99995;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .mobile-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-        .hamburger-btn {
-            background: none;
-            border: none;
-            color: white;
-            padding: 8px;
-            cursor: pointer;
-            display: none;
-        }
-        @media (max-width: 768px) {
-            body,
-            a,
-            button,
-            [role="button"] {
-                cursor: auto;
-            }
-            .cursor-dot,
-            .cursor-outline {
-                display: none;
-            }
-            .vision-stage {
-                min-height: 760px;
-            }
-            .nav-desktop-links {
-                display: none !important;
-            }
-            .nav-desktop-buttons {
-                display: none !important;
-            }
-            .hamburger-btn {
-                display: block;
-            }
-            .hero-quick-info {
-                font-size: 12px;
-                padding: 10px 16px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .hero-quick-info .separator {
-                display: none;
-            }
-            .hero-quick-info .block-mobile {
-                display: block;
-                width: 100%;
-                text-align: center;
-            }
-        }
-
-        /* Scroll Reveal Animations */
-        .reveal {
-            opacity: 0;
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            will-change: opacity, transform;
-        }
-        .reveal.visible {
-            opacity: 1;
-        }
-        .reveal-up {
-            transform: translateY(40px);
-        }
-        .reveal-up.visible {
-            transform: translateY(0);
-        }
-        .reveal-left {
-            transform: translateX(-50px);
-        }
-        .reveal-left.visible {
-            transform: translateX(0);
-        }
-        .reveal-right {
-            transform: translateX(50px);
-        }
-        .reveal-right.visible {
-            transform: translateX(0);
-        }
-        .reveal-scale {
-            transform: scale(0.9);
-        }
-        .reveal-scale.visible {
-            transform: scale(1);
-        }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
-        .reveal-delay-5 { transition-delay: 0.5s; }
-    </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0,0" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-brand-light text-brand-primary font-sans antialiased overflow-x-hidden">
+<body>
 
-    <!-- AI Animated Cursor -->
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-    <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="back-to-top" id="backToTop" aria-label="Back to top">
-        <span class="material-symbols-rounded">arrow_upward</span>
-    </button>
+  <!-- ========== PRELOADER ========== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-ring"></div>
+    <div class="preloader-logo">BE</div>
+  </div>
 
-    <!-- Floating Social Buttons -->
-    <a href="https://wa.me/919950608995?text=Hi%20Bhumi%20Enterprises!%20I%27m%20interested%20in%20your%20construction%20design%20services." target="_blank" class="social-floating btn-whatsapp" aria-label="Chat on WhatsApp">
-        <span class="floating-tooltip">Chat on WhatsApp</span>
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <!-- ========== PROGRESS BAR ========== -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ========== LIGHTBOX ========== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img id="lightboxImg" src="" alt="Gallery preview" />
+  </div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <header class="site-header" id="siteHeader">
+    <a href="#" class="brand" aria-label="Bhumi Enterprises home">
+      <span class="brand-mark">BE</span>
+      <span>Bhumi Enterprises</span>
     </a>
-    <a href="https://www.instagram.com/bhumienterprises71?igsh=MTE0cGxmbjYyN2VkNQ==" target="_blank" class="social-floating btn-instagram" aria-label="Follow on Instagram">
-        <span class="floating-tooltip">Follow on Instagram</span>
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-    </a>
 
-    <!-- Mobile Overlay -->
-    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="flex items-center justify-between mb-4">
-            <span class="font-heading font-bold text-lg text-white">Menu</span>
-            <button onclick="closeMobileMenu()" class="text-gray-400 hover:text-white transition-colors p-1">
-                <span class="material-symbols-rounded text-2xl">close</span>
-            </button>
-        </div>
-        <a href="#portfolio-gallery" onclick="closeMobileMenu()" class="text-gray-300 hover:text-brand-accent transition-colors font-medium text-lg py-2 border-b border-white/5">Portfolio</a>
-        <a href="#services" onclick="closeMobileMenu()" class="text-gray-300 hover:text-brand-accent transition-colors font-medium text-lg py-2 border-b border-white/5">Services</a>
-        <a href="#testimonials" onclick="closeMobileMenu()" class="text-gray-300 hover:text-brand-accent transition-colors font-medium text-lg py-2 border-b border-white/5">Testimonials</a>
-        <a href="#engineers" onclick="closeMobileMenu()" class="text-gray-300 hover:text-brand-accent transition-colors font-medium text-lg py-2 border-b border-white/5">About</a>
-        <a href="#contact-form" onclick="closeMobileMenu()" class="text-gray-300 hover:text-brand-accent transition-colors font-medium text-lg py-2 border-b border-white/5">Contact</a>
-        <div class="mt-auto space-y-3 pt-4 border-t border-white/10">
-            <a href="tel:+919950608995" class="flex items-center justify-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-4 py-3 rounded-xl font-bold transition-all w-full">
-                <span class="material-symbols-rounded text-[18px]">call</span>
-                Chirag: 9950608995
-            </a>
-            <a href="tel:+919983027512" class="flex items-center justify-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-4 py-3 rounded-xl font-bold transition-all w-full">
-                <span class="material-symbols-rounded text-[18px]">call</span>
-                Hitesh: 9983027512
-            </a>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center gap-3 cursor-pointer group">
-                    <img src="./images/bhumi-icon.png" alt="Bhumi Enterprises logo" class="h-10 w-10 md:h-14 md:w-14 object-contain group-hover:scale-105 transition-transform">
-                    <span class="font-heading font-bold text-base md:text-2xl tracking-tight text-white uppercase">BHUMI ENTERPRISESS</span>
-                </div>
-                
-                <div class="nav-desktop-links hidden md:flex items-center space-x-8">
-                    <a href="#portfolio-gallery" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">Portfolio</a>
-                    <a href="#services" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">Services</a>
-                    <a href="#testimonials" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">Testimonials</a>
-                    <a href="#engineers" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">About</a>
-                    <a href="#contact-form" class="text-gray-300 hover:text-brand-accent transition-colors font-medium">Contact</a>
-                </div>
-
-                <div class="nav-desktop-buttons flex items-center gap-3">
-                    <button class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-                        <span class="material-symbols-rounded text-3xl">menu</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+    <nav class="desktop-nav">
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#process">Process</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#engineers">Team</a>
+      <a href="#contact">Contact</a>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center pt-20">
-        <!-- Background Image -->
-        <div class="absolute inset-0 z-0">
-            <img src="./images/hero_bg.png" alt="Premium Modern Architecture" class="w-full h-full object-cover" fetchpriority="high">
-        </div>
-        <!-- Gradient Overlay -->
-        <div class="absolute inset-0 z-10 hero-gradient"></div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+        <span class="material-symbols-rounded" id="themeIcon">light_mode</span>
+      </button>
+      <a href="tel:+919950608995" class="nav-btn">
+        <span class="material-symbols-rounded" style="font-size:18px;">call</span>
+        <span>Call Now</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span>
+      </button>
+    </div>
+  </header>
 
-        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-fade-in-up">
-            <h1 class="font-heading text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
-                Architectural <span class="text-gradient">Excellence</span><br>
-                For Modern Living.
-            </h1>
-            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
-                Bhumi Enterprises delivers state-of-the-art structural design and construction mapping. We turn your visionary blueprints into monumental reality.
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="tel:+919950608995" class="w-full sm:w-auto bg-brand-accent hover:bg-yellow-400 text-brand-dark px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:shadow-[0_0_30px_rgba(245,158,11,0.5)] transform hover:-translate-y-1 flex items-center justify-center gap-2">
-                    <span class="material-symbols-rounded">engineering</span>
-                    Contact Builder Today
-                </a>
-                <button onclick="openScheduleModal()" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white backdrop-blur-md px-8 py-4 rounded-full font-bold text-lg transition-all border border-white/20 hover:border-white/40 flex items-center justify-center gap-2 transform hover:-translate-y-1">
-                    <span class="material-symbols-rounded">calendar_month</span>
-                    Schedule Meeting
-                </button>
-            </div>
-            
-            <!-- Contact Quick Info -->
-            <div class="hero-quick-info mt-16 inline-flex items-center gap-2 md:gap-3 bg-brand-dark/50 backdrop-blur-md border border-white/10 rounded-full py-2.5 md:py-3 px-4 md:px-6 animate-float">
-                <span class="relative flex h-2 w-2 md:h-3 md:w-3 flex-shrink-0">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 md:h-3 md:w-3 bg-green-500"></span>
-                </span>
-                <span class="text-gray-300 font-medium text-xs md:text-sm">Available for new projects.</span>
-                <span class="text-gray-300 font-medium text-xs md:text-sm whitespace-nowrap"><span class="text-white font-bold">Chirag:</span> 9950608995</span>
-                <span class="text-gray-600 hidden sm:inline">|</span>
-                <span class="text-gray-300 font-medium text-xs md:text-sm whitespace-nowrap"><span class="text-white font-bold">Hitesh:</span> 9983027512</span>
-            </div>
-        </div>
-    </section>
+  <!-- Mobile Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:18px;">Menu</span>
+      <button class="chatbot-close" id="drawerClose" style="position:static;">&times;</button>
+    </div>
+    <a href="#services"><span class="material-symbols-rounded">precision_manufacturing</span> Services</a>
+    <a href="#portfolio"><span class="material-symbols-rounded">folder</span> Portfolio</a>
+    <a href="#process"><span class="material-symbols-rounded">route</span> Process</a>
+    <a href="#testimonials"><span class="material-symbols-rounded">reviews</span> Testimonials</a>
+    <a href="#engineers"><span class="material-symbols-rounded">groups</span> Team</a>
+    <a href="#contact"><span class="material-symbols-rounded">mail</span> Contact</a>
+  </aside>
 
-    <!-- Services Overview -->
-    <section id="services" class="py-24 bg-brand-light relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-reveal="up">
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Our Expertise</h2>
-                <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div data-reveal="up" data-reveal-delay="1" class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group">
-                    <div class="w-14 h-14 bg-brand-dark text-brand-accent rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors">
-                        <span class="material-symbols-rounded text-3xl">domain</span>
-                    </div>
-                    <h3 class="font-heading text-2xl font-bold text-brand-dark mb-3">Structural System</h3>
-                    <p class="text-gray-600 leading-relaxed mb-6">Robust and durable structural designs tailored for commercial and residential massive-scale projects.</p>
-                    <a href="#quality" class="service-action">
-                        View quality process
-                        <span class="material-symbols-rounded text-[20px]">arrow_forward</span>
-                    </a>
-                </div>
-                
-                <!-- Service 2 -->
-                <div data-reveal="up" data-reveal-delay="2" class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group">
-                    <div class="w-14 h-14 bg-brand-dark text-brand-accent rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors">
-                        <span class="material-symbols-rounded text-3xl">home_work</span>
-                    </div>
-                    <h3 class="font-heading text-2xl font-bold text-brand-dark mb-3">House Mapping</h3>
-                    <p class="text-gray-600 leading-relaxed mb-6">Precision blueprints and architectural mapping that maximize space utilization and aesthetic appeal.</p>
-                    <a href="#mapping-gallery" class="service-action">
-                        View mapping work
-                        <span class="material-symbols-rounded text-[20px]">arrow_forward</span>
-                    </a>
-                </div>
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <canvas id="heroCanvas"></canvas>
+    <div class="hero-overlay"></div>
 
-                <!-- Service 3 -->
-                <div data-reveal="up" data-reveal-delay="3" class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group">
-                    <div class="w-14 h-14 bg-brand-dark text-brand-accent rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-accent group-hover:text-brand-dark transition-colors">
-                        <span class="material-symbols-rounded text-3xl">view_in_ar</span>
-                    </div>
-                    <h3 class="font-heading text-2xl font-bold text-brand-dark mb-3">3D Vision Animation</h3>
-                    <p class="text-gray-600 leading-relaxed mb-6">Immersive 3D renderings and animations bringing your conceptual structures to life before construction begins.</p>
-                    <a href="#vision-animation" class="service-action">
-                        Open 3D preview
-                        <span class="material-symbols-rounded text-[20px]">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- House Mapping Gallery -->
-    <section id="mapping-gallery" class="py-24 blueprint-surface relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12" data-reveal="left">
-                <div class="max-w-2xl">
-                    <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Architectural Mapping</p>
-                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Blueprints That Move Projects Forward</h2>
-                    <p class="text-gray-600 text-lg leading-relaxed">From compact house plans to villa layouts and site planning, our mapping package gives every room, setback, opening, and utility path a clear construction-ready reference.</p>
-                </div>
-                <button onclick="openScheduleModal()" class="bg-brand-dark hover:bg-slate-800 text-white px-7 py-3.5 rounded-lg font-bold transition-all inline-flex items-center justify-center gap-2 w-full sm:w-auto">
-                    <span class="material-symbols-rounded">architecture</span>
-                    Request Mapping Visit
-                </button>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <article class="mapping-card lg:col-span-7" data-reveal="up" data-reveal-delay="1">
-                    <div class="aspect-[16/10] overflow-hidden">
-                        <img src="./images/mapping-grand-horizon.jpg" alt="Detailed luxury residence blueprint with room layout and site markings" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                    </div>
-                    <div class="p-6 md:p-8">
-                        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                            <div>
-                                <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Luxury Residence</p>
-                                <h3 class="font-heading text-2xl md:text-3xl font-bold text-brand-dark">Grand Horizon Estate</h3>
-                                <p class="text-gray-600 mt-3 leading-relaxed">A complete residential map with room planning, structural notes, circulation flow, and working dimensions for on-site execution.</p>
-                            </div>
-                            <div class="text-left sm:text-right flex-shrink-0">
-                                <p class="font-heading text-2xl font-bold text-brand-dark">7,500 sq ft</p>
-                                <p class="text-gray-500 text-sm">Residence Mapping</p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
-                    <article class="mapping-card" data-reveal="right" data-reveal-delay="1">
-                        <div class="aspect-[16/9] overflow-hidden">
-                            <img src="./images/mapping-urban-grid.jpg" alt="Urban site mapping plan with lot divisions and utility paths" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                        </div>
-                        <div class="p-6">
-                            <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Site Planning</p>
-                            <h3 class="font-heading text-xl font-bold text-brand-dark">Urban Loft Grid</h3>
-                            <p class="text-gray-600 mt-2 text-sm leading-relaxed">Plot planning, access routes, service lines, and building footprint alignment.</p>
-                        </div>
-                    </article>
-
-                    <article class="mapping-card" data-reveal="right" data-reveal-delay="2">
-                        <div class="aspect-[16/9] overflow-hidden">
-                            <img src="./images/mapping-glass-pavilion.jpg" alt="Digital floor plan for a modern villa with indoor outdoor flow" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                        </div>
-                        <div class="p-6">
-                            <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Modern Villa</p>
-                            <h3 class="font-heading text-xl font-bold text-brand-dark">Glass Pavilion</h3>
-                            <p class="text-gray-600 mt-2 text-sm leading-relaxed">Floor plan refinement with ventilation, natural light, and practical room zoning.</p>
-                        </div>
-                    </article>
-                </div>
-            </div>
-
-            <div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4" data-reveal="up">
-                <div class="bg-white border border-gray-100 rounded-lg p-5">
-                    <span class="material-symbols-rounded text-brand-accent mb-3">straighten</span>
-                    <p class="font-heading font-bold text-brand-dark">Site Measurement</p>
-                    <p class="text-gray-500 text-sm mt-1">Accurate room and plot dimensions</p>
-                </div>
-                <div class="bg-white border border-gray-100 rounded-lg p-5">
-                    <span class="material-symbols-rounded text-brand-accent mb-3">grid_view</span>
-                    <p class="font-heading font-bold text-brand-dark">Space Planning</p>
-                    <p class="text-gray-500 text-sm mt-1">Better flow for daily use</p>
-                </div>
-                <div class="bg-white border border-gray-100 rounded-lg p-5">
-                    <span class="material-symbols-rounded text-brand-accent mb-3">fact_check</span>
-                    <p class="font-heading font-bold text-brand-dark">Working Drawings</p>
-                    <p class="text-gray-500 text-sm mt-1">Clear drawings for execution</p>
-                </div>
-                <div class="bg-white border border-gray-100 rounded-lg p-5">
-                    <span class="material-symbols-rounded text-brand-accent mb-3">view_in_ar</span>
-                    <p class="font-heading font-bold text-brand-dark">3D Sync</p>
-                    <p class="text-gray-500 text-sm mt-1">Plans ready for visual preview</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3D Vision Animation -->
-    <section id="vision-animation" class="vision-stage relative overflow-hidden">
-        <img id="visionFallback" src="./images/vision-azure-residence.jpg" alt="Modern 3D architectural residence render" class="absolute inset-0 z-0 w-full h-full object-cover opacity-30" loading="lazy" decoding="async">
-        <canvas id="visionCanvas" class="absolute inset-0 z-0" aria-label="Animated 3D architectural model"></canvas>
-        <div class="absolute inset-0 z-[1] bg-gradient-to-r from-brand-dark via-brand-dark/75 to-brand-dark/20"></div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[650px] flex items-center">
-            <div class="max-w-xl py-24" data-reveal="left">
-                <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-4">3D Vision Animation</p>
-                <h2 class="font-heading text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">See The Structure Before Construction Starts</h2>
-                <p class="text-gray-300 text-lg leading-relaxed mb-8">Bhumi Enterprises turns 2D plans into animated massing, facade, and walkthrough visuals so clients can approve the design with confidence.</p>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-9" data-reveal="up" data-reveal-delay="2">
-                    <div class="vision-metric">
-                        <p class="font-heading text-2xl font-bold text-white">360°</p>
-                        <p class="text-gray-400 text-sm">Model View</p>
-                    </div>
-                    <div class="vision-metric">
-                        <p class="font-heading text-2xl font-bold text-white">4K</p>
-                        <p class="text-gray-400 text-sm">Render Output</p>
-                    </div>
-                    <div class="vision-metric">
-                        <p class="font-heading text-2xl font-bold text-white">CAD</p>
-                        <p class="text-gray-400 text-sm">Plan Based</p>
-                    </div>
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button onclick="openScheduleModal()" class="bg-brand-accent hover:bg-yellow-400 text-brand-dark px-7 py-3.5 rounded-lg font-bold transition-all inline-flex items-center justify-center gap-2">
-                        <span class="material-symbols-rounded">play_circle</span>
-                        Start 3D Design
-                    </button>
-                    <a href="tel:+919950608995" class="bg-white/10 hover:bg-white/20 text-white px-7 py-3.5 rounded-lg font-bold transition-all border border-white/20 inline-flex items-center justify-center gap-2">
-                        <span class="material-symbols-rounded">phone_in_talk</span>
-                        Talk To Engineer
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3D Render Samples -->
-    <section class="py-20 bg-brand-dark border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10" data-reveal="up">
-                <div>
-                    <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Render Frames</p>
-                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-white">Project Visual Samples</h2>
-                </div>
-                <p class="text-gray-400 max-w-xl">Exterior, interior, and commercial previews help clients review materials, scale, and lighting before money is spent on site.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden" data-reveal="up" data-reveal-delay="1">
-                    <div class="h-72 overflow-hidden">
-                        <img src="./images/vision-azure-residence.jpg" alt="Luxury modern residence 3D exterior render" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                    </div>
-                    <div class="p-6">
-                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Exterior Animation</p>
-                        <h3 class="font-heading text-xl font-bold text-white">The Azure Residence</h3>
-                    </div>
-                </article>
-                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden" data-reveal="up" data-reveal-delay="2">
-                    <div class="h-72 overflow-hidden">
-                        <img src="./images/vision-skyloft.jpg" alt="Premium penthouse interior 3D visualization" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                    </div>
-                    <div class="p-6">
-                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Interior Preview</p>
-                        <h3 class="font-heading text-xl font-bold text-white">Skyloft V-01</h3>
-                    </div>
-                </article>
-                <article class="vision-card bg-white/5 border border-white/10 rounded-lg overflow-hidden" data-reveal="up" data-reveal-delay="3">
-                    <div class="h-72 overflow-hidden">
-                        <img src="./images/vision-corporate-plaza.jpg" alt="Commercial tower 3D wireframe and facade render" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                    </div>
-                    <div class="p-6">
-                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-2">Commercial Planning</p>
-                        <h3 class="font-heading text-xl font-bold text-white">Corporate Plaza</h3>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Meet Our Engineers -->
-    <section id="engineers" class="py-24 bg-white relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-reveal="up">
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Meet Our Engineers</h2>
-                <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
-                <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Experienced civil engineers dedicated to delivering excellence in every project.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- Engineer 1 -->
-                <div data-reveal="left" data-reveal-delay="1" class="bg-brand-light rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 text-center group">
-                    <div class="w-24 h-24 rounded-full mx-auto mb-5 overflow-hidden border-2 border-brand-accent/20 group-hover:border-brand-accent transition-colors">
-                        <img src="./images/chirag-goswami.jpg" alt="Chirag Goswami" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                        <div class="w-full h-full bg-gradient-to-br from-brand-accent to-yellow-300 text-brand-dark font-heading font-bold text-2xl items-center justify-center hidden" style="display:none;">CG</div>
-                    </div>
-                    <h3 class="font-heading text-2xl font-bold text-brand-dark mb-1">Chirag Goswami</h3>
-                    <p class="text-brand-accent font-semibold text-sm mb-4">Civil Engineer</p>
-                    <a href="tel:+919950608995" class="inline-flex items-center gap-1.5 text-gray-500 hover:text-brand-accent transition-colors text-sm mb-4">
-                        <span class="material-symbols-rounded text-[16px]">call</span>
-                        9950608995
-                    </a>
-                    <p class="text-gray-600 leading-relaxed">Expert civil engineer with deep knowledge of structural design, construction planning, and project execution. Committed to delivering safe, durable, and cost-effective engineering solutions.</p>
-                </div>
-                
-                <!-- Engineer 2 -->
-                <div data-reveal="right" data-reveal-delay="1" class="bg-brand-light rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)] transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 text-center group">
-                    <div class="w-24 h-24 rounded-full mx-auto mb-5 overflow-hidden border-2 border-brand-accent/20 group-hover:border-brand-accent transition-colors">
-                        <img src="./images/hitesh-patidar.jpg" alt="Hitesh Patidar" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                        <div class="w-full h-full bg-gradient-to-br from-brand-accent to-yellow-300 text-brand-dark font-heading font-bold text-2xl items-center justify-center hidden" style="display:none;">HP</div>
-                    </div>
-                    <h3 class="font-heading text-2xl font-bold text-brand-dark mb-1">Hitesh Patidar</h3>
-                    <p class="text-brand-accent font-semibold text-sm mb-1">Civil Engineer</p>
-                    <a href="tel:+919983027512" class="inline-flex items-center gap-1.5 text-gray-500 hover:text-brand-accent transition-colors text-sm mb-4">
-                        <span class="material-symbols-rounded text-[16px]">call</span>
-                        9983027512
-                    </a>
-                    <p class="text-gray-600 leading-relaxed">Skilled civil engineer specializing in structural analysis, site supervision, and quality construction. Dedicated to turning architectural visions into strong, reliable structures.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Work Experience & Quality -->
-    <section id="quality" class="py-24 bg-brand-dark relative overflow-hidden">
-        <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-accent opacity-10 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-3xl"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-16" data-reveal="up">
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-white mb-4">Experience & Quality</h2>
-                <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div data-reveal="up" data-reveal-delay="1" class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
-                    <div class="text-brand-accent text-5xl font-heading font-extrabold mb-2">100+</div>
-                    <p class="text-gray-300 font-medium">Projects Completed</p>
-                    <p class="text-gray-500 text-sm mt-2">Residential & commercial structures delivered with precision.</p>
-                </div>
-                <div data-reveal="up" data-reveal-delay="2" class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
-                    <div class="text-brand-accent text-5xl font-heading font-extrabold mb-2">10+</div>
-                    <p class="text-gray-300 font-medium">Years Experience</p>
-                    <p class="text-gray-500 text-sm mt-2">Combined expertise in civil engineering and structural design.</p>
-                </div>
-                <div data-reveal="up" data-reveal-delay="3" class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
-                    <div class="text-brand-accent text-5xl font-heading font-extrabold mb-2">100%</div>
-                    <p class="text-gray-300 font-medium">Quality Commitment</p>
-                    <p class="text-gray-500 text-sm mt-2">Premium materials & rigorous quality checks on every project.</p>
-                </div>
-            </div>
-
-            <div class="mt-12 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 md:p-10" data-reveal="scale">
-                <div class="flex items-start gap-4">
-                    <span class="material-symbols-rounded text-brand-accent text-3xl flex-shrink-0">verified</span>
-                    <div>
-                        <h3 class="font-heading text-xl font-bold text-white mb-2">High Work Quality Standards</h3>
-                        <p class="text-gray-400 leading-relaxed">Every project at Bhumi Enterprises is executed with the highest standards of quality and precision. From material selection to final execution, our engineers personally supervise each phase to ensure structural integrity, durability, and aesthetic excellence. We combine industry-best practices with meticulous attention to detail, delivering results that stand the test of time.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Client Testimonials -->
-    <section id="testimonials" class="py-24 bg-gray-50 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-reveal="up">
-                <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Testimonials</p>
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">What Our Clients Say</h2>
-                <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100" data-reveal="left" data-reveal-delay="1">
-                    <div class="flex items-center gap-1 mb-5">
-                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
-                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
-                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
-                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
-                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed mb-6 text-base">"Bhumi Enterprises designed our entire residential structure. The team was professional, responsive, and delivered beyond expectations. Our home stands strong because of their precision engineering."</p>
-                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100">
-                        <div class="w-11 h-11 bg-brand-dark text-brand-accent rounded-full flex items-center justify-center font-heading font-bold text-base flex-shrink-0">RK</div>
-                        <div>
-                            <p class="font-heading font-bold text-brand-dark">Ramesh Kumar</p>
-                            <p class="text-gray-400 text-sm">Homeowner, Ahmedabad</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100" data-reveal="right" data-reveal-delay="1">
-                    <div class="flex items-center gap-1 mb-5">
-                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
-                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
-                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
-                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
-                        <span class="material-symbols-rounded text-brand-accent text-xl">star</span>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed mb-6 text-base">"The 3D visualization service helped us see our commercial complex before construction. We made design changes early, saving both time and money. Highly recommend their team."</p>
-                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100">
-                        <div class="w-11 h-11 bg-brand-dark text-brand-accent rounded-full flex items-center justify-center font-heading font-bold text-base flex-shrink-0">SP</div>
-                        <div>
-                            <p class="font-heading font-bold text-brand-dark">Sneha Patel</p>
-                            <p class="text-gray-400 text-sm">Developer, Vadodara</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Project Portfolio Gallery -->
-    <section id="portfolio-gallery" class="py-24 bg-brand-dark relative overflow-hidden">
-        <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-accent opacity-10 rounded-full blur-3xl"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-12" data-reveal="up">
-                <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Our Portfolio</p>
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-white mb-4">Projects We've Delivered</h2>
-                <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
-            </div>
-            <div class="flex flex-wrap justify-center gap-3 mb-10">
-                <button class="gallery-filter-btn active bg-brand-accent border-brand-accent text-brand-dark" data-filter="all" onclick="filterGallery('all', this)">All</button>
-                <button class="gallery-filter-btn text-white border-white/20 bg-white/5" data-filter="residential" onclick="filterGallery('residential', this)">Residential</button>
-                <button class="gallery-filter-btn text-white border-white/20 bg-white/5" data-filter="commercial" onclick="filterGallery('commercial', this)">Commercial</button>
-                <button class="gallery-filter-btn text-white border-white/20 bg-white/5" data-filter="interior" onclick="filterGallery('interior', this)">Interior</button>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="1" data-category="residential">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="./images/vision-azure-residence.jpg" alt="Azure Residence" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
-                    </div>
-                    <div class="p-5">
-                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-1">Exterior Design</p>
-                        <h3 class="font-heading text-lg font-bold text-white">The Azure Residence</h3>
-                    </div>
-                </div>
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="2" data-category="commercial">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="./images/vision-corporate-plaza.jpg" alt="Corporate Plaza" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
-                    </div>
-                    <div class="p-5">
-                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-1">Commercial</p>
-                        <h3 class="font-heading text-lg font-bold text-white">Corporate Plaza</h3>
-                    </div>
-                </div>
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="3" data-category="residential">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="./images/mapping-grand-horizon.jpg" alt="Grand Horizon" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
-                    </div>
-                    <div class="p-5">
-                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-1">Blueprint</p>
-                        <h3 class="font-heading text-lg font-bold text-white">Grand Horizon Estate</h3>
-                    </div>
-                </div>
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="1" data-category="interior">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="./images/vision-skyloft.jpg" alt="Skyloft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
-                    </div>
-                    <div class="p-5">
-                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-1">Interior Design</p>
-                        <h3 class="font-heading text-lg font-bold text-white">Skyloft V-01</h3>
-                    </div>
-                </div>
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="2" data-category="commercial">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="./images/mapping-urban-grid.jpg" alt="Urban Grid" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
-                    </div>
-                    <div class="p-5">
-                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-1">Site Planning</p>
-                        <h3 class="font-heading text-lg font-bold text-white">Urban Loft Grid</h3>
-                    </div>
-                </div>
-                <div class="gallery-item bg-white/5 border border-white/10 rounded-lg overflow-hidden group" data-reveal="up" data-reveal-delay="3" data-category="residential">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="./images/mapping-glass-pavilion.jpg" alt="Glass Pavilion" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
-                    </div>
-                    <div class="p-5">
-                        <p class="text-brand-accent font-bold uppercase tracking-widest text-xs mb-1">Modern Villa</p>
-                        <h3 class="font-heading text-lg font-bold text-white">Glass Pavilion</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Enquiry Form -->
-    <section id="contact-form" class="py-24 bg-brand-light relative">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12" data-reveal="up">
-                <p class="text-brand-accent font-heading font-bold uppercase tracking-[0.25em] text-sm mb-3">Get In Touch</p>
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Send Us a Message</h2>
-                <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
-                <p class="text-gray-500 mt-4 max-w-lg mx-auto">Have a project in mind? Fill out the form and our team will get back to you within 24 hours.</p>
-            </div>
-            <div class="bg-white rounded-2xl p-8 md:p-10 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100" data-reveal="up" data-reveal-delay="1">
-                <form id="contactForm" onsubmit="submitContactForm(event)" class="space-y-5">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <input type="text" id="contactName" placeholder="Full Name *" required class="w-full px-5 py-3.5 rounded-xl bg-brand-light border border-gray-200 text-brand-dark font-medium outline-none transition-all focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 placeholder:text-gray-400">
-                        <input type="tel" id="contactPhone" placeholder="Phone Number *" required class="w-full px-5 py-3.5 rounded-xl bg-brand-light border border-gray-200 text-brand-dark font-medium outline-none transition-all focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 placeholder:text-gray-400">
-                    </div>
-                    <input type="email" id="contactEmail" placeholder="Email Address" class="w-full px-5 py-3.5 rounded-xl bg-brand-light border border-gray-200 text-brand-dark font-medium outline-none transition-all focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 placeholder:text-gray-400">
-                    <select id="contactService" class="w-full px-5 py-3.5 rounded-xl bg-brand-light border border-gray-200 text-brand-dark font-medium outline-none transition-all focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20">
-                        <option value="" disabled selected>Select Service</option>
-                        <option value="Structural Design">Structural Design</option>
-                        <option value="House Mapping">House Mapping</option>
-                        <option value="3D Visualization">3D Visualization</option>
-                        <option value="Renovation">Renovation</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <textarea id="contactMessage" placeholder="Tell us about your project *" required rows="4" class="w-full px-5 py-3.5 rounded-xl bg-brand-light border border-gray-200 text-brand-dark font-medium outline-none transition-all focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 placeholder:text-gray-400 resize-vertical"></textarea>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <button type="submit" class="bg-brand-accent hover:bg-yellow-400 text-brand-dark font-bold py-4 px-6 rounded-xl transition-all flex items-center justify-center gap-2 text-lg">
-                            <span class="material-symbols-rounded">mail</span>
-                            Send via Email
-                        </button>
-                        <button type="button" onclick="sendContactWhatsApp()" class="bg-[#25D366] hover:bg-[#1da851] text-white font-bold py-4 px-6 rounded-xl transition-all flex items-center justify-center gap-2 text-lg">
-                            <span class="material-symbols-rounded">chat</span>
-                            Send via WhatsApp
-                        </button>
-                    </div>
-                </form>
-                <div id="contactSuccess" class="hidden text-center py-8">
-                    <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="material-symbols-rounded text-4xl text-green-500">check_circle</span>
-                    </div>
-                    <h3 class="font-heading text-2xl font-bold text-brand-dark mb-2">Message Sent!</h3>
-                    <p class="text-gray-500">Thank you for reaching out. We'll contact you within 24 hours.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action Banner -->
-    <section id="contact" class="py-20 bg-brand-dark relative overflow-hidden">
-        <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-accent opacity-10 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-3xl"></div>
-        
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10" data-reveal="up">
-            <h2 class="font-heading text-3xl md:text-5xl font-bold text-white mb-6">Ready to Build the Future?</h2>
-            <p class="text-gray-400 text-lg mb-10">Connect directly with our lead builder to discuss your next big project.</p>
-            
-            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl inline-block w-full max-w-2xl" data-reveal="scale" data-reveal-delay="1">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div class="text-left space-y-3">
-                        <div>
-                            <p class="text-brand-accent font-semibold mb-0.5 uppercase tracking-wider text-sm">Chirag Goswami</p>
-                            <p class="text-white font-heading text-3xl md:text-4xl font-bold">9950608995</p>
-                        </div>
-                        <div>
-                            <p class="text-brand-accent font-semibold mb-0.5 uppercase tracking-wider text-sm">Hitesh Patidar</p>
-                            <p class="text-white font-heading text-3xl md:text-4xl font-bold">9983027512</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-3 w-full md:w-auto">
-                        <a href="tel:+919950608995" class="bg-brand-accent hover:bg-yellow-400 text-brand-dark px-8 py-4 rounded-xl font-bold transition-all w-full flex items-center justify-center gap-2">
-                            <span class="material-symbols-rounded">phone_in_talk</span>
-                            Call Chirag Goswami
-                        </a>
-                        <a href="tel:+919983027512" class="bg-brand-accent hover:bg-yellow-400 text-brand-dark px-8 py-4 rounded-xl font-bold transition-all w-full flex items-center justify-center gap-2">
-                            <span class="material-symbols-rounded">phone_in_talk</span>
-                            Call Hitesh Patidar
-                        </a>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-[#050811] border-t border-white/5">
-        <!-- Social Media Bar -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p class="text-gray-400 text-sm font-medium">Follow Us</p>
-                <div class="flex items-center gap-3">
-                    <a href="https://wa.me/919950608995" target="_blank" class="w-11 h-11 rounded-full bg-white/10 hover:bg-[#25D366] flex items-center justify-center text-gray-300 hover:text-white transition-all" aria-label="WhatsApp">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    </a>
-                    <a href="https://www.instagram.com/bhumienterprises71?igsh=MTE0cGxmbjYyN2VkNQ==" target="_blank" class="w-11 h-11 rounded-full bg-white/10 hover:bg-gradient-to-tr hover:from-[#833AB4] hover:via-[#FD1D1D] hover:to-[#F77737] flex items-center justify-center text-gray-300 hover:text-white transition-all" aria-label="Instagram">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                    </a>
-                    <a href="https://www.facebook.com/people/Bhumi-Enterprises/61574511300890/" target="_blank" class="w-11 h-11 rounded-full bg-white/10 hover:bg-[#1877F2] flex items-center justify-center text-gray-300 hover:text-white transition-all" aria-label="Facebook">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                    </a>
-                    <a href="https://www.youtube.com/@BhumiEnterprises" target="_blank" class="w-11 h-11 rounded-full bg-white/10 hover:bg-[#FF0000] flex items-center justify-center text-gray-300 hover:text-white transition-all" aria-label="YouTube">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/bhumi-enterprisess-2a3783332/" target="_blank" class="w-11 h-11 rounded-full bg-white/10 hover:bg-[#0A66C2] flex items-center justify-center text-gray-300 hover:text-white transition-all" aria-label="LinkedIn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Map Section -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="rounded-2xl overflow-hidden border border-white/10">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d226.07790663208732!2d73.98477863762209!3d23.562808152822413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39673bec4583ea2d%3A0xb8df14f7e8f69702!2sBhumi%20Enterprises!5e0!3m2!1sen!2sin!4v1" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-2">
-                    <img src="./images/bhumi-icon.png" alt="Bhumi Enterprises logo" class="h-12 w-12 object-contain" loading="lazy" decoding="async">
-                    <span class="font-heading font-bold text-lg md:text-xl text-white uppercase">BHUMI ENTERPRISESS</span>
-                </div>
-                <div class="flex flex-col sm:flex-row items-center gap-3 text-gray-400 text-sm">
-                    <a href="https://www.google.com/maps/place/Bhumi+Enterprises/@23.562518,73.9853032,17.22z/data=!4m14!1m7!3m6!1s0x39673b757c4857f1:0x204a9289346fc67b!2sPolice+Station+Chitri!8m2!3d23.56236!4d73.9856127!16s%2Fg%2F1hc27lw7t!3m5!1s0x39673bec4583ea2d:0xb8df14f7e8f69702!8m2!3d23.5628002!4d73.9848661!16s%2Fg%2F11xzlgf2y4?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="flex items-center gap-1.5 text-brand-accent hover:text-yellow-400 transition-colors font-medium">
-                        <span class="material-symbols-rounded text-[18px]">location_on</span>
-                        View on Google Maps
-                    </a>
-                    <span class="hidden sm:inline text-gray-600">|</span>
-                    <span>Chirag Goswami: <strong class="text-white">9950608995</strong> <span class="text-gray-600">|</span> Hitesh Patidar: <strong class="text-white">9983027512</strong></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="border-t border-white/5 py-6">
-            <p class="text-gray-500 text-sm text-center">© 2026 Bhumi Enterprises. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Schedule Modal -->
-    <div class="modal-overlay" id="modalOverlay" onclick="closeScheduleModal()"></div>
-    <div class="schedule-modal" id="scheduleModal">
-        <div class="step-view" id="bookingStep">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="font-heading text-2xl font-bold text-white">Schedule Meeting</h3>
-                <button onclick="closeScheduleModal()" class="text-gray-400 hover:text-white transition-colors p-1">
-                    <span class="material-symbols-rounded text-2xl">close</span>
-                </button>
-            </div>
-
-            <!-- Calendar -->
-            <div class="mb-6">
-                <div class="flex items-center justify-between mb-4">
-                    <button onclick="prevMonth()" class="text-gray-400 hover:text-brand-accent transition-colors p-1">
-                        <span class="material-symbols-rounded">chevron_left</span>
-                    </button>
-                    <span class="text-white font-heading font-bold text-lg" id="monthLabel">January 2026</span>
-                    <button onclick="nextMonth()" class="text-gray-400 hover:text-brand-accent transition-colors p-1">
-                        <span class="material-symbols-rounded">chevron_right</span>
-                    </button>
-                </div>
-                <div class="cal-grid">
-                    <div class="cal-day-header">Mon</div>
-                    <div class="cal-day-header">Tue</div>
-                    <div class="cal-day-header">Wed</div>
-                    <div class="cal-day-header">Thu</div>
-                    <div class="cal-day-header">Fri</div>
-                    <div class="cal-day-header">Sat</div>
-                    <div class="cal-day-header">Sun</div>
-                </div>
-                <div class="cal-grid" id="calendarDays"></div>
-            </div>
-
-            <!-- Selected Date -->
-            <div class="text-sm text-gray-400 mb-4" id="selectedDateDisplay">No date selected</div>
-
-            <!-- Time Slots -->
-            <div class="mb-6">
-                <label class="text-gray-300 font-medium text-sm mb-3 block">Available Time Slots</label>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="timeSlots"></div>
-            </div>
-
-            <!-- Customer Details -->
-            <div class="mb-6 space-y-3">
-                <input type="text" id="customerName" placeholder="Full Name *" class="modal-input">
-                <input type="tel" id="customerPhone" placeholder="Phone Number *" class="modal-input">
-                <input type="email" id="customerEmail" placeholder="Email Address" class="modal-input">
-                <select id="projectType" class="modal-input">
-                    <option value="" disabled selected class="text-gray-400">Select Project Type</option>
-                    <option value="Residential">Residential</option>
-                    <option value="Commercial">Commercial</option>
-                    <option value="Renovation">Renovation</option>
-                    <option value="Industrial">Industrial</option>
-                    <option value="Interior Design">Interior Design</option>
-                    <option value="Other">Other</option>
-                </select>
-                <textarea id="customerMessage" placeholder="Message / Project Details (optional)" class="modal-input" rows="3" style="resize: vertical; min-height: 80px;"></textarea>
-            </div>
-
-            <button onclick="confirmBooking()" class="w-full bg-brand-accent hover:bg-yellow-400 text-brand-dark font-bold py-3.5 px-6 rounded-xl transition-all flex items-center justify-center gap-2 text-lg">
-                <span class="material-symbols-rounded">check_circle</span>
-                Confirm Meeting
-            </button>
-        </div>
-
-        <!-- Confirmation View -->
-        <div class="confirmation-view" id="confirmationView">
-            <div class="text-center py-8">
-                <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="material-symbols-rounded text-4xl text-green-400">check_circle</span>
-                </div>
-                <h3 class="font-heading text-2xl font-bold text-white mb-2">Meeting Request Sent!</h3>
-                <p class="text-gray-400 mb-6">We'll confirm your appointment shortly.</p>
-                <div class="bg-white/5 rounded-xl p-4 mb-6 text-left space-y-2">
-                    <div class="flex justify-between text-sm"><span class="text-gray-400">Date</span><span class="text-white font-medium" id="confirmDate">-</span></div>
-                    <div class="flex justify-between text-sm"><span class="text-gray-400">Time</span><span class="text-white font-medium" id="confirmTime">-</span></div>
-                    <div class="flex justify-between text-sm"><span class="text-gray-400">Name</span><span class="text-white font-medium" id="confirmName">-</span></div>
-                    <div class="flex justify-between text-sm"><span class="text-gray-400">Phone</span><span class="text-white font-medium" id="confirmPhone">-</span></div>
-                    <div class="flex justify-between text-sm"><span class="text-gray-400">Email</span><span class="text-white font-medium" id="confirmEmail">-</span></div>
-                    <div class="flex justify-between text-sm"><span class="text-gray-400">Project</span><span class="text-white font-medium" id="confirmProject">-</span></div>
-                    <div class="flex justify-between text-sm"><span class="text-gray-400">Message</span><span class="text-white font-medium" id="confirmMessage">-</span></div>
-                </div>
-                <p class="text-gray-500 text-sm mb-6">Need to change? Call us at <strong class="text-white">9950608995</strong></p>
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <button onclick="sendBookingWhatsApp()" class="flex-1 bg-[#25D366] hover:bg-[#1da851] text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2">
-                        <span class="material-symbols-rounded">chat</span>
-                        Share on WhatsApp
-                    </button>
-                    <button onclick="closeScheduleModal()" class="flex-1 bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-6 rounded-xl transition-all border border-white/10">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        AI-Powered Structural Engineering
+      </div>
+      <h1>
+        Architectural <span class="gradient-text">Intelligence</span><br />
+        For Modern Structures.
+      </h1>
+      <p class="hero-subtitle">
+        Bhumi Enterprises combines AI-driven design with civil engineering expertise to deliver precision structural systems, immersive 3D visualization, and construction-ready blueprints.
+      </p>
+      <div class="hero-actions">
+        <a href="tel:+919950608995" class="btn-primary ripple">
+          <span class="material-symbols-rounded">engineering</span>
+          Talk To Engineer
+        </a>
+        <button class="btn-secondary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          <span class="material-symbols-rounded">calendar_month</span>
+          Schedule Consultation
+        </button>
+      </div>
     </div>
 
-    <!-- 3D Vision Animation Script -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-    <script>
-        (function () {
-            const canvas = document.getElementById("visionCanvas");
-            const stage = document.getElementById("vision-animation");
-            const fallback = document.getElementById("visionFallback");
-
-            if (!canvas || !stage || !window.THREE) return;
-
-            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-            renderer.setClearColor(0x0b1120, 1);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-            if (THREE.SRGBColorSpace) renderer.outputColorSpace = THREE.SRGBColorSpace;
-            renderer.shadowMap.enabled = true;
-            renderer.shadowMap.type = THREE.PCFShadowMap;
-
-            const scene = new THREE.Scene();
-            scene.fog = new THREE.Fog(0x0b1120, 14, 30);
-
-            const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-            camera.position.set(6.8, 4.3, 7.4);
-
-            const hemiLight = new THREE.HemisphereLight(0xf8fafc, 0x0f172a, 1.4);
-            scene.add(hemiLight);
-
-            const sunLight = new THREE.DirectionalLight(0xfcd34d, 2.7);
-            sunLight.position.set(5, 8, 6);
-            sunLight.castShadow = true;
-            sunLight.shadow.mapSize.width = 1024;
-            sunLight.shadow.mapSize.height = 1024;
-            scene.add(sunLight);
-
-            const accentLight = new THREE.PointLight(0xf59e0b, 18, 12);
-            accentLight.position.set(-4, 2.2, 3.8);
-            scene.add(accentLight);
-
-            const concrete = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.42, metalness: 0.08 });
-            const concreteDark = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.6, metalness: 0.18 });
-            const glass = new THREE.MeshStandardMaterial({
-                color: 0x93c5fd,
-                roughness: 0.08,
-                metalness: 0.05,
-                transparent: true,
-                opacity: 0.62
-            });
-            const warmGlass = new THREE.MeshStandardMaterial({
-                color: 0xfbbf24,
-                emissive: 0xf59e0b,
-                emissiveIntensity: 0.24,
-                roughness: 0.18,
-                transparent: true,
-                opacity: 0.78
-            });
-            const steel = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.38, metalness: 0.55 });
-            const accent = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.34, metalness: 0.28, emissive: 0x7c2d12, emissiveIntensity: 0.2 });
-            const lawn = new THREE.MeshStandardMaterial({ color: 0x164e3f, roughness: 0.85, metalness: 0.02 });
-
-            const ground = new THREE.Mesh(
-                new THREE.PlaneGeometry(22, 22),
-                new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.9, metalness: 0.08 })
-            );
-            ground.rotation.x = -Math.PI / 2;
-            ground.receiveShadow = true;
-            scene.add(ground);
-
-            const grid = new THREE.GridHelper(20, 40, 0xf59e0b, 0x334155);
-            grid.position.y = 0.025;
-            scene.add(grid);
-
-            const building = new THREE.Group();
-            scene.add(building);
-
-            function addBox(width, height, depth, x, y, z, material) {
-                const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material);
-                mesh.position.set(x, y, z);
-                mesh.castShadow = true;
-                mesh.receiveShadow = true;
-                building.add(mesh);
-                return mesh;
-            }
-
-            addBox(5.6, 0.16, 3.8, 0, 0.12, 0, concreteDark);
-            addBox(4.5, 0.8, 2.5, -0.35, 0.62, 0.05, concrete);
-            addBox(4.9, 0.16, 2.9, -0.35, 1.08, 0.05, steel);
-            addBox(3.8, 0.76, 2.18, -0.72, 1.55, 0.12, glass);
-            addBox(4.35, 0.16, 2.7, -0.72, 1.98, 0.12, concreteDark);
-            addBox(1.55, 2.25, 1.75, 1.55, 1.42, -0.28, glass);
-            addBox(1.9, 0.18, 2.05, 1.55, 2.64, -0.28, concrete);
-            addBox(1.1, 0.58, 1.05, 1.65, 0.53, 1.12, warmGlass);
-            addBox(1.45, 0.12, 1.35, 1.65, 0.89, 1.12, accent);
-            addBox(1.4, 0.08, 2.4, -1.92, 1.18, 1.38, accent);
-            addBox(1.4, 0.08, 2.4, -1.92, 2.08, 1.38, accent);
-
-            for (let i = 0; i < 7; i++) {
-                addBox(0.045, 0.86, 0.08, -2.25 + i * 0.52, 1.55, 1.26, steel);
-            }
-            for (let i = 0; i < 4; i++) {
-                addBox(0.05, 1.9, 0.06, 1.05 + i * 0.34, 1.55, 0.66, steel);
-            }
-
-            const columnGeometry = new THREE.CylinderGeometry(0.045, 0.045, 1.6, 20);
-            [[-2.35, 0.95, 1.24], [-1.55, 0.95, 1.24], [0.6, 0.95, 1.24], [2.32, 0.95, 0.95]].forEach(([x, y, z]) => {
-                const column = new THREE.Mesh(columnGeometry, accent);
-                column.position.set(x, y, z);
-                column.castShadow = true;
-                building.add(column);
-            });
-
-            const pool = addBox(1.5, 0.035, 0.82, -2.05, 0.18, -1.45, new THREE.MeshStandardMaterial({ color: 0x0ea5e9, roughness: 0.08, metalness: 0.1 }));
-            pool.material.transparent = true;
-            pool.material.opacity = 0.72;
-
-            for (let i = 0; i < 10; i++) {
-                const shrub = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.42, 8), lawn);
-                shrub.position.set(-3.1 + i * 0.68, 0.3, -2.15 + (i % 2) * 0.25);
-                shrub.castShadow = true;
-                building.add(shrub);
-            }
-
-            const pathMaterial = new THREE.LineBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.72 });
-            const pathPoints = [
-                new THREE.Vector3(-3.2, 0.04, 2.2),
-                new THREE.Vector3(-1.2, 0.04, 1.7),
-                new THREE.Vector3(0.8, 0.04, 1.85),
-                new THREE.Vector3(2.7, 0.04, 1.25)
-            ];
-            const pathLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pathPoints), pathMaterial);
-            scene.add(pathLine);
-
-            let pointerX = 0;
-            let pointerY = 0;
-            stage.addEventListener("pointermove", function (event) {
-                const rect = stage.getBoundingClientRect();
-                pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-                pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-            });
-
-            function resizeRenderer() {
-                const rect = stage.getBoundingClientRect();
-                renderer.setSize(rect.width, rect.height, false);
-                camera.aspect = rect.width / Math.max(rect.height, 1);
-                camera.updateProjectionMatrix();
-            }
-
-            if ("ResizeObserver" in window) {
-                new ResizeObserver(resizeRenderer).observe(stage);
-            } else {
-                window.addEventListener("resize", resizeRenderer);
-            }
-            resizeRenderer();
-            if (fallback) fallback.style.opacity = "0";
-
-            const lookAt = new THREE.Vector3(0, 1.1, 0);
-            let animationId;
-            let isVisible = false;
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    isVisible = entry.isIntersecting;
-                    if (isVisible) {
-                        animateVision(performance.now());
-                    } else if (animationId) {
-                        cancelAnimationFrame(animationId);
-                        animationId = null;
-                    }
-                });
-            }, { threshold: 0.1 });
-            observer.observe(stage);
-
-            function animateVision(time) {
-                if (!isVisible) return;
-                const seconds = time * 0.001;
-                building.rotation.y = seconds * 0.22 + pointerX * 0.25;
-                building.rotation.x = pointerY * 0.035;
-                building.position.y = Math.sin(seconds * 1.4) * 0.035;
-                accentLight.intensity = 16 + Math.sin(seconds * 2.2) * 3;
-                camera.lookAt(lookAt);
-                renderer.render(scene, camera);
-                animationId = requestAnimationFrame(animateVision);
-            }
-        })();
-    </script>
-
-    <!-- Schedule Modal Script -->
-    <script>
-        let currentMonth = new Date().getMonth();
-        let currentYear = new Date().getFullYear();
-        let selectedDate = null;
-        let selectedTime = null;
-
-        const timeSlots = ["09:00","10:00","11:00","12:00","14:00","15:00","16:00","17:00"];
-
-        function openScheduleModal() {
-            document.getElementById("modalOverlay").classList.add("active");
-            document.getElementById("scheduleModal").classList.add("active");
-            document.getElementById("bookingStep").classList.remove("hidden");
-            document.getElementById("confirmationView").classList.remove("active");
-            selectedDate = null;
-            selectedTime = null;
-            renderCalendar();
-        }
-
-        function closeScheduleModal() {
-            document.getElementById("modalOverlay").classList.remove("active");
-            document.getElementById("scheduleModal").classList.remove("active");
-        }
-
-        function renderCalendar() {
-            const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-            document.getElementById("monthLabel").textContent = monthNames[currentMonth] + " " + currentYear;
-
-            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-            const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
-
-            const container = document.getElementById("calendarDays");
-            container.innerHTML = "";
-
-            const adjustFirstDay = firstDay === 0 ? 6 : firstDay - 1;
-
-            for (let i = adjustFirstDay - 1; i >= 0; i--) {
-                const div = document.createElement("div");
-                div.className = "cal-day other-month disabled";
-                div.textContent = daysInPrevMonth - i;
-                container.appendChild(div);
-            }
-
-            const today = new Date();
-            today.setHours(0,0,0,0);
-
-            for (let d = 1; d <= daysInMonth; d++) {
-                const div = document.createElement("div");
-                div.className = "cal-day";
-                const dateObj = new Date(currentYear, currentMonth, d);
-                dateObj.setHours(0,0,0,0);
-                if (dateObj < today) {
-                    div.classList.add("disabled");
-                }
-                if (selectedDate && selectedDate.getDate() === d && selectedDate.getMonth() === currentMonth && selectedDate.getFullYear() === currentYear) {
-                    div.classList.add("selected");
-                }
-                div.textContent = d;
-                div.dataset.day = d;
-                div.addEventListener("click", function() {
-                    if (this.classList.contains("disabled")) return;
-                    const day = parseInt(this.dataset.day);
-                    selectedDate = new Date(currentYear, currentMonth, day);
-                    document.querySelectorAll("#calendarDays .cal-day").forEach(el => el.classList.remove("selected"));
-                    this.classList.add("selected");
-                    const opts = { weekday: "short", year: "numeric", month: "short", day: "numeric" };
-                    document.getElementById("selectedDateDisplay").textContent = "Selected: " + selectedDate.toLocaleDateString("en-US", opts);
-                    renderTimeSlots();
-                });
-                container.appendChild(div);
-            }
-
-            const totalCells = adjustFirstDay + daysInMonth;
-            const remaining = (7 - (totalCells % 7)) % 7;
-            for (let i = 1; i <= remaining; i++) {
-                const div = document.createElement("div");
-                div.className = "cal-day other-month disabled";
-                div.textContent = i;
-                container.appendChild(div);
-            }
-        }
-
-        function prevMonth() {
-            currentMonth--;
-            if (currentMonth < 0) { currentMonth = 11; currentYear--; }
-            renderCalendar();
-            renderTimeSlots();
-        }
-
-        function nextMonth() {
-            currentMonth++;
-            if (currentMonth > 11) { currentMonth = 0; currentYear++; }
-            renderCalendar();
-            renderTimeSlots();
-        }
-
-        function renderTimeSlots() {
-            const container = document.getElementById("timeSlots");
-            container.innerHTML = "";
-            if (!selectedDate) {
-                document.getElementById("selectedDateDisplay").textContent = "Select a date first";
-                return;
-            }
-            timeSlots.forEach(t => {
-                const div = document.createElement("div");
-                div.className = "time-slot";
-                div.textContent = t;
-                if (selectedTime === t) div.classList.add("selected");
-                div.addEventListener("click", function() {
-                    document.querySelectorAll(".time-slot").forEach(el => el.classList.remove("selected"));
-                    this.classList.add("selected");
-                    selectedTime = t;
-                });
-                container.appendChild(div);
-            });
-        }
-
-        function confirmBooking() {
-            const name = document.getElementById("customerName").value.trim();
-            const phone = document.getElementById("customerPhone").value.trim();
-            const email = document.getElementById("customerEmail").value.trim();
-            const project = document.getElementById("projectType").value;
-            const message = document.getElementById("customerMessage").value.trim();
-
-            if (!selectedDate) { alert("Please select a date."); return; }
-            if (!selectedTime) { alert("Please select a time slot."); return; }
-            if (!name) { alert("Please enter your name."); return; }
-            if (!phone) { alert("Please enter your phone number."); return; }
-
-            const dateStr = selectedDate.toLocaleDateString("en-US", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
-
-            document.getElementById("confirmDate").textContent = dateStr;
-            document.getElementById("confirmTime").textContent = selectedTime;
-            document.getElementById("confirmName").textContent = name;
-            document.getElementById("confirmPhone").textContent = phone;
-            document.getElementById("confirmEmail").textContent = email || "-";
-            document.getElementById("confirmProject").textContent = project || "-";
-            document.getElementById("confirmMessage").textContent = message || "-";
-
-            document.getElementById("bookingStep").classList.add("hidden");
-            document.getElementById("confirmationView").classList.add("active");
-
-            const subject = encodeURIComponent("Meeting Request - " + name + " - " + dateStr + " at " + selectedTime);
-            const body = encodeURIComponent(
-                "New Meeting Request\n" +
-                "==================\n" +
-                "Name: " + name + "\n" +
-                "Phone: " + phone + "\n" +
-                "Email: " + (email || "N/A") + "\n" +
-                "Project Type: " + (project || "N/A") + "\n" +
-                "Message: " + (message || "N/A") + "\n" +
-                "Requested Date: " + dateStr + "\n" +
-                "Requested Time: " + selectedTime + "\n\n" +
-                "Please confirm this meeting time. Thank you!"
-            );
-            setTimeout(() => {
-                window.open("mailto:booking@bhumienterprisess.com?subject=" + subject + "&body=" + body, "_blank");
-            }, 500);
-        }
-
-        function sendBookingWhatsApp() {
-            const name = document.getElementById("confirmName").textContent;
-            const phone = document.getElementById("confirmPhone").textContent;
-            const email = document.getElementById("confirmEmail").textContent;
-            const project = document.getElementById("confirmProject").textContent;
-            const message = document.getElementById("confirmMessage").textContent;
-            const date = document.getElementById("confirmDate").textContent;
-            const time = document.getElementById("confirmTime").textContent;
-
-            const text = encodeURIComponent(
-                "*New Meeting Request*\n" +
-                "==================\n" +
-                "*Name:* " + name + "\n" +
-                "*Phone:* " + phone + "\n" +
-                "*Email:* " + email + "\n" +
-                "*Project:* " + project + "\n" +
-                "*Message:* " + message + "\n" +
-                "*Date:* " + date + "\n" +
-                "*Time:* " + time + "\n\n" +
-                "Please confirm this meeting time."
-            );
-            window.open("https://wa.me/919950608995?text=" + text, "_blank");
-        }
-
-        renderCalendar();
-    </script>
-
-    <!-- Mobile Menu Script -->
-    <script>
-        function toggleMobileMenu() {
-            document.getElementById("mobileMenu").classList.toggle("open");
-            document.getElementById("mobileOverlay").classList.toggle("open");
-        }
-        function closeMobileMenu() {
-            document.getElementById("mobileMenu").classList.remove("open");
-            document.getElementById("mobileOverlay").classList.remove("open");
-        }
-    </script>
-
-    <!-- Gallery Filter Script -->
-    <script>
-        function filterGallery(category, btn) {
-            const items = document.querySelectorAll("#galleryGrid .gallery-item");
-            const buttons = document.querySelectorAll(".gallery-filter-btn");
-            buttons.forEach(b => {
-                b.classList.remove("active", "bg-brand-accent", "border-brand-accent", "text-brand-dark");
-                b.classList.add("text-white", "border-white/20", "bg-white/5");
-            });
-            btn.classList.add("active", "bg-brand-accent", "border-brand-accent", "text-brand-dark");
-            btn.classList.remove("text-white", "border-white/20", "bg-white/5");
-            items.forEach(item => {
-                if (category === "all" || item.dataset.category === category) {
-                    item.classList.remove("hidden");
-                } else {
-                    item.classList.add("hidden");
-                }
-            });
-        }
-    </script>
-
-    <!-- Contact Form Script -->
-    <script>
-        function submitContactForm(event) {
-            event.preventDefault();
-            const name = document.getElementById("contactName").value.trim();
-            const phone = document.getElementById("contactPhone").value.trim();
-            const email = document.getElementById("contactEmail").value.trim();
-            const service = document.getElementById("contactService").value;
-            const message = document.getElementById("contactMessage").value.trim();
-
-            if (!name || !phone || !message) return;
-
-            const subject = encodeURIComponent("New Enquiry from " + name);
-            const body = encodeURIComponent(
-                "New Project Enquiry\n" +
-                "=================\n" +
-                "Name: " + name + "\n" +
-                "Phone: " + phone + "\n" +
-                "Email: " + (email || "N/A") + "\n" +
-                "Service: " + (service || "N/A") + "\n" +
-                "Message: " + message + "\n"
-            );
-            window.open("mailto:booking@bhumienterprisess.com?subject=" + subject + "&body=" + body, "_blank");
-
-            document.getElementById("contactForm").classList.add("hidden");
-            document.getElementById("contactSuccess").classList.remove("hidden");
-        }
-
-        function sendContactWhatsApp() {
-            const name = document.getElementById("contactName").value.trim();
-            const phone = document.getElementById("contactPhone").value.trim();
-            const email = document.getElementById("contactEmail").value.trim();
-            const service = document.getElementById("contactService").value;
-            const message = document.getElementById("contactMessage").value.trim();
-
-            if (!name || !phone || !message) { alert("Please fill in name, phone, and message."); return; }
-
-            const text = encodeURIComponent(
-                "*New Project Enquiry*\n" +
-                "==================\n" +
-                "*Name:* " + name + "\n" +
-                "*Phone:* " + phone + "\n" +
-                "*Email:* " + (email || "N/A") + "\n" +
-                "*Service:* " + (service || "N/A") + "\n" +
-                "*Message:* " + message + "\n"
-            );
-            window.open("https://wa.me/919950608995?text=" + text, "_blank");
-
-            document.getElementById("contactForm").classList.add("hidden");
-            document.getElementById("contactSuccess").classList.remove("hidden");
-        }
-    </script>
-
-    <!-- Back to Top Script -->
-    <script>
-        const backToTopBtn = document.getElementById("backToTop");
-        let tickingBTT = false;
-        window.addEventListener("scroll", function () {
-            if (!tickingBTT) {
-                requestAnimationFrame(function () {
-                    backToTopBtn.classList.toggle("visible", window.scrollY > 400);
-                    tickingBTT = false;
-                });
-                tickingBTT = true;
-            }
-        }, { passive: true });
-    </script>
-
-    <!-- AI Cursor Script -->
-    <script>
-        (function () {
-            if (window.matchMedia("(pointer: coarse)").matches) return;
-            const cursorDot = document.querySelector("[data-cursor-dot]");
-            const cursorOutline = document.querySelector("[data-cursor-outline]");
-            if (!cursorDot || !cursorOutline) return;
-            
-            let mouseX = window.innerWidth / 2;
-            let mouseY = window.innerHeight / 2;
-            let outlineX = mouseX;
-            let outlineY = mouseY;
-            let cursorActive = false;
-            let rafId = null;
-            
-            function updateOutline() {
-                outlineX += (mouseX - outlineX) * 0.2;
-                outlineY += (mouseY - outlineY) * 0.2;
-                cursorOutline.style.left = `${outlineX}px`;
-                cursorOutline.style.top = `${outlineY}px`;
-                if (Math.abs(outlineX - mouseX) < 0.5 && Math.abs(outlineY - mouseY) < 0.5) {
-                    cursorActive = false;
-                    rafId = null;
-                    return;
-                }
-                rafId = requestAnimationFrame(updateOutline);
-            }
-            
-            window.addEventListener("mousemove", function (e) {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                cursorDot.style.left = `${mouseX}px`;
-                cursorDot.style.top = `${mouseY}px`;
-                if (!cursorActive) {
-                    cursorActive = true;
-                    rafId = requestAnimationFrame(updateOutline);
-                }
-            }, { passive: true });
-
-            const interactables = document.querySelectorAll("a, button, [role='button']");
-            interactables.forEach(el => {
-                el.addEventListener("mouseenter", () => {
-                    cursorOutline.style.width = "60px";
-                    cursorOutline.style.height = "60px";
-                    cursorOutline.style.backgroundColor = "rgba(245, 158, 11, 0.1)";
-                    cursorDot.style.transform = "translate(-50%, -50%) scale(1.5)";
-                });
-                el.addEventListener("mouseleave", () => {
-                    cursorOutline.style.width = "40px";
-                    cursorOutline.style.height = "40px";
-                    cursorOutline.style.backgroundColor = "transparent";
-                    cursorDot.style.transform = "translate(-50%, -50%) scale(1)";
-                });
-            });
-        })();
-    </script>
-
-    <!-- Scroll Reveal Animations -->
-    <script>
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-        document.querySelectorAll('[data-reveal]').forEach(el => {
-            const dir = el.dataset.reveal || 'up';
-            el.classList.add('reveal', 'reveal-' + dir);
-            revealObserver.observe(el);
-        });
-
-        document.querySelectorAll('[data-reveal-delay]').forEach(el => {
-            el.classList.add('reveal-delay-' + el.dataset.revealDelay);
-        });
-    </script>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ========== STATS BANNER ========== -->
+  <div class="stats-banner" id="statsBanner">
+    <div data-reveal="scale" data-reveal-delay="1">
+      <strong data-count="250">0</strong>
+      <span>Projects Completed</span>
+    </div>
+    <div data-reveal="scale" data-reveal-delay="2">
+      <strong data-count="12">0</strong>
+      <span>Years Experience</span>
+    </div>
+    <div data-reveal="scale" data-reveal-delay="3">
+      <strong data-count="48">0</strong>
+      <span>Expert Engineers</span>
+    </div>
+    <div data-reveal="scale" data-reveal-delay="4">
+      <strong data-count="100%">0<small>%</small></strong>
+      <span>Quality Delivered</span>
+    </div>
+  </div>
+
+  <!-- ========== SERVICES ========== -->
+  <section class="section-pad" id="services">
+    <div class="section-grid">
+      <div class="section-heading" data-reveal="up">
+        <div class="eyebrow">
+          <span class="material-symbols-rounded" style="font-size:16px;">auto_awesome</span>
+          AI-Powered Services
+        </div>
+        <h2>Intelligent Engineering Solutions</h2>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="services-grid">
+        <article class="service-card" data-reveal="up" data-reveal-delay="1">
+          <div class="service-icon">
+            <span class="material-symbols-rounded">domain</span>
+          </div>
+          <h3>Structural System</h3>
+          <p>AI-optimized structural designs for commercial and residential projects. Precision load analysis and material efficiency.</p>
+          <a href="#portfolio" class="card-link">
+            View projects
+            <span class="material-symbols-rounded" style="font-size:16px;">arrow_forward</span>
+          </a>
+        </article>
+
+        <article class="service-card" data-reveal="up" data-reveal-delay="2">
+          <div class="service-icon">
+            <span class="material-symbols-rounded">map</span>
+          </div>
+          <h3>House Mapping</h3>
+          <p>AI-generated precision blueprints with space optimization, utility routing, and structural integrity verification.</p>
+          <a href="#portfolio" class="card-link">
+            View mapping
+            <span class="material-symbols-rounded" style="font-size:16px;">arrow_forward</span>
+          </a>
+        </article>
+
+        <article class="service-card" data-reveal="up" data-reveal-delay="3">
+          <div class="service-icon">
+            <span class="material-symbols-rounded">view_in_ar</span>
+          </div>
+          <h3>3D Vision Animation</h3>
+          <p>Photorealistic AI-rendered walkthroughs and animated massing models. See your structure before ground breaks.</p>
+          <a href="#portfolio" class="card-link">
+            Open 3D preview
+            <span class="material-symbols-rounded" style="font-size:16px;">arrow_forward</span>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PORTFOLIO ========== -->
+  <section class="section-pad" id="portfolio" style="background:var(--surface-mid);">
+    <div class="section-grid">
+      <div class="section-heading" data-reveal="up">
+        <div class="eyebrow">
+          <span class="material-symbols-rounded" style="font-size:16px;">auto_awesome</span>
+          AI Curated Portfolio
+        </div>
+        <h2>Projects We've Delivered</h2>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="filter-bar" data-reveal="up">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="residential">Residential</button>
+        <button class="filter-btn" data-filter="commercial">Commercial</button>
+        <button class="filter-btn" data-filter="interior">Interior</button>
+      </div>
+
+      <div class="portfolio-grid" id="portfolioGrid">
+        <div class="portfolio-item" data-category="residential" data-reveal="up" data-reveal-delay="1" onclick="openLightbox('./images/vision-azure-residence.jpg')">
+          <img src="./images/vision-azure-residence.jpg" alt="Azure Residence" loading="lazy" />
+          <div class="overlay">
+            <span>Exterior Design</span>
+            <h3>The Azure Residence</h3>
+          </div>
+        </div>
+        <div class="portfolio-item" data-category="commercial" data-reveal="up" data-reveal-delay="2" onclick="openLightbox('./images/vision-corporate-plaza.jpg')">
+          <img src="./images/vision-corporate-plaza.jpg" alt="Corporate Plaza" loading="lazy" />
+          <div class="overlay">
+            <span>Commercial</span>
+            <h3>Corporate Plaza</h3>
+          </div>
+        </div>
+        <div class="portfolio-item" data-category="residential" data-reveal="up" data-reveal-delay="3" onclick="openLightbox('./images/mapping-grand-horizon.jpg')">
+          <img src="./images/mapping-grand-horizon.jpg" alt="Grand Horizon" loading="lazy" />
+          <div class="overlay">
+            <span>Blueprint</span>
+            <h3>Grand Horizon Estate</h3>
+          </div>
+        </div>
+        <div class="portfolio-item" data-category="interior" data-reveal="up" data-reveal-delay="1" onclick="openLightbox('./images/vision-skyloft.jpg')">
+          <img src="./images/vision-skyloft.jpg" alt="Skyloft" loading="lazy" />
+          <div class="overlay">
+            <span>Interior Design</span>
+            <h3>Skyloft V-01</h3>
+          </div>
+        </div>
+        <div class="portfolio-item" data-category="commercial" data-reveal="up" data-reveal-delay="2" onclick="openLightbox('./images/mapping-urban-grid.jpg')">
+          <img src="./images/mapping-urban-grid.jpg" alt="Urban Grid" loading="lazy" />
+          <div class="overlay">
+            <span>Site Planning</span>
+            <h3>Urban Loft Grid</h3>
+          </div>
+        </div>
+        <div class="portfolio-item" data-category="residential" data-reveal="up" data-reveal-delay="3" onclick="openLightbox('./images/mapping-glass-pavilion.jpg')">
+          <img src="./images/mapping-glass-pavilion.jpg" alt="Glass Pavilion" loading="lazy" />
+          <div class="overlay">
+            <span>Modern Villa</span>
+            <h3>Glass Pavilion</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROCESS / TIMELINE ========== -->
+  <section class="section-pad" id="process">
+    <div class="section-grid">
+      <div class="section-heading" data-reveal="up">
+        <div class="eyebrow">
+          <span class="material-symbols-rounded" style="font-size:16px;">auto_awesome</span>
+          AI Workflow
+        </div>
+        <h2>Our Intelligent Process</h2>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="process-grid">
+        <article class="process-step" data-reveal="up" data-reveal-delay="1">
+          <span class="step-number">01</span>
+          <h3>AI Analysis</h3>
+          <p>Our AI analyzes site data, requirements, and structural constraints to generate optimal design parameters.</p>
+        </article>
+        <article class="process-step" data-reveal="up" data-reveal-delay="2">
+          <span class="step-number">02</span>
+          <h3>3D Modeling</h3>
+          <p>Photorealistic 3D models are generated with real-time rendering, material simulations, and lighting analysis.</p>
+        </article>
+        <article class="process-step" data-reveal="up" data-reveal-delay="3">
+          <span class="step-number">03</span>
+          <h3>Blueprint Generation</h3>
+          <p>Construction-ready blueprints with structural notes, dimensions, load calculations, and material specifications.</p>
+        </article>
+        <article class="process-step" data-reveal="up" data-reveal-delay="4">
+          <span class="step-number">04</span>
+          <h3>Execution Support</h3>
+          <p>On-site engineering supervision ensuring every specification is followed with precision and quality.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 3D VISION ANIMATION ========== -->
+  <section id="vision-animation" class="vision-stage section-pad" style="background:var(--primary);overflow:hidden;position:relative;min-height:500px;">
+    <img id="visionFallback" src="./images/vision-azure-residence.jpg" alt="3D architectural render" class="vision-fallback" style="position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;opacity:0.2;" />
+    <canvas id="visionCanvas" style="position:absolute;inset:0;z-index:1;width:100%;height:100%;" aria-label="Animated 3D architectural model"></canvas>
+    <div style="position:absolute;inset:0;z-index:2;background:linear-gradient(to right, var(--primary) 0%, transparent 60%);"></div>
+    <div class="section-grid" style="position:relative;z-index:3;display:flex;align-items:center;min-height:500px;">
+      <div style="max-width:520px;padding:40px 0;color:var(--white);" data-reveal="left">
+        <div class="eyebrow" style="color:var(--gold);justify-content:flex-start;">
+          <span class="material-symbols-rounded" style="font-size:16px;">auto_awesome</span>
+          3D Vision AI
+        </div>
+        <h2 style="font-family:'Outfit',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;line-height:1.1;margin:12px 0 16px;color:var(--white);">See The Structure Before Construction Starts</h2>
+        <p style="color:rgba(255,255,255,0.65);font-size:16px;line-height:1.7;margin-bottom:24px;">Our AI-powered 3D engine turns 2D plans into animated massing, facade, and walkthrough visuals so clients can approve every detail with confidence before breaking ground.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;">
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;font-size:13px;font-weight:600;"><span class="material-symbols-rounded" style="font-size:18px;color:var(--gold);">360</span> 360° Model View</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;font-size:13px;font-weight:600;"><span class="material-symbols-rounded" style="font-size:18px;color:var(--gold);">4k</span> 4K Render Output</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;font-size:13px;font-weight:600;"><span class="material-symbols-rounded" style="font-size:18px;color:var(--gold);">draw</span> CAD Plan Based</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;font-size:13px;font-weight:600;"><span class="material-symbols-rounded" style="font-size:18px;color:var(--gold);">speed</span> Real-time Preview</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS ========== -->
+  <section class="section-pad" id="testimonials" style="background:var(--surface-mid);">
+    <div class="section-grid">
+      <div class="section-heading" data-reveal="up">
+        <div class="eyebrow">
+          <span class="material-symbols-rounded" style="font-size:16px;">auto_awesome</span>
+          Client Feedback
+        </div>
+        <h2>What Our Clients Say</h2>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="testimonials-grid">
+        <article class="testimonial-card" data-reveal="up" data-reveal-delay="1">
+          <div class="stars">
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+          </div>
+          <blockquote>"Bhumi Enterprises designed our entire residential structure. The team was professional, responsive, and delivered beyond expectations. Our home stands strong because of their precision engineering."</blockquote>
+          <div class="author">
+            <div class="author-avatar">RK</div>
+            <div class="author-info">
+              <strong>Ramesh Kumar</strong>
+              <span>Homeowner, Ahmedabad</span>
+            </div>
+          </div>
+        </article>
+        <article class="testimonial-card" data-reveal="up" data-reveal-delay="2">
+          <div class="stars">
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+          </div>
+          <blockquote>"The 3D visualization service helped us see our commercial complex before construction. We made design changes early, saving both time and money. Highly recommend their team."</blockquote>
+          <div class="author">
+            <div class="author-avatar">SP</div>
+            <div class="author-info">
+              <strong>Sneha Patel</strong>
+              <span>Developer, Vadodara</span>
+            </div>
+          </div>
+        </article>
+        <article class="testimonial-card" data-reveal="up" data-reveal-delay="3">
+          <div class="stars">
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+            <span class="material-symbols-rounded">star</span>
+          </div>
+          <blockquote>"The AI-driven mapping and precision blueprints made our villa construction seamless. Every room, setback, and utility was perfectly planned and executed."</blockquote>
+          <div class="author">
+            <div class="author-avatar">AM</div>
+            <div class="author-info">
+              <strong>Arjun Mehta</strong>
+              <span>Homeowner, Surat</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ENGINEERS ========== -->
+  <section class="section-pad" id="engineers">
+    <div class="section-grid">
+      <div class="section-heading" data-reveal="up">
+        <div class="eyebrow">
+          <span class="material-symbols-rounded" style="font-size:16px;">auto_awesome</span>
+          Expert Team
+        </div>
+        <h2>Meet Our Engineers</h2>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="engineers-grid">
+        <article class="engineer-card" data-reveal="left" data-reveal-delay="1">
+          <div class="avatar">
+            <img src="./images/chirag-goswami.jpg" alt="Chirag Goswami" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='var(--gold)';this.parentElement.style.color='var(--primary)';this.parentElement.innerHTML='CG'" />
+          </div>
+          <h3>Chirag Goswami</h3>
+          <p class="role">Civil Engineer</p>
+          <p>Expert civil engineer with deep knowledge of structural design, construction planning, and project execution. Committed to delivering safe, durable, and cost-effective engineering solutions.</p>
+          <a href="tel:+919950608995" style="display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-weight:600;font-size:14px;margin-top:12px;">
+            <span class="material-symbols-rounded" style="font-size:16px;">call</span>
+            9950608995
+          </a>
+        </article>
+        <article class="engineer-card" data-reveal="right" data-reveal-delay="1">
+          <div class="avatar">
+            <img src="./images/hitesh-patidar.jpg" alt="Hitesh Patidar" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='var(--gold)';this.parentElement.style.color='var(--primary)';this.parentElement.innerHTML='HP'" />
+          </div>
+          <h3>Hitesh Patidar</h3>
+          <p class="role">Civil Engineer</p>
+          <p>Skilled civil engineer specializing in structural analysis, site supervision, and quality construction. Dedicated to turning architectural visions into strong, reliable structures.</p>
+          <a href="tel:+919983027512" style="display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-weight:600;font-size:14px;margin-top:12px;">
+            <span class="material-symbols-rounded" style="font-size:16px;">call</span>
+            9983027512
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section class="section-pad" id="contact" style="background:var(--surface-mid);">
+    <div class="section-grid">
+      <div class="contact-wrap">
+        <div class="contact-info" data-reveal="left">
+          <div class="eyebrow" style="color:var(--gold);">
+            <span class="material-symbols-rounded" style="font-size:16px;">auto_awesome</span>
+            AI-Powered Contact
+          </div>
+          <h2>Let's Build Something Extraordinary</h2>
+          <p>Connect with our AI-assisted team. We'll analyze your requirements and provide a comprehensive structural design proposal within 24 hours.</p>
+
+          <div class="contact-details">
+            <a href="tel:+919950608995">
+              <div class="icon"><span class="material-symbols-rounded">call</span></div>
+              <div class="info">
+                <strong>Chirag Goswami</strong>
+                <span>9950608995</span>
+              </div>
+            </a>
+            <a href="tel:+919983027512">
+              <div class="icon"><span class="material-symbols-rounded">call</span></div>
+              <div class="info">
+                <strong>Hitesh Patidar</strong>
+                <span>9983027512</span>
+              </div>
+            </a>
+            <a href="https://wa.me/919950608995" target="_blank">
+              <div class="icon"><span class="material-symbols-rounded">chat</span></div>
+              <div class="info">
+                <strong>WhatsApp</strong>
+                <span>Chat with our team</span>
+              </div>
+            </a>
+            <a href="https://www.google.com/maps/place/Bhumi+Enterprises/@23.562518,73.9853032,17.22z" target="_blank">
+              <div class="icon"><span class="material-symbols-rounded">location_on</span></div>
+              <div class="info">
+                <strong>Visit Office</strong>
+                <span>View on Google Maps</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm" data-reveal="right">
+          <div class="form-row">
+            <label>
+              Full Name
+              <input type="text" name="name" placeholder="Your name" required />
+            </label>
+            <label>
+              Phone Number
+              <input type="tel" name="phone" placeholder="Your phone" required />
+            </label>
+          </div>
+          <label>
+            Email Address
+            <input type="email" name="email" placeholder="your@email.com" />
+          </label>
+          <label>
+            Service Needed
+            <select name="service">
+              <option value="">Select service</option>
+              <option value="Structural Design">Structural Design</option>
+              <option value="House Mapping">House Mapping</option>
+              <option value="3D Visualization">3D Visualization</option>
+              <option value="Renovation">Renovation</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <label>
+            Project Details
+            <textarea name="message" placeholder="Tell us about your project..." required></textarea>
+          </label>
+          <div class="form-row">
+            <button type="submit" class="btn-primary" style="justify-content:center;width:100%;">
+              <span class="material-symbols-rounded">send</span>
+              Send Enquiry
+            </button>
+            <button type="button" class="btn-outline" style="justify-content:center;width:100%;" onclick="sendWhatsApp()">
+              <span class="material-symbols-rounded">chat</span>
+              WhatsApp Us
+            </button>
+          </div>
+          <p class="form-status" id="formStatus" style="min-height:24px;font-size:14px;font-weight:600;"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="section-grid">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>
+            <span style="display:inline-flex;align-items:center;gap:8px;">
+              <span style="width:30px;height:30px;border-radius:8px;background:var(--gold);color:var(--primary);display:inline-grid;place-items:center;font-weight:900;font-size:14px;">BE</span>
+              Bhumi Enterprises
+            </span>
+          </h4>
+          <p>AI-powered structural design and architectural excellence. Delivering precision-engineered buildings since 2014.</p>
+          <div class="footer-social">
+            <a href="https://wa.me/919950608995" target="_blank" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/bhumienterprises71" target="_blank" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/people/Bhumi-Enterprises/61574511300890/" target="_blank" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@BhumiEnterprises" target="_blank" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/bhumi-enterprisess-2a3783332/" target="_blank" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="#services">Structural System</a>
+          <a href="#services">House Mapping</a>
+          <a href="#services">3D Vision Animation</a>
+          <a href="#services">Renovation</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#engineers">Our Team</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#process">Process</a>
+          <a href="#testimonials">Testimonials</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="tel:+919950608995">Chirag: 9950608995</a>
+          <a href="tel:+919983027512">Hitesh: 9983027512</a>
+          <a href="https://wa.me/919950608995" target="_blank">WhatsApp</a>
+          <a href="https://www.google.com/maps/place/Bhumi+Enterprises" target="_blank">Find us on Maps</a>
+        </div>
+      </div>
+
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d226.07790663208732!2d73.98477863762209!3d23.562808152822413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39673bec4583ea2d%3A0xb8df14f7e8f69702!2sBhumi%20Enterprises!5e0!3m2!1sen!2sin!4v1" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bhumi Enterprises location"></iframe>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Bhumi Enterprises. All rights reserved.</span>
+        <span>Built with <span style="color:var(--gold);">AI</span> & Precision Engineering</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== AI CHATBOT ========== -->
+  <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open AI assistant">
+    <div class="pulse-ring"></div>
+    <span class="material-symbols-rounded">smart_toy</span>
+  </button>
+
+  <div class="chatbot-panel" id="chatbotPanel">
+    <div class="chatbot-header">
+      <div>
+        <h3>AI Assistant</h3>
+        <div class="status">
+          <span class="status-dot"></span>
+          Online
+        </div>
+      </div>
+      <button class="chatbot-close" id="chatbotClose">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <div class="chat-msg bot">Hello! I'm Bhumi AI. Ask me about our services, projects, or pricing. How can I help you build?</div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chatbotInput" placeholder="Ask me anything..." />
+      <button id="chatbotSend" aria-label="Send message">
+        <span class="material-symbols-rounded" style="font-size:20px;">send</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== FLOATING SOCIAL ========== -->
+  <a href="https://wa.me/919950608995?text=Hi%20Bhumi%20Enterprises!%20I'm%20interested%20in%20your%20services." target="_blank" class="social-float whatsapp" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <span class="material-symbols-rounded">arrow_upward</span>
+  </button>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
