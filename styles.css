@@ -1030,19 +1030,20 @@ button, input, textarea, select {
   box-shadow: var(--shadow-lg);
 }
 .engineer-card .avatar {
-  width: 80px;
-  height: 80px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  margin: 0 auto 16px;
+  margin: 0 auto 20px;
   overflow: hidden;
-  border: 2px solid var(--gold);
-  padding: 3px;
+  border: 3px solid var(--gold);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15), 0 8px 24px rgba(0,0,0,0.1);
 }
 .engineer-card .avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  display: block;
 }
 .engineer-card h3 {
   font-family: 'Outfit', sans-serif;
