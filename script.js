@@ -34,27 +34,10 @@
     }
   }, { passive: true });
 
-  // ===================== THEME TOGGLE =====================
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  let darkMode = localStorage.getItem('bhumi-dark') === 'true' ||
-    (!('bhumi-dark' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-  function applyTheme(dark) {
-    document.documentElement.classList.toggle('dark', dark);
-    themeIcon.textContent = dark ? 'dark_mode' : 'light_mode';
-    localStorage.setItem('bhumi-dark', dark);
-  }
-
-  if (darkMode) {
+  // Dark mode follows system preference only
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.documentElement.classList.add('dark');
-    themeIcon.textContent = 'dark_mode';
   }
-
-  themeToggle.addEventListener('click', () => {
-    darkMode = !darkMode;
-    applyTheme(darkMode);
-  });
 
   // ===================== MOBILE MENU =====================
   const menuToggle = document.getElementById('menuToggle');

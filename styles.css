@@ -261,25 +261,6 @@ button, input, textarea, select {
   box-shadow: var(--shadow-glow);
 }
 
-.theme-toggle {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.7);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: background var(--transition), color var(--transition), transform var(--transition);
-  font-size: 18px;
-}
-.theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--white);
-  transform: scale(1.05);
-}
-
 .menu-toggle {
   display: none;
   width: 40px;
