@@ -100,22 +100,19 @@ I would like to request a service:
 
   statusText.textContent = `Thanks ${name}. Redirecting to WhatsApp...`;
   contactForm.reset();
+});
 
-  // Dark mode toggle handling
+// Dark mode toggle handling
+(function initDarkMode() {
   const darkModeToggle = document.querySelector('.dark-mode-toggle');
-  function applyDarkMode(enabled) {
-    document.body.classList.toggle('dark-mode', enabled);
-    darkModeToggle.setAttribute('aria-pressed', String(enabled));
-  }
-  function initDarkMode() {
-    const stored = localStorage.getItem('darkMode');
-    const enabled = stored === 'true' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    applyDarkMode(enabled);
-  }
+  if (!darkModeToggle) return;
+  const stored = localStorage.getItem('darkMode');
+  const enabled = stored === 'true' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.body.classList.toggle('dark-mode', enabled);
+  darkModeToggle.setAttribute('aria-pressed', String(enabled));
   darkModeToggle.addEventListener('click', () => {
     const isEnabled = document.body.classList.toggle('dark-mode');
     darkModeToggle.setAttribute('aria-pressed', String(isEnabled));
     localStorage.setItem('darkMode', isEnabled);
   });
-  initDarkMode();
-});
+})();
