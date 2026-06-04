@@ -50,6 +50,10 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   transition: background var(--transition-slow), color var(--transition-slow);
+  cursor: grab;
+}
+body:active {
+  cursor: grabbing;
 }
 
 img {
