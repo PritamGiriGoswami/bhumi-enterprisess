@@ -92,21 +92,6 @@ button, input, textarea, select {
   border-top-color: var(--gold);
   animation: spin 1s linear infinite;
 }
-.preloader-logo {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: var(--primary);
-  display: grid;
-  place-items: center;
-  color: var(--gold);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
-  font-size: 20px;
-  animation: pulse-glow 1.5s ease-in-out infinite;
-}
-
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -157,22 +142,6 @@ button, input, textarea, select {
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-.brand-mark {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  background: var(--gold);
-  color: var(--primary);
-  border-radius: 10px;
-  font-weight: 900;
-  font-size: 18px;
-  transition: transform var(--transition);
-}
-.brand:hover .brand-mark {
-  transform: rotate(-15deg) scale(1.1);
-}
-
 .desktop-nav {
   display: flex;
   align-items: center;
