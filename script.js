@@ -673,7 +673,7 @@
     });
   }
 
-  console.log('%c Bhumi Enterprises ', 'background:#f59e0b;color:#0f172a;font-size:20px;font-weight:bold;padding:8px 12px;border-radius:6px;');
+  console.log('%c Bhumi Enterprises ', 'background:#dc2626;color:#ffffff;font-size:20px;font-weight:bold;padding:8px 12px;border-radius:6px;');
   console.log('%c AI-Powered Structural Design Platform ', 'font-size:14px;color:#94a3b8;');
   console.log('%c Press Ctrl+K to open AI Assistant ', 'font-size:12px;color:#64748b;');
 

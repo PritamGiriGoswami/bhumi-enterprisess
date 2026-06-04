@@ -1,9 +1,9 @@
 :root {
-  --gold: #f59e0b;
-  --gold-light: #fcd34d;
-  --gold-dark: #b45309;
+  --gold: #dc2626;
+  --gold-light: #f87171;
+  --gold-dark: #991b1b;
   --white: #ffffff;
-  --shadow-glow: 0 0 40px rgba(245, 158, 11, 0.15);
+  --shadow-glow: 0 0 40px rgba(220, 38, 38, 0.15);
   --radius: 12px;
   --radius-lg: 20px;
   --radius-xl: 28px;
@@ -96,8 +96,8 @@ button, input, textarea, select {
   to { transform: rotate(360deg); }
 }
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
-  50% { box-shadow: 0 0 0 20px rgba(245, 158, 11, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+  50% { box-shadow: 0 0 0 20px rgba(220, 38, 38, 0); }
 }
 
 /* ============================================
@@ -323,9 +323,9 @@ button, input, textarea, select {
   inset: 0;
   z-index: 2;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(245, 158, 11, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 50%, rgba(220, 38, 38, 0.08) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(245, 158, 11, 0.03) 0%, transparent 50%);
+    radial-gradient(ellipse at 50% 80%, rgba(220, 38, 38, 0.03) 0%, transparent 50%);
 }
 
 .hero-content {
@@ -342,8 +342,8 @@ button, input, textarea, select {
   align-items: center;
   gap: 8px;
   padding: 8px 20px;
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.2);
   border-radius: 100px;
   color: var(--gold);
   font-size: 13px;
@@ -426,7 +426,7 @@ button, input, textarea, select {
 }
 .btn-primary:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 40px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 12px 40px rgba(220, 38, 38, 0.35);
 }
 
 .btn-secondary {
@@ -456,7 +456,7 @@ button, input, textarea, select {
   padding: 12px 24px;
   background: transparent;
   color: var(--gold);
-  border: 1.5px solid rgba(245, 158, 11, 0.3);
+  border: 1.5px solid rgba(220, 38, 38, 0.3);
   border-radius: 10px;
   font-weight: 600;
   font-size: 14px;
@@ -464,7 +464,7 @@ button, input, textarea, select {
   transition: all var(--transition);
 }
 .btn-outline:hover {
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(220, 38, 38, 0.1);
   border-color: var(--gold);
 }
 
@@ -497,7 +497,7 @@ button, input, textarea, select {
 .scroll-line {
   width: 1px;
   height: 40px;
-  background: linear-gradient(to bottom, rgba(245, 158, 11, 0.5), transparent);
+  background: linear-gradient(to bottom, rgba(220, 38, 38, 0.5), transparent);
   animation: scrollLine 2s ease-in-out infinite;
 }
 @keyframes scrollLine {
@@ -627,14 +627,14 @@ button, input, textarea, select {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.03) 0%, transparent 60%);
   opacity: 0;
   transition: opacity var(--transition);
 }
 .service-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
-  border-color: rgba(245, 158, 11, 0.15);
+  border-color: rgba(220, 38, 38, 0.15);
 }
 .service-card:hover::before {
   opacity: 1;
@@ -654,7 +654,7 @@ button, input, textarea, select {
 }
 .service-card:hover .service-icon {
   transform: scale(1.08) rotate(-4deg);
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.25);
 }
 
 .service-card h3 {
@@ -827,7 +827,7 @@ button, input, textarea, select {
 }
 .process-step:hover .step-number {
   transform: scale(1.2);
-  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2), 0 6px 20px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2), 0 6px 20px rgba(220, 38, 38, 0.3);
 }
 .process-step h3 {
   font-family: 'Outfit', sans-serif;
@@ -861,7 +861,7 @@ button, input, textarea, select {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(245, 158, 11, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 50%, rgba(220, 38, 38, 0.06) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 50%, rgba(59, 130, 246, 0.04) 0%, transparent 50%);
   pointer-events: none;
 }
@@ -1010,7 +1010,7 @@ button, input, textarea, select {
   margin: 0 auto 20px;
   overflow: hidden;
   border: 3px solid var(--gold);
-  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15), 0 8px 24px rgba(0,0,0,0.1);
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.15), 0 8px 24px rgba(0,0,0,0.1);
 }
 .engineer-card .avatar img {
   width: 100%;
@@ -1088,7 +1088,7 @@ button, input, textarea, select {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(220, 38, 38, 0.1);
   color: var(--gold);
   display: grid;
   place-items: center;
@@ -1136,7 +1136,7 @@ button, input, textarea, select {
 .contact-form textarea:focus,
 .contact-form select:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
 }
 .contact-form textarea {
   resize: vertical;
@@ -1253,18 +1253,18 @@ button, input, textarea, select {
   display: grid;
   place-items: center;
   font-size: 28px;
-  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
   transition: transform var(--transition), box-shadow var(--transition);
 }
 .chatbot-toggle:hover {
   transform: scale(1.08);
-  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.4);
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.4);
 }
 .chatbot-toggle .pulse-ring {
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  border: 2px solid rgba(245, 158, 11, 0.3);
+  border: 2px solid rgba(220, 38, 38, 0.3);
   animation: pulse-ring 2s ease-out infinite;
 }
 @keyframes pulse-ring {
@@ -1552,7 +1552,7 @@ button, input, textarea, select {
   visibility: hidden;
   transform: translateY(12px);
   transition: all var(--transition);
-  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.25);
 }
 .back-to-top.visible {
   opacity: 1;
@@ -1561,7 +1561,7 @@ button, input, textarea, select {
 }
 .back-to-top:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 6px 24px rgba(220, 38, 38, 0.35);
 }
 
 /* ============================================
