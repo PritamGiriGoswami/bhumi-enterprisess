@@ -823,6 +823,11 @@ button, input, textarea, select {
   place-items: center;
   font-weight: 800;
   font-size: 13px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.process-step:hover .step-number {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2), 0 6px 20px rgba(245, 158, 11, 0.3);
 }
 .process-step h3 {
   font-family: 'Outfit', sans-serif;
