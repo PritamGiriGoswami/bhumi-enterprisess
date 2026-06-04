@@ -153,11 +153,13 @@
       if (isNaN(target)) return;
 
       const suffix = el.dataset.count && el.dataset.count.includes('%') ? '%' : '';
+      const plus = el.dataset.count && el.dataset.count.includes('+') ? '+' : '';
       let current = 0;
       const step = Math.max(1, Math.ceil(target / 50));
       const interval = setInterval(() => {
         current = Math.min(target, current + step);
-        el.innerHTML = current + (suffix ? '<small>%</small>' : '');
+        const suffixHtml = suffix ? '<small>%</small>' : '';
+        el.innerHTML = current + suffixHtml + plus;
         if (current >= target) clearInterval(interval);
       }, 20);
       obs.unobserve(el);
