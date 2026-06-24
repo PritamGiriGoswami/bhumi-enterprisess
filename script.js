@@ -329,13 +329,18 @@
       color: 0x93c5fd, roughness: 0.08, metalness: 0.05, transparent: true, opacity: 0.62,
     });
     const warmGlass = new THREE.MeshStandardMaterial({
-      color: 0xfbbf24, emissive: 0xf59e0b, emissiveIntensity: 0.24, roughness: 0.18, transparent: true, opacity: 0.78,
+      color: 0xfbbf24, emissive: 0xf59e0b, emissiveIntensity: 0.4, roughness: 0.18, transparent: true, opacity: 0.8,
     });
     const steel = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.38, metalness: 0.55 });
     const accent = new THREE.MeshStandardMaterial({
       color: 0xf59e0b, roughness: 0.34, metalness: 0.28, emissive: 0x7c2d12, emissiveIntensity: 0.2,
     });
     const lawn = new THREE.MeshStandardMaterial({ color: 0x164e3f, roughness: 0.85, metalness: 0.02 });
+
+    const wood = new THREE.MeshStandardMaterial({ color: 0x8b5a2b, roughness: 0.8, metalness: 0.05 });
+    const darkWood = new THREE.MeshStandardMaterial({ color: 0x3e2723, roughness: 0.9, metalness: 0.05 });
+    const whiteWall = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.9, metalness: 0.02 });
+    const lightGray = new THREE.MeshStandardMaterial({ color: 0x9ca3af, roughness: 0.8, metalness: 0.05 });
 
     const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(22, 22),
@@ -370,65 +375,80 @@
       return mesh;
     }
 
-    // === MODERN LUXURY VILLA ===
+    function addLight(x, y, z) {
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.2, 0.1), steel);
+      mesh.position.set(x, y, z);
+      building.add(mesh);
+      const light = new THREE.PointLight(0xfcd34d, 1.5, 3);
+      light.position.set(x, y, z + 0.15);
+      building.add(light);
+    }
 
-    // Ground platform
-    addBox(7.2, 0.12, 5.2, 0, 0.08, 0, concreteDark);
+    // === MODERN VILLA RECREATION ===
 
-    // Main ground floor body
-    addBox(5.6, 0.9, 3.8, -0.2, 0.58, 0.05, concrete);
+    // Base
+    addBox(9, 0.1, 8, 0, 0.05, -1, concreteDark);
 
-    // Upper floor (slightly set back)
-    addBox(4.8, 0.85, 3.2, 0.15, 1.5, 0.1, concrete);
+    // Back volume (fills the back)
+    addBox(8, 4.6, 3, 0, 2.3, -2.5, whiteWall);
 
-    // Roof slab (floating effect)
-    addBox(5.8, 0.1, 4.0, -0.2, 2.5, 0.05, concreteDark);
-    addBox(5.0, 0.08, 3.4, 0.15, 2.52, 0.1, steel);
+    // === LEFT SIDE (Wood & White) ===
+    // Ground floor white volume
+    addBox(3.8, 2.4, 4.2, -2.1, 1.2, 0, whiteWall);
+    // Ground floor left window
+    addBox(1.5, 1.4, 0.1, -2.1, 1.2, 2.1, warmGlass);
+    // Window canopy
+    addBox(2.2, 0.15, 0.8, -2.1, 2.0, 2.4, whiteWall);
 
-    // === GLASS WALLS ===
+    // Upper floor wood volume
+    addBox(3.5, 2.2, 4.2, -2.2, 3.5, -0.1, wood);
+    // Upper floor left window
+    addBox(1.8, 1.2, 0.1, -2.2, 3.5, 2.0, warmGlass);
 
-    // Ground floor front glass
-    addBox(3.2, 0.8, 0.06, -0.1, 0.62, 1.9, glass);
-    // Ground floor side glass
-    addBox(0.06, 0.8, 1.6, -2.9, 0.62, 0.1, glass);
-    // Upper floor front glass
-    addBox(2.8, 0.76, 0.06, 0.25, 1.52, 1.65, glass);
-    // Upper floor side glass tower
-    addBox(0.06, 1.6, 1.4, 2.5, 1.48, 0.15, glass);
+    // Dark vertical fin & roof
+    addBox(0.3, 5.0, 4.5, -4.1, 2.5, -0.1, steel);
+    addBox(3.8, 0.3, 4.5, -2.35, 4.85, -0.1, steel);
 
-    // === WARM GLASS ACCENT (light glow) ===
-    addBox(0.9, 0.5, 0.9, -2.1, 0.5, 1.35, warmGlass);
-    addBox(0.9, 0.5, 0.9, -2.1, 1.35, 1.35, warmGlass);
+    // === RIGHT SIDE (Porch & Balcony Frame) ===
+    // Ground dark slatted volume
+    addBox(4.5, 2.4, 3.0, 2.05, 1.2, -0.5, darkWood);
+    // Porch back wall
+    addBox(4.3, 2.4, 0.2, 1.95, 1.2, 0.8, whiteWall);
+    // Porch floor & steps
+    addBox(4.3, 0.2, 2.0, 1.95, 0.1, 1.9, concrete);
+    addBox(3.0, 0.1, 0.4, 1.3, 0.05, 3.1, concrete);
+    addBox(3.0, 0.1, 0.4, 1.3, 0.15, 2.7, concrete);
+    // Porch column
+    addBox(0.3, 2.4, 0.3, 3.8, 1.2, 2.6, whiteWall);
+    // Porch door & window
+    addBox(1.2, 1.8, 0.1, 1.2, 1.1, 0.9, steel); // Door
+    addBox(0.8, 1.6, 0.1, 1.2, 1.2, 0.95, warmGlass); // Door glass
+    addBox(1.5, 1.6, 0.1, 2.8, 1.2, 0.9, warmGlass); // Window
 
-    // === ENTRY CANOPY ===
-    addBox(2.0, 0.06, 1.8, -2.2, 0.58, 2.4, accent);
-    addCyl(0.04, 0.04, 0.6, -3.15, 0.32, 2.35, accent);
-    addCyl(0.04, 0.04, 0.6, -1.25, 0.32, 2.35, accent);
+    // Upper gray frame
+    addBox(4.8, 0.25, 3.5, 1.8, 2.525, 1.5, lightGray); // Bottom
+    addBox(4.8, 0.25, 3.5, 1.8, 4.5, 1.5, lightGray); // Top
+    addBox(0.25, 1.725, 3.5, 4.075, 3.5125, 1.5, lightGray); // Right
+    addBox(0.25, 1.725, 3.5, -0.475, 3.5125, 1.5, lightGray); // Left
 
-    // === TOWER / STAIRCASE FEATURE ===
-    addBox(1.2, 1.9, 1.2, 2.4, 1.08, -0.8, steel);
-    addBox(1.1, 1.8, 1.1, 2.4, 1.03, -0.8, glass);
+    // Balcony inside wall
+    addBox(4.3, 1.725, 0.2, 1.8, 3.5125, -0.15, whiteWall);
+    // Balcony door & window
+    addBox(1.0, 1.5, 0.1, 1.2, 3.25, -0.05, steel);
+    addBox(1.2, 1.2, 0.1, 2.8, 3.4, -0.05, warmGlass);
 
-    // === CARPORT ===
-    addBox(2.4, 0.06, 1.6, -0.4, 0.78, -1.8, accent);
-    addCyl(0.035, 0.035, 0.8, -1.55, 0.42, -1.8, steel);
-    addCyl(0.035, 0.035, 0.8, 0.75, 0.42, -1.8, steel);
+    // Balcony wood louvers
+    addBox(1.2, 1.725, 0.1, 0.25, 3.5125, 3.2, wood);
+    addBox(0.1, 1.725, 1.5, -0.3, 3.5125, 2.5, wood);
 
-    // === TERRACE RAILING ===
-    for (let i = 0; i < 8; i++) addBox(0.035, 0.12, 0.035, -2.9 + i * 0.65, 2.05, 1.95, steel);
-    for (let i = 0; i < 6; i++) addBox(0.035, 0.12, 0.035, 0.6 + i * 0.45, 2.05, 1.95, steel);
+    // Balcony glass railing
+    addBox(3.1, 0.7, 0.05, 2.4, 3.0, 3.2, glass);
 
-    // === SWIMMING POOL ===
-    const poolMat = new THREE.MeshStandardMaterial({ color: 0x0ea5e9, roughness: 0.06, metalness: 0.1, transparent: true, opacity: 0.7 });
-    addBox(1.8, 0.03, 1.0, -2.6, 0.12, -1.2, poolMat);
-    addBox(0.06, 0.1, 1.0, -3.53, 0.15, -1.2, concrete);
-    addBox(0.06, 0.1, 1.0, -1.67, 0.15, -1.2, concrete);
-    addBox(1.8, 0.1, 0.06, -2.6, 0.15, -0.68, concrete);
-    addBox(1.8, 0.1, 0.06, -2.6, 0.15, -1.72, concrete);
-
-    // === DECK / PATIO ===
-    addBox(0.08, 0.04, 1.0, -1.0, 0.06, -0.2, accent);
-    addBox(0.08, 0.04, 1.0, -1.0, 0.06, 0.7, accent);
+    // Wall lights
+    addLight(-2.2, 4.3, 2.1); // Above upper left window
+    addLight(3.8, 2.0, 2.8); // On porch column
+    addLight(4.0, 3.8, 1.65); // On upper right frame
+    addLight(1.0, 1.9, 1.0); // Porch entrance
 
     // === LANDSCAPING: SHRUBS ===
     const shrubs = [
