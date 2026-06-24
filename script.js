@@ -496,7 +496,7 @@
     const fallback = document.getElementById('visionFallback');
     if (fallback) fallback.style.opacity = '0';
 
-    const lookAt = new THREE.Vector3(0.1, 1.2, 0);
+    const lookAt = new THREE.Vector3(2.5, 1.2, -2.0);
     let animId;
     let isVisible = false;
 
@@ -529,83 +529,6 @@
     }
   })();
 
-  // ===================== AI CHATBOT =====================
-  (function initChatbot() {
-    const toggle = document.getElementById('chatbotToggle');
-    const panel = document.getElementById('chatbotPanel');
-    const close = document.getElementById('chatbotClose');
-    const messages = document.getElementById('chatbotMessages');
-    const input = document.getElementById('chatbotInput');
-    const sendBtn = document.getElementById('chatbotSend');
-
-    const responses = {
-      'hello': 'Hello! Welcome to Bhumi Enterprises. How can I assist you with your structural design needs?',
-      'hi': 'Hi there! I\'m Bhumi AI. Ask me about our structural design, house mapping, or 3D visualization services.',
-      'service': 'We offer three core AI-powered services:\n1. Structural System Design\n2. Precision House Mapping\n3. 3D Vision Animation\n\nWhich one interests you?',
-      'price': 'Our pricing is project-based and depends on scope, size, and complexity. Could you share a few details about your project? I can connect you with our engineer for a free estimate.',
-      'cost': 'Our pricing is project-based and depends on scope, size, and complexity. Could you share a few details about your project? I can connect you with our engineer for a free estimate.',
-      'contact': 'You can reach us directly:\nChirag: 9950608995\nHitesh: 9983027512\nOr visit our office. We\'re located in Chitri, Gujarat.',
-      'phone': 'Chirag Goswami: 9950608995\nHitesh Patidar: 9983027512\nFeel free to call anytime!',
-      'engineer': 'Our lead engineers are Chirag Goswami and Hitesh Patidar. Both are experienced civil engineers with over 10 years of combined expertise in structural design and construction.',
-      'project': 'We\'ve completed over 250 projects including residential estates, commercial complexes, and industrial structures. Check out our portfolio section for samples!',
-      'portfolio': 'We\'ve completed over 250 projects including residential estates, commercial complexes, and industrial structures. Check out our portfolio section for samples!',
-      'location': 'We\'re based in Chitri, Gujarat. You can find us on Google Maps or visit during business hours. The map is in our footer!',
-      'address': 'We\'re based in Chitri, Gujarat. You can find us on Google Maps or visit during business hours. The map is in our footer!',
-      '3d': 'Our 3D Vision Animation service creates photorealistic walkthroughs and massing models. You can see the structure before construction starts. Check the 3D panel on our page!',
-      'design': 'Our structural design service uses AI-optimized calculations for maximum strength and material efficiency. We handle residential, commercial, and industrial projects.',
-      'mapping': 'House Mapping involves precision blueprints with room layouts, utility routing, structural notes, and working dimensions for on-site execution.',
-      'bye': 'Thank you for chatting! Feel free to reach out anytime. Have a great day!',
-      'thanks': 'You\'re welcome! If you have any more questions, I\'m here to help.',
-      'thank you': 'You\'re welcome! If you have any more questions, I\'m here to help.',
-    };
-
-    function addMessage(text, isUser = false) {
-      const div = document.createElement('div');
-      div.className = 'chat-msg ' + (isUser ? 'user' : 'bot');
-      div.textContent = text;
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function getResponse(userText) {
-      const txt = userText.toLowerCase().trim();
-      // Check for keyword matches
-      for (const [key, reply] of Object.entries(responses)) {
-        if (txt.includes(key)) return reply;
-      }
-      // Default responses based on context
-      if (txt.includes('?')) {
-        return 'That\'s a great question! For detailed information, please call Chirag at 9950608995 or Hitesh at 9983027512. They can provide specific answers.';
-      }
-      return 'I\'d be happy to help! You can ask me about our services, pricing, projects, or contact details. Or call us at 9950608995 for immediate assistance.';
-    }
-
-    function handleSend() {
-      const text = input.value.trim();
-      if (!text) return;
-      addMessage(text, true);
-      input.value = '';
-
-      // Simulate AI thinking
-      setTimeout(() => {
-        const reply = getResponse(text);
-        addMessage(reply);
-      }, 400 + Math.random() * 400);
-    }
-
-    sendBtn.addEventListener('click', handleSend);
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') handleSend();
-    });
-
-    toggle.addEventListener('click', () => {
-      panel.classList.toggle('open');
-      if (panel.classList.contains('open')) input.focus();
-    });
-    close.addEventListener('click', () => {
-      panel.classList.remove('open');
-    });
-  })();
 
   // ===================== CONTACT FORM =====================
   const contactForm = document.getElementById('contactForm');
@@ -712,25 +635,6 @@
     });
   }, { passive: true });
 
-  // ===================== KEYBOARD SHORTCUTS =====================
-  document.addEventListener('keydown', (e) => {
-    // Ctrl+K or Cmd+K to focus chatbot
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      const panel = document.getElementById('chatbotPanel');
-      if (!panel.classList.contains('open')) {
-        document.getElementById('chatbotToggle').click();
-      }
-      document.getElementById('chatbotInput').focus();
-    }
-    // Escape to close chatbot
-    if (e.key === 'Escape') {
-      const panel = document.getElementById('chatbotPanel');
-      if (panel.classList.contains('open')) {
-        document.getElementById('chatbotClose').click();
-      }
-    }
-  });
 
   // ===================== PERFORMANCE: REDUCED MOTION =====================
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -759,7 +663,7 @@
       mx = e.clientX;
       my = e.clientY;
       const target = e.target;
-      const isHover = target.closest('a, button, .ripple, .filter-btn, .card-link, .chatbot-toggle, .back-to-top, .social-float');
+      const isHover = target.closest('a, button, .ripple, .filter-btn, .card-link, .back-to-top, .social-float');
       cursor.classList.toggle('hover', !!isHover);
       dot.classList.toggle('hover', !!isHover);
     });
@@ -787,6 +691,6 @@
 
   console.log('%c Bhumi Enterprises ', 'background:#dc2626;color:#ffffff;font-size:20px;font-weight:bold;padding:8px 12px;border-radius:6px;');
   console.log('%c AI-Powered Structural Design Platform ', 'font-size:14px;color:#94a3b8;');
-  console.log('%c Press Ctrl+K to open AI Assistant ', 'font-size:12px;color:#64748b;');
+
 
 })();
