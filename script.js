@@ -496,7 +496,7 @@
     const fallback = document.getElementById('visionFallback');
     if (fallback) fallback.style.opacity = '0';
 
-    const lookAt = new THREE.Vector3(2.5, 1.2, -2.0);
+    const lookAt = new THREE.Vector3(-2.5, 1.2, 2.0);
     let animId;
     let isVisible = false;
 
