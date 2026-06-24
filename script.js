@@ -307,7 +307,7 @@
     scene.fog = new THREE.Fog(0x0b1120, 14, 30);
 
     const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-    camera.position.set(7.5, 4.8, 8.5);
+    camera.position.set(10.0, 6.5, 11.5);
 
     const hemiLight = new THREE.HemisphereLight(0xf8fafc, 0x0f172a, 1.6);
     scene.add(hemiLight);
